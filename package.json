@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "font-awesome": "^4.7.0",
     "infrastructure": "^1.4.2",
     "infrastructure-appcontroller-ractive": "^0.1.5",
     "infrastructure-express": "^0.2.10",

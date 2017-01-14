@@ -1,0 +1,9 @@
+{
+  patch: {
+    "http.morgan": ":method :url :status :response-time ms - :res[content-length]",
+    "webpack.watch":            true,
+    "webpack.progress":         true,
+    "webpack.sourceMap":        true,
+    "views.cache":              false
+  }
+}

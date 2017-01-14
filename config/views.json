@@ -1,0 +1,5 @@
+{
+  "path":        "templates",
+  "view_engine": "mustache",
+  "cache":       true
+}

@@ -1,0 +1,7 @@
+{
+  "path": "pages",
+  "engines": [
+    "infrastructure-mongodb/engine",
+    "infrastructure-express/engine"
+  ]
+}

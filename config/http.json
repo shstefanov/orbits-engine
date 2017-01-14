@@ -1,0 +1,10 @@
+{
+  "port":    3000,
+  "favicon": "public/favicon.ico",
+  "morgan":  false,
+  "static": {
+    "/public":   "public",
+    "/locales":  "locales",
+    "/vendor/font-awesome": "node_modules/font-awesome/"
+  } 
+}

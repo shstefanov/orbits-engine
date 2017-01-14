@@ -1,0 +1,12 @@
+{
+  "secret":             "app.session",
+  "collection":         "sessions",
+  "clear_interval":     60,
+  "cookie": {
+    "maxAge":           86400000
+  },
+  "autoReconnect":      true,
+  "stringify":          false,
+  "resave":             true,
+  "saveUninitialized":  true
+}

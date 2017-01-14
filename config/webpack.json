@@ -1,0 +1,7 @@
+{
+  "watch":            false,
+  "progress":         false,
+  "sourceMap":        false,
+  "buildDestination": "./public",
+  "publicPath":       "/public"
+}

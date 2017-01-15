@@ -1,3 +1,6 @@
 {
-  container: "#map-viewport"
+  container: "#map-viewport",
+  view_angle: 45,
+  near:       0.1,
+  far:        1000,
 }

@@ -1,0 +1,6 @@
+{
+  "patch": {
+    "options.drop":  true,
+    "mongodb.db":    "engine_test"
+  }
+}

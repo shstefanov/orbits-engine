@@ -16,6 +16,12 @@ module.exports = Controller.extend("MapViewportController", {
     this.createCameraLight();
     this.createScene();
     this.container.appendChild(this.renderer.domElement);
+
+    const render = ()=>{
+      this.renderer.render(this.scene, this.camera);
+      requestAnimationFrame(render);
+    }
+    render();
     cb();
   },
 

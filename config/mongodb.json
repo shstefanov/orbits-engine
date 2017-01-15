@@ -3,5 +3,5 @@
   "port":            27017,
   "db":              "engine_development",
   "auto_reconnect":  true,
-  "options":         { "nativeParser": false }
+  "options":         { "nativeParser": true }
 }

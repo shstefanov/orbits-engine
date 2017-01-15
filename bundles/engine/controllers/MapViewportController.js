@@ -23,6 +23,20 @@ module.exports = Controller.extend("MapViewportController", {
       requestAnimationFrame(render);
     }
     render();
+
+
+    window.addEventListener('resize', ()=> {
+      this.setViewportDimmensions();
+      this.renderer.setSize(
+        this.viewport_dimmensions.width,
+        this.viewport_dimmensions.height
+      );
+      this.camera.aspect = this.viewport_dimmensions.width / this.viewport_dimmensions.height;
+      this.camera.updateProjectionMatrix();
+    });
+
+
+
     this.test();
 
 

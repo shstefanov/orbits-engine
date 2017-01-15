@@ -52,6 +52,13 @@ module.exports = Controller.extend("MapViewportController", {
       this.camera_options.near,
       this.camera_options.far
     );
+
+    this.camera.position.x = 0;
+    this.camera.position.y = 0;
+    this.camera.position.z = 10;
+
+  },
+
   createCameraLight: function(){
     this.camera.add(new THREE.PointLight(this.config.camera_light))
   },

@@ -22,6 +22,9 @@ module.exports = Controller.extend("MapViewportController", {
       requestAnimationFrame(render);
     }
     render();
+    this.test();
+
+
     cb();
   },
 
@@ -64,5 +67,52 @@ module.exports = Controller.extend("MapViewportController", {
   createScene: function(){
     this.scene = new THREE.Scene();
     this.scene.add(this.camera);
+  test: function(){
+
+    // create the sphere's material
+    const material = new THREE.MeshLambertMaterial({
+      color: 0xCC0000
+    });
+
+    // Set up the sphere vars
+    const RADIUS = 50;
+    const SEGMENTS = 16;
+    const RINGS = 16;
+
+    // Create a new mesh with
+    // sphere geometry - we will cover
+    // the sphereMaterial next!
+    const sphere = new THREE.Mesh(
+
+      // new THREE.SphereGeometry(
+      //   RADIUS,
+      //   SEGMENTS,
+      //   RINGS),
+
+      new THREE.CubeGeometry( 1,1,1 ),
+
+      material);
+
+    // Move the Sphere back in Z so we
+    // can see it.
+    // sphere.position.z = -300;
+
+    // Finally, add the sphere to the scene.
+    this.scene.add(sphere);
+
+    // // create a point light
+    // const pointLight = new THREE.PointLight(0xFFFFFF);
+
+    // // set its position
+    // pointLight.position.x = 10;
+    // pointLight.position.y = 50;
+    // pointLight.position.z = 130;
+
+    // // add to the scene
+    // scene.add(pointLight);
+
+
   }
+
+
 });

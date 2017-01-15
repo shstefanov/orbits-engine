@@ -1,0 +1,12 @@
+{
+  "serveClient": false,
+  "path": "/socket.io",
+  "pingTimeout": 10000,
+  "pingInterval": 10000,
+  "maxHttpBufferSize" : 1048576,
+  "transports": [  "websocket" , "polling" ],
+  "allowUpgrades": true,
+  "perMessageDeflate": true,
+  "httpCompression": true,
+  "cookie": false
+}

@@ -10,7 +10,9 @@ module.exports = Page.extend("EnginePage", {
     "bundles.engine.getAssets | | assets"
   ],
 
-  "GET *": [],
+  "GET *": [
+    "websocket.engine.getConnection | req.session.id, { string: true, sessionData: {} } | ws_connection"
+  ],
 
   after: "#engine.mustache",
 

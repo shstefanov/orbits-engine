@@ -21,6 +21,7 @@ module.exports = Bundler.extend("PanelBundler", {
         "infrastructure/lib/ExtendedModel",
         "infrastructure/lib/ExtendedCollection",
         "infrastructure/lib/client/Controller",
+        "three",
       ]
     }
   },

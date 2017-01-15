@@ -1,3 +1,3 @@
 {
-  container: "#voxel-viewport"
+  container: "#map-viewport"
 }

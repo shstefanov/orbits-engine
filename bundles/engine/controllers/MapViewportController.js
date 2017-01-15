@@ -4,7 +4,7 @@ const THREE       = require("three");
 var OrbitControls = require("three-orbit-controls")(THREE);
 
 module.exports = Controller.extend("MapViewportController", {
-  initOrder: 0,
+  initOrder: 1,
   config: "viewport",
   init: function(options, cb){
     const app = require("app");

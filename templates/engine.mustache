@@ -3,6 +3,9 @@
   <head>
     <title>{{page.title}}</title>
     <base href="{{page.root}}">
+      <script type="text/javascript">
+        window.ws_connection = {{{ws_connection}}};
+      </script>
     {{#assets.styles}}
       <link rel="stylesheet" type="text/css" href="{{.}}">
     {{/assets.styles}}

@@ -1,7 +1,7 @@
 {
   "host":            "localhost",
   "port":            27017,
-  "db":              "orbits",
+  "db":              "engine_development",
   "auto_reconnect":  true,
   "options":         { "nativeParser": false }
 }

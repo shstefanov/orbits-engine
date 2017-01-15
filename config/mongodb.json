@@ -1,7 +1,7 @@
 {
   "host":            "localhost",
   "port":            27017,
-  "db":              "engine_development",
+  "db":              "engine_db",
   "auto_reconnect":  true,
   "options":         { "nativeParser": true }
 }

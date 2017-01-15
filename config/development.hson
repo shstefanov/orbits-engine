@@ -4,6 +4,8 @@
     "webpack.watch":            true,
     "webpack.progress":         true,
     "webpack.sourceMap":        true,
-    "views.cache":              false
+    "views.cache":              false,
+
+    "mongodb.db":               "engine_development"
   }
 }

@@ -1,6 +1,10 @@
 {
   container: "#map-viewport",
-  view_angle: 45,
-  near:       0.1,
-  far:        1000,
+  
+  // Camera options
+  view_angle:          45,
+  near:                0.1,
+  far:                 10000,
+  camera_light:        "#ffffff",
+
 }

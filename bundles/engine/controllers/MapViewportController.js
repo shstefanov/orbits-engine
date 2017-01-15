@@ -69,6 +69,8 @@ module.exports = Controller.extend("MapViewportController", {
       this.viewport_dimmensions.width,
       this.viewport_dimmensions.height
     );
+    this.renderer.setClearColor(this.config.clear_color_hex || 0xffffff);
+    this.renderer.setClearAlpha(this.config.clear_color_opacity || 1);
   },
 
   createScene: function(){

@@ -46,8 +46,8 @@ module.exports = Controller.extend("MapViewportController", {
   setViewportDimmensions: function(){
     const container = this.container;
     let { width, height } = getComputedStyle(this.container);
-    width  = parseInt(width  .replace("px", "")) - 4;
-    height = parseInt(height .replace("px", "")) - 4;
+    width  = parseInt(width  .replace("px", ""));
+    height = parseInt(height .replace("px", ""));
     this.viewport_dimmensions = { width, height };
   },
 

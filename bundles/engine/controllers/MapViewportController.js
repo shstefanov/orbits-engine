@@ -1,6 +1,7 @@
 var Controller  = require("infrastructure/lib/client/Controller");
 
-const THREE = require("three");
+const THREE       = require("three");
+var OrbitControls = require("three-orbit-controls")(THREE);
 
 module.exports = Controller.extend("MapViewportController", {
   initOrder: 0,
@@ -56,6 +57,8 @@ module.exports = Controller.extend("MapViewportController", {
     this.camera.position.x = 0;
     this.camera.position.y = 0;
     this.camera.position.z = 10;
+
+    this.orbit_controls = new OrbitControls(this.camera);
 
   },
 

@@ -22,6 +22,7 @@ module.exports = Bundler.extend("PanelBundler", {
         "infrastructure/lib/ExtendedCollection",
         "infrastructure/lib/client/Controller",
         "three",
+        "three-orbit-controls",
       ]
     }
   },

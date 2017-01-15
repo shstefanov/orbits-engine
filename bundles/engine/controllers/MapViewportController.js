@@ -93,7 +93,7 @@ module.exports = Controller.extend("MapViewportController", {
     // Create a new mesh with
     // sphere geometry - we will cover
     // the sphereMaterial next!
-    const sphere = new THREE.Mesh(
+    const object = new THREE.Mesh(
 
       // new THREE.SphereGeometry(
       //   RADIUS,
@@ -104,24 +104,8 @@ module.exports = Controller.extend("MapViewportController", {
 
       material);
 
-    // Move the Sphere back in Z so we
-    // can see it.
-    // sphere.position.z = -300;
-
     // Finally, add the sphere to the scene.
-    this.scene.add(sphere);
-
-    // // create a point light
-    // const pointLight = new THREE.PointLight(0xFFFFFF);
-
-    // // set its position
-    // pointLight.position.x = 10;
-    // pointLight.position.y = 50;
-    // pointLight.position.z = 130;
-
-    // // add to the scene
-    // scene.add(pointLight);
-
+    this.scene.add(object);
 
   }
 

@@ -1,3 +1,15 @@
 {
-  container: "#map-viewport"
+  container: "#map-viewport",
+  
+  // Camera options
+  view_angle:          45,
+  near:                0.1,
+  far:                 10000,
+  camera_light:        "#ffffff",
+  min_polar_angle:     0.3141592653589793,
+  max_polar_angle:     1.2566370614359172,
+
+  // Renderer background color and opacity
+  clear_color_hex:     "#ffffff",
+  clear_color_opacity: 1,
 }

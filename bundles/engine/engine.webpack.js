@@ -23,6 +23,7 @@ module.exports = Bundler.extend("PanelBundler", {
         "infrastructure/lib/client/Controller",
         "three",
         "three-orbit-controls",
+        "socket.io-client",
       ]
     }
   },

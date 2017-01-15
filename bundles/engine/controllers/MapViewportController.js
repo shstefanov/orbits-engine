@@ -76,7 +76,7 @@ module.exports = Controller.extend("MapViewportController", {
 
     this.orbit_controls.minPolarAngle = this.config.min_polar_angle || 0;
     this.orbit_controls.maxPolarAngle = this.config.max_polar_angle || Math.PI;
-
+    setTimeout(()=>this.orbit_controls.reset(), 0);
   },
 
   createCameraLight: function(){
@@ -96,6 +96,7 @@ module.exports = Controller.extend("MapViewportController", {
   createScene: function(){
     this.scene = new THREE.Scene();
     this.scene.add(this.camera);
+    this.camera.lookAt(this.scene);
   },
 
   test: function(){

@@ -76,6 +76,8 @@ module.exports = Controller.extend("MapViewportController", {
   createScene: function(){
     this.scene = new THREE.Scene();
     this.scene.add(this.camera);
+  },
+
   test: function(){
 
     // create the sphere's material

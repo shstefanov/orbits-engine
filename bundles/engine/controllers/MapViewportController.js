@@ -72,7 +72,7 @@ module.exports = Controller.extend("MapViewportController", {
     this.camera.position.y = 0;
     this.camera.position.z = 10;
 
-    this.orbit_controls = new OrbitControls(this.camera);
+    this.orbit_controls = new OrbitControls(this.camera, this.container);
 
     this.orbit_controls.minPolarAngle = this.config.min_polar_angle || 0;
     this.orbit_controls.maxPolarAngle = this.config.max_polar_angle || Math.PI;

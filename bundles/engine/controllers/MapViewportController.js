@@ -81,6 +81,9 @@ module.exports = Controller.extend("MapViewportController", {
 
     this.orbit_controls.minPolarAngle = this.config.min_polar_angle || 0;
     this.orbit_controls.maxPolarAngle = this.config.max_polar_angle || Math.PI;
+
+    this.orbit_controls.minDistance = this.config.min_distance || 10;
+    this.orbit_controls.maxDistance = this.config.max_distance || 30;
     setTimeout(()=>this.orbit_controls.reset(), 0);
   },
 

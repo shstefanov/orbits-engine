@@ -12,4 +12,8 @@
   // Renderer background color and opacity
   clear_color_hex:     "#ffffff",
   clear_color_opacity: 1,
+
+  // Zoom in and out limits
+  min_distance:        10,
+  max_distance:        30,
 }

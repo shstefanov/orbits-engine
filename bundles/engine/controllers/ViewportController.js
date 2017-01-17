@@ -2,13 +2,13 @@
 // https://threejs.org/docs/api/core/Raycaster.html
 // https://github.com/jeromeetienne/threex.domevents
 // http://stackoverflow.com/questions/14516425/subclass-three-mesh-using-prototypal-inheritance
-
-var Controller  = require("infrastructure/lib/client/Controller");
+const config      = require("config");
+const Controller  = require("infrastructure/lib/client/Controller");
 
 const THREE       = require("three");
-var OrbitControls = require("three-orbit-controls")(THREE);
+const OrbitControls = require("three-orbit-controls")(THREE);
 
-module.exports = Controller.extend("MapViewportController", {
+module.exports = Controller.extend("ViewportController", {
   initOrder: 2,
   config: "viewport",
   init: function(options, cb){

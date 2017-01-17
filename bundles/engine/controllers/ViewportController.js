@@ -46,8 +46,6 @@ module.exports = Controller.extend("ViewportController", {
       .on("add", this.addBlock, this)
       .on("remove", this.removeBlock, this);
 
-    this.test();
-
     cb();
   },
 
@@ -131,41 +129,6 @@ module.exports = Controller.extend("ViewportController", {
 
   removeBlock: function(block){
 
-  },
-
-  test: function(){
-
-    return;
-
-    // create the sphere's material
-
-    const materials = [
-      new THREE.MeshLambertMaterial({color: 0xCC0000 }),
-      new THREE.MeshLambertMaterial({color: 0x00CC00 }),
-      new THREE.MeshLambertMaterial({color: 0x0000CC }),
-    ];
-
-    // Set up the sphere vars
-    const RADIUS = 50;
-    const SEGMENTS = 16;
-    const RINGS = 16;
-
-    const geometry = new THREE.CubeGeometry( 1,1,1 );
-
-    // Create a new mesh with
-    // sphere geometry - we will cover
-    // the sphereMaterial next!
-
-    for(let x = 0; x < 3; x++){
-      for(let z = 0; z < 3; z++){
-        let material = materials[Math.floor(Math.random() * 3)];
-        let obj = new THREE.Mesh(geometry, material);
-        obj.position.set(x,0,z);
-        this.scene.add(obj);
-      }
-    }
-
   }
-
 
 });

@@ -136,6 +136,8 @@ module.exports = Controller.extend("MapViewportController", {
   },
   test: function(){
 
+    return;
+
     // create the sphere's material
 
     const materials = [

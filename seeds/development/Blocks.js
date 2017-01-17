@@ -13,5 +13,36 @@ module.exports = function(cb){
     }
   }
 
+  blocks.forEach(function(block){
+
+    // 80% chance to repeat the block at y: 1
+    if(Math.random() < 0.8) {
+      blocks.push(
+        Object.assign(
+          Object.assign({}, block), { y: 1 }
+        )
+      )
+    }
+
+    // 50% chance to repeat the block at y: 2
+    if(Math.random() < 0.5) {
+      blocks.push(
+        Object.assign(
+          Object.assign({}, block), { y: 2 }
+        )
+      )
+    }
+
+    // 20% chance to repeat the block at y: 3
+    if(Math.random() < 0.2) {
+      blocks.push(
+        Object.assign(
+          Object.assign({}, block), { y: 3 }
+        )
+      )
+    }
+
+  });
+
   cb(null, blocks);
 }

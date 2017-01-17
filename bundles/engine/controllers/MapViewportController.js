@@ -1,3 +1,8 @@
+// http://learningthreejs.com/blog/2012/01/17/dom-events-in-3d-space/
+// https://threejs.org/docs/api/core/Raycaster.html
+// https://github.com/jeromeetienne/threex.domevents
+// http://stackoverflow.com/questions/14516425/subclass-three-mesh-using-prototypal-inheritance
+
 var Controller  = require("infrastructure/lib/client/Controller");
 
 const THREE       = require("three");

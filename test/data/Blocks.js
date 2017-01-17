@@ -20,13 +20,13 @@ describe("Test test", function(){
     });
   });
 
-  it("Gets all blocks", function(next){
-    env.i.do("data.Blocks.find", {}, function(err, blocks){
-      assert.equal(err, null);
-      console.log(blocks);
-      next();
-    });
-  });
+  // it("Gets all blocks", function(next){
+  //   env.i.do("data.Blocks.find", {}, function(err, blocks){
+  //     assert.equal(err, null);
+  //     console.log(blocks);
+  //     next();
+  //   });
+  // });
 
   it("Stop", function(next){
     env.stop(function(err, _env){

@@ -29,7 +29,6 @@ module.exports = Controller.extend("MapViewportController", {
     }
     render();
 
-
     window.addEventListener('resize', ()=> {
       this.setViewportDimmensions();
       this.renderer.setSize(
@@ -48,7 +47,6 @@ module.exports = Controller.extend("MapViewportController", {
       .on("remove", this.removeBlock, this);
 
     this.test();
-
 
     cb();
   },
@@ -134,6 +132,7 @@ module.exports = Controller.extend("MapViewportController", {
   removeBlock: function(block){
 
   },
+
   test: function(){
 
     return;

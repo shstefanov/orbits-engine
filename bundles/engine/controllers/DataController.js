@@ -1,4 +1,4 @@
-var Controller  = require("infrastructure/lib/client/Controller");
+const Controller  = require("infrastructure/lib/client/Controller");
 
 module.exports = Controller.extend("DataController", {
   initOrder: 1,

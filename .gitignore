@@ -1,3 +1,4 @@
 node_modules
 public/bundles
 config/mode.json
+config/local.json

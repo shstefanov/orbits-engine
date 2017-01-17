@@ -40,7 +40,12 @@ module.exports = Controller.extend("MapViewportController", {
       this.camera.updateProjectionMatrix();
     });
 
-
+    const data = require("data");
+    data.blocks.each(this.addBlock.bind(this));
+    data.blocks
+      .on("reset", (blocks)=>{ blocks.forEach((block)=>this.addBlock(block)) })
+      .on("add", this.addBlock, this)
+      .on("remove", this.removeBlock, this);
 
     this.test();
 
@@ -107,6 +112,28 @@ module.exports = Controller.extend("MapViewportController", {
     this.camera.lookAt(this.scene);
   },
 
+  blockMaterials: {
+    "dirt":  new THREE.MeshLambertMaterial({color: 0xCC0000 }),
+    "grass": new THREE.MeshLambertMaterial({color: 0x00CC00 }),
+    "water": new THREE.MeshLambertMaterial({color: 0x0000CC }),
+    "stone": new THREE.MeshLambertMaterial({color: 0xAAAAAA }),
+  },
+
+  cube_geometry: new THREE.CubeGeometry( 1,1,1 ),
+
+  addBlock: function(block){
+    console.log("addBlock");
+    const type = block.get("type");
+    const material = this.blockMaterials[type];
+    const obj = new THREE.Mesh(this.cube_geometry, material);
+    const {x,y,z} = block.pick(["x", "y", "z"]);
+    obj.position.set(x,y,z);
+    this.scene.add(obj);
+  },
+
+  removeBlock: function(block){
+
+  },
   test: function(){
 
     // create the sphere's material

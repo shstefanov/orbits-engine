@@ -1,4 +1,4 @@
-var Page = require("infrastructure-express/Page");
+var Page = require("../lib/http/BasePage");
 
 module.exports = Page.extend("EnginePage", {
 

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    {{#javascripts}} <script type="text/javascript" src  ="{{{.}}}"  ></script> {{/javascripts }}
+    {{#styles     }} <link   rel="stylesheet"       href ="{{{.}}}"          /> {{/styles      }}
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <div class="row">
+            <form class="form-horizontal col-lg-8 col-md-offset-2" method="POST" action="{{page.root}}/register">
+              <fieldset>
+
+                <legend>Register</legend>
+
+                <div class="form-group">
+                  <div class="col-md-8 col-md-offset-2">
+                    <input name="username" value="{{body.username}}" type="text" placeholder="username" class="form-control input-md">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-md-8 col-md-offset-2">
+                    <input name="email" type="text" value="{{body.email}}" placeholder="email" class="form-control input-md">
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <div class="col-md-8 col-md-offset-2">
+                    <input name="password" type="password" placeholder="password" class="form-control input-md">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-md-8 col-md-offset-2">
+                    <input name="confirm" type="password" placeholder="confirm password" class="form-control input-md">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="agree">
+                    I agree &nbsp;&nbsp; <input name="agree" type="checkbox" {{#body.agree}}checked{{/body.agree}} />
+                  </label>
+                  <div class="col-md-5">
+                    <span class="help-block"><a href="/auth/terms">Terms and conditions</a></span>
+                  </div>
+                </div>
+              
+                <div class="form-group">
+                  <div class="col-md-8 col-md-offset-2">
+                    <input type="submit" value="Register" id="singlebutton" name="register" class="btn btn-primary form-control" />
+                  </div>
+                </div>
+
+                {{#error}}
+                <div class="form-group">
+                  <div class="col-md-8 col-md-offset-2">
+                    <p class="alert alert-danger">{{error}}</p>
+                  </div>
+                </div>
+                {{/error}}
+
+                <div class="form-group">
+                  <div class="col-md-8 col-md-offset-2">
+                    <a href="{{page.root}}/login" class="btn btn-primary form-control">Login</a>
+                  </div>
+                </div>
+
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

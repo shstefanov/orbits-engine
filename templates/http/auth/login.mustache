@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    {{#javascripts}} <script type="text/javascript" src="{{{.}}}"  ></script> {{/javascripts }}
+    {{#styles     }} <link   rel="stylesheet"       href="{{{.}}}"         /> {{/styles      }}
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <div class="row">
+            <form class="form-horizontal col-lg-8 col-md-offset-2" method="POST" action="{{page.root}}/login">
+              <fieldset>
+
+                <legend>Login</legend>
+
+                <div class="form-group">
+                  <div class="col-md-8 col-md-offset-2">
+                  <input name="username" value="{{body.username}}" type="text" placeholder="username or email" class="form-control input-md">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-md-8 col-md-offset-2">
+                    <input name="password" type="password" placeholder="password" class="form-control input-md">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-5 control-label" for="remember">
+                    Remember me &nbsp;&nbsp; <input name="remember" type="checkbox" {{#body.remember}}checked{{/body.remember}}>
+                  </label>
+                  <div class="col-md-5">
+                    <span class="help-block"><a href="/auth/cookies">Learn about cookies</a></span>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <div class="col-md-8 col-md-offset-2">
+                    <input type="submit" value="Login" name="login" class="btn btn-primary form-control" />
+                  </div>
+                </div>
+
+                {{#error}}
+                <div class="form-group">
+                  <div class="col-md-8 col-md-offset-2">
+                    <p class="alert alert-danger">{{error}}</p>
+                  </div>
+                </div>
+                {{/error}}
+
+                <div class="form-group">
+                  <div class="col-md-8 col-md-offset-2">
+                    <a href="/auth/fblogin" class="btn btn-primary form-control">Login with Facebook</a>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-md-8 col-md-offset-2">
+                    <a href="{{page.root}}/register" class="btn btn-primary form-control">Register</a>
+                  </div>
+                </div>
+
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

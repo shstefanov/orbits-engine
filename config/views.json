@@ -1,5 +1,5 @@
 {
-  "path":        "templates",
+  "path":        "templates/http",
   "view_engine": "mustache",
   "cache":       true
 }

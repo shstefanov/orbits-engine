@@ -11,6 +11,7 @@ const OrbitControls = require("three-orbit-controls")(THREE);
 const initializeDomEvents = require('threex-domevents');
 const THREEx = {};
 initializeDomEvents(THREE, THREEx);
+
 module.exports = Controller.extend("ViewportController", {
   initOrder: 2,
   config: "viewport",

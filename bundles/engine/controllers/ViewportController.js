@@ -26,6 +26,7 @@ module.exports = Controller.extend("ViewportController", {
     this.createCameraLight();
     this.createScene();
     this.createDomEvents();
+    this.createObjectMap();
     this.container.appendChild(this.renderer.domElement);
 
     const render = ()=>{
@@ -115,6 +116,10 @@ module.exports = Controller.extend("ViewportController", {
 
   createDomEvents: function(){
     this.dom_events = new THREEx.DomEvents(this.camera, this.renderer.domElement);
+  },
+
+  createObjectMap: function(){
+    this.object_map = new WeakMap();
   },
 
   blockMaterials: {

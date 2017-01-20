@@ -151,8 +151,12 @@ module.exports = Controller.extend("ViewportController", {
   },
 
   removeObject: function(block){
-    var mesh = this.object_map.get(block);
-    this.scene.remove(mesh);
+    const mesh = this.object_map.get(block);
+    if(mesh){
+      this.scene.remove(mesh);
+    }
+  },
+
   changeObjectPosition: function(object){
     const mesh = this.object_map.get(object);
     if(mesh){

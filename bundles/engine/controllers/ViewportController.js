@@ -50,7 +50,7 @@ module.exports = Controller.extend("ViewportController", {
     data.blocks
       .on("reset", (blocks)=>{ blocks.forEach((block)=>this.addObject(block)) })
       .on("add", this.addObject, this)
-      .on("remove", this.removeBlock, this);
+      .on("remove", this.removeObject, this);
 
     cb();
   },
@@ -146,8 +146,9 @@ module.exports = Controller.extend("ViewportController", {
     this.scene.add(obj);
   },
 
-  removeBlock: function(block){
-
+  removeObject: function(block){
+    var mesh = this.object_map.get(block);
+    this.scene.remove(mesh);
   }
 
 });

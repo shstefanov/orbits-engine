@@ -8,6 +8,9 @@ const Controller  = require("infrastructure/lib/client/Controller");
 const THREE       = require("three");
 const OrbitControls = require("three-orbit-controls")(THREE);
 
+const initializeDomEvents = require('threex-domevents');
+const THREEx = {};
+initializeDomEvents(THREE, THREEx);
 module.exports = Controller.extend("ViewportController", {
   initOrder: 2,
   config: "viewport",
@@ -21,6 +24,7 @@ module.exports = Controller.extend("ViewportController", {
     this.createCamera();
     this.createCameraLight();
     this.createScene();
+    this.createDomEvents();
     this.container.appendChild(this.renderer.domElement);
 
     const render = ()=>{
@@ -108,6 +112,10 @@ module.exports = Controller.extend("ViewportController", {
     this.camera.lookAt(this.scene);
   },
 
+  createDomEvents: function(){
+    this.dom_events = new THREEx.DomEvents(this.camera, this.renderer.domElement);
+  },
+
   blockMaterials: {
     "dirt":  new THREE.MeshLambertMaterial({color: 0xCC0000 }),
     "grass": new THREE.MeshLambertMaterial({color: 0x00CC00 }),
@@ -123,6 +131,12 @@ module.exports = Controller.extend("ViewportController", {
     const obj = new THREE.Mesh(this.cube_geometry, material);
     const {x,y,z} = block.pick(["x", "y", "z"]);
     obj.position.set(x,y,z);
+    this.dom_events.addEventListener(obj, 'mouseover', function(e){
+      obj.translateY(0.25);
+    }, false );
+    this.dom_events.addEventListener(obj, 'mouseout', function(e){
+      obj.translateY(-0.25);
+    }, false );
     this.scene.add(obj);
   },
 

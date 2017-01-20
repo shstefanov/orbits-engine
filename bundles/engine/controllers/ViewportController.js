@@ -40,10 +40,10 @@ module.exports = Controller.extend("ViewportController", {
     });
 
     const data = require("data");
-    data.blocks.each(this.addBlock.bind(this));
+    data.blocks.each(this.addObject.bind(this));
     data.blocks
-      .on("reset", (blocks)=>{ blocks.forEach((block)=>this.addBlock(block)) })
-      .on("add", this.addBlock, this)
+      .on("reset", (blocks)=>{ blocks.forEach((block)=>this.addObject(block)) })
+      .on("add", this.addObject, this)
       .on("remove", this.removeBlock, this);
 
     cb();
@@ -117,8 +117,7 @@ module.exports = Controller.extend("ViewportController", {
 
   cube_geometry: new THREE.CubeGeometry( 1,1,1 ),
 
-  addBlock: function(block){
-    console.log("addBlock");
+  addObject: function(block){
     const type = block.get("type");
     const material = this.blockMaterials[type];
     const obj = new THREE.Mesh(this.cube_geometry, material);

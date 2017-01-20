@@ -131,19 +131,22 @@ module.exports = Controller.extend("ViewportController", {
 
   cube_geometry: new THREE.CubeGeometry( 1,1,1 ),
 
-  addObject: function(block){
-    const type = block.get("type");
+  addObject: function(object){
+    const type = object.get("type");
     const material = this.blockMaterials[type];
-    const obj = new THREE.Mesh(this.cube_geometry, material);
-    const {x,y,z} = block.pick(["x", "y", "z"]);
-    obj.position.set(x,y,z);
-    this.dom_events.addEventListener(obj, 'mouseover', function(e){
-      obj.translateY(0.25);
+    const mesh = new THREE.Mesh(this.cube_geometry, material);
+    const {x,y,z} = object.pick(["x", "y", "z"]);
+    mesh.position.set(x,y,z);
+
+    this.object_map.set(object, mesh);
+
+    this.dom_events.addEventListener(mesh, 'mouseover', function(e){
+      mesh.translateY(0.25);
     }, false );
-    this.dom_events.addEventListener(obj, 'mouseout', function(e){
-      obj.translateY(-0.25);
+    this.dom_events.addEventListener(mesh, 'mouseout', function(e){
+      mesh.translateY(-0.25);
     }, false );
-    this.scene.add(obj);
+    this.scene.add(mesh);
   },
 
   removeObject: function(block){

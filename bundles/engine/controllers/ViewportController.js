@@ -48,7 +48,12 @@ module.exports = Controller.extend("ViewportController", {
     const data = require("data");
     data.blocks.each(this.addObject.bind(this));
     data.blocks
-      .on("reset", (blocks)=>{ blocks.forEach((block)=>this.addObject(block)) })
+      .on("reset", (blocks, data)=>{
+        if(data.previousModels){
+          data.previousModels.forEach((object)=>{ this.removeObject(object) });
+        }
+        blocks.forEach((block)=>this.addObject(block));
+      }, this )
       .on("add", this.addObject, this)
       .on("remove", this.removeObject, this)
       .on("change:x change:y change:z", this.changeObjectPosition, this);

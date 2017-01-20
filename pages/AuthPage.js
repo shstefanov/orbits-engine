@@ -1,46 +1,46 @@
-var Page = require("../lib/http/Page");
+var Page = require("../lib/http/BasePage");
 
-var passport         = require("passport");
-var FacebookStrategy = require("passport-facebook").Strategy;
+// var passport         = require("passport");
+// var FacebookStrategy = require("passport-facebook").Strategy;
 
 module.exports = Page.extend("AuthPage", {
-  constructor: function(env){
-    var settings = env.helpers.resolve(env.config, this.config);
-    if(!settings) throw new Error("Can't resolve authorization settings at: "+this.config);
-    settings.callbackUrl = "http://"+env.config.host+"/auth/fbcallback";
-    var app = env.engines.express;
+  // constructor: function(env){
+  //   var settings = env.helpers.resolve(env.config, this.config);
+  //   if(!settings) throw new Error("Can't resolve authorization settings at: "+this.config);
+  //   settings.callbackUrl = "http://"+env.config.host+"/auth/fbcallback";
+  //   var app = env.engines.express;
 
-    passport.serializeUser(this.serializeUser.bind(this));
-    passport.deserializeUser(this.deserializeUser.bind(this));
+  //   passport.serializeUser(this.serializeUser.bind(this));
+  //   passport.deserializeUser(this.deserializeUser.bind(this));
 
-    passport.use(new FacebookStrategy({
-      clientID:     settings.appID,
-      clientSecret: settings.appSecret,
-      callbackURL:  settings.callbackUrl
-    }, function(accessToken, refreshToken, profile, done) {
-      env.i.do("models.Users.facebookLogin", profile, function(err, user){
-        done(err, user);
-      });
-    }));
+  //   passport.use(new FacebookStrategy({
+  //     clientID:     settings.appID,
+  //     clientSecret: settings.appSecret,
+  //     callbackURL:  settings.callbackUrl
+  //   }, function(accessToken, refreshToken, profile, done) {
+  //     env.i.do("models.Users.facebookLogin", profile, function(err, user){
+  //       done(err, user);
+  //     });
+  //   }));
 
-    this["GET /fblogin"] = passport.authenticate('facebook', {scope: "email"});
+  //   this["GET /fblogin"] = passport.authenticate('facebook', {scope: "email"});
 
-    var self = this;
-    this["GET /fbcallback"] = function(req, res, next){
-      passport.authenticate('facebook', { failureRedirect : self.root + "/fberror" })(req, res, function(err){
-        if(err) return next(err);
-        req.session.logged = true;
-        req.session.user = req.user;
-        res.redirect(302, '/');
-      });
-    };
+  //   var self = this;
+  //   this["GET /fbcallback"] = function(req, res, next){
+  //     passport.authenticate('facebook', { failureRedirect : self.root + "/fberror" })(req, res, function(err){
+  //       if(err) return next(err);
+  //       req.session.logged = true;
+  //       req.session.user = req.user;
+  //       res.redirect(302, '/');
+  //     });
+  //   };
 
-    app.use(this.root, passport.initialize());
+  //   app.use(this.root, passport.initialize());
 
-    return Page.apply(this, arguments);
+  //   return Page.apply(this, arguments);
 
 
-  },
+  // },
 
 
   "root":      "/auth",
@@ -95,7 +95,7 @@ module.exports = Page.extend("AuthPage", {
     "models.Users.verify | req.params.token | result",
     "@redirect | res.data.result, res, '/auth/login', 302",
     "@handleError | 'Unknown error', req, res"
-  ]
+  ],
 
 
 

@@ -23,6 +23,7 @@
     "infrastructure-webpack": "^0.5.2",
     "three": "^0.83.0",
     "three-orbit-controls": "^82.1.0",
+    "threex-domevents": "^1.0.0",
     "underscore": "^1.8.3"
   },
   "devDependencies": {

@@ -29,7 +29,13 @@ module.exports = Controller.extend("ViewportController", {
     this.createObjectMap();
     this.container.appendChild(this.renderer.domElement);
 
+    this.abs_time_anchor = this.tmp_time_anchor = Date.now();
     const render = ()=>{
+      const now = Date.now();
+      const abs_diff = now - this.abs_time_anchor;
+      const tmp_diff = now - this.tmp_time_anchor;
+      this.tmp_time_anchor = now;
+      this.trigger("tick", { abs_diff, tmp_diff });
       this.renderer.render(this.scene, this.camera);
       requestAnimationFrame(render);
     }

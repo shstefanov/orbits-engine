@@ -1,0 +1,4 @@
+{
+  "views": "templates/mail",
+  "cache": true
+}

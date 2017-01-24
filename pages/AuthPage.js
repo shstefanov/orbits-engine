@@ -41,23 +41,22 @@ module.exports = Page.extend("AuthPage", {
 
 
   // },
-
-
+  
   "root":      "/auth",
   "template":  "auth/login.mustache",
 
   "title": "Orbits",
 
-  "http_auth_config": "secret.game_http_auth",
+  // "http_auth_config": "secret.game_http_auth",
 
   "config": "secret.social.fb",
 
   "styles": [
-    "/public/dist/game.bundle.css"
+    // "/public/dist/game.bundle.css"
   ],
 
   "pre": [
-    "@redirectIf | req.session.logged && ( req.path !== '/auth/logout' ), res, '/', 302"
+    "@redirectIf | req.session.logged && ( req.path !== '/auth/logout' ), res, '/engine', 302"
   ],
   
   "GET /":         "#auth/login.mustache",
@@ -71,20 +70,20 @@ module.exports = Page.extend("AuthPage", {
 
   "POST /login":   [
     "@set | res.data, 'body', req.body",
-    "models.Users.login | req.body | user",
+    "data.Users.login | req.body | user",
     "@set | req.session, 'logged', true",
     "@set | req.session, 'user', res.data.user",
-    "@redirect | !!res.data.user, res, '/', 302",
+    "@redirectIf | !!res.data.user, res, '/engine', 302",
     "@handleError | 'Unknown error', req, res"
   ],
 
   "POST /register":   [
     "#auth/register.mustache",
     "@set | res.data, 'body', req.body",
-    "models.Users.register | req.body | token",
+    "data.Users.register | req.body | token",
     "@set | req.session, 'token', res.data.token",
-    "mails.auth.sendRegistrationVerification | {token: res.data.token, username: req.body.username }, {to:req.body.email} | mail_info",
-    "@redirect | !!res.data.token, res, '/auth/thank-you', 302",
+    "mail.AuthorizationMailer.sendRegistrationVerification | {token: res.data.token, username: req.body.username }, {to:req.body.email} | mail_info",
+    "@redirectIf | !!res.data.token, res, '/auth/thank-you', 302",
     "@handleError | 'Unknown error', req, res"
   ],
 
@@ -92,8 +91,8 @@ module.exports = Page.extend("AuthPage", {
 
   "GET /verify/:token": [
     "#auth/verify.mustache",
-    "models.Users.verify | req.params.token | result",
-    "@redirect | res.data.result, res, '/auth/login', 302",
+    "data.Users.verify | req.params.token | result",
+    "@redirectIf | res.data.result, res, '/auth/login', 302",
     "@handleError | 'Unknown error', req, res"
   ],
 

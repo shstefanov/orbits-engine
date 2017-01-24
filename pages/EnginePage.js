@@ -2,7 +2,7 @@ var Page = require("../lib/http/BasePage");
 
 module.exports = Page.extend("EnginePage", {
 
-  title: "Voxel Engine",
+  title: "Infrastructure Engine",
   
   root: "/engine",
   

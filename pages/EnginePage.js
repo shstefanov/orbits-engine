@@ -7,7 +7,7 @@ module.exports = Page.extend("EnginePage", {
   root: "/engine",
   
   pre:  [
-    // "@redirectIf | !req.session.logged, res, '/auth/login', 302",
+    "@redirectIf | !req.session.logged, res, '/auth/login', 302",
     "bundles.engine.getAssets | | assets"
   ],
 

@@ -1,0 +1,4 @@
+{
+  "path":    "mail",
+  "engines": [ "infrastructure-mail/engine" ]
+}

@@ -3,5 +3,12 @@
   "engines": [
     "infrastructure-mongodb/engine",
     "infrastructure-express/engine"
-  ]
+  ],
+  "instances": {
+    "home": {
+      "prototype": "./lib/http/BasePage.js",
+      "root": "/",
+      "GET /": "#home.mustache"
+    }
+  }
 }

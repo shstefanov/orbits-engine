@@ -2,7 +2,9 @@
 // https://threejs.org/docs/api/core/Raycaster.html
 // https://github.com/jeromeetienne/threex.domevents
 // http://stackoverflow.com/questions/14516425/subclass-three-mesh-using-prototypal-inheritance
-const config      = require("config");
+
+const _           = require("underscore");
+
 const Controller  = require("infrastructure/lib/client/Controller");
 
 const THREE       = require("three");
@@ -13,12 +15,12 @@ const THREEx = {};
 initializeDomEvents(THREE, THREEx);
 
 module.exports = Controller.extend("ViewportController", {
-  initOrder: 2,
-  config: "viewport",
+
   init: function(options, cb){
     const app = require("app");
     this.container = document.querySelector(this.config.container);
     if(!this.container) return cb("Can't find DOM element " + this.config.container);
+    this.data = _.result(this, "data") || {};
     this.setViewportDimmensions();
     this.setCameraOptions();
     this.createRenderer();

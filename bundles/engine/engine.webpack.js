@@ -38,8 +38,10 @@ module.exports = Bundler.extend("PanelBundler", {
     // },
 
     "alias": {
-      "View": "infrastructure-appcontroller-ractive/ractive-backbone-view",
-      "data": "engine.data"
+      "ViewportController": "engine.lib.ViewportController",
+      "View":               "infrastructure-appcontroller-ractive/ractive-backbone-view",
+      "data":               "engine.data",
+      "resources":          "engine.resources",
     },
 
     "fileLoaders": {

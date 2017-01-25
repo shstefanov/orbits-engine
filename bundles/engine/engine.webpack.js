@@ -17,6 +17,7 @@ module.exports = Bundler.extend("PanelBundler", {
         "ractive",
         "ractive/ractive.runtime.js",
         "View",
+        "infrastructure/lib/helpers",
         "infrastructure-appcontroller-ractive",
         "infrastructure/lib/ExtendedModel",
         "infrastructure/lib/ExtendedCollection",

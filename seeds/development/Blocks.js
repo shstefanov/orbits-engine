@@ -1,16 +1,51 @@
-module.exports = function(cb){
-  const size = 20;
-  const block_types = ["grass", "water", "dirt", "stone"];
-  const blocks = [];
-  for(let x = 0; x < 20; x++){
-    for(let z = 0; z < 20; z++){
-      blocks.push({
-        x: x,
-        y: 0,
-        z: z,
-        type:  block_types[Math.floor(Math.random() * 4)]
-      });
+
+
+
+
+const shapes = {
+  // z - (x * x) - (y * y)
+  shape_1: function(size, reduce){
+    const blocks = [];
+    const half = size / 2;
+
+    for(let x = 0; x < size; x++){
+      for(let z = 0; z < size; z++){
+        blocks.push({
+          x: half - x, z: half - z,
+          y: Math.round( ( (x * x) - (z * z) ) / reduce ),
+          type:  "grass", //block_types[Math.floor(Math.random() * 4)]
+        });
+      }
     }
+
+    return blocks;
+  },
+
+  shape_2: function(size, reduce){
+    const blocks = [];
+    const half = size / 2;
+    for(let x = 0; x < size; x++){
+      for(let z = 0; z < size; z++){
+        blocks.push({
+          x: half - x, z: half - z,
+          y: Math.round( ( Math.sin(x/(size/4)) - Math.sin(z/(size/4)) ) / reduce ),
+          type:  "grass", //block_types[Math.floor(Math.random() * 4)]
+        });
+      }
+    }
+    return blocks;
   }
-  cb(null, blocks);
+}
+
+
+
+
+
+
+
+
+
+module.exports = function(cb){
+  // cb(null, shapes.shape_1(64, 300));
+  cb(null, shapes.shape_2(128, 1/32));
 }

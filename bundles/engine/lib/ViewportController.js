@@ -3,6 +3,9 @@
 // https://github.com/jeromeetienne/threex.domevents
 // http://stackoverflow.com/questions/14516425/subclass-three-mesh-using-prototypal-inheritance
 
+//!!! http://stackoverflow.com/questions/16395690/curved-plane-surface-in-css3-or-three-js
+//!!! http://jsfiddle.net/ebeit303/BuNb2/
+
 const _           = require("underscore");
 
 const Controller  = require("infrastructure/lib/client/Controller");

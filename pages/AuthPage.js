@@ -56,7 +56,8 @@ module.exports = Page.extend("AuthPage", {
   ],
 
   "pre": [
-    "@redirectIf | req.session.logged && ( req.path !== '/auth/logout' ), res, '/engine', 302"
+    `@redirectIf | req.session.logged && ( req.path !== this.env.config.http_endpoints.logout_url ), 
+      res, this.env.config.http_endpoints.authorize_success_redirect, 302`
   ],
   
   "GET /":         "#auth/login.mustache",
@@ -65,7 +66,7 @@ module.exports = Page.extend("AuthPage", {
 
   "GET /logout": [
     "@destroySession | req.session",
-    "@redirectIf | true, res, '/auth', 302"
+    "@redirectIf | true, res, this.env.config.http_endpoints.not_authorized_redirect, 302"
   ],
 
   "POST /login":   [
@@ -73,7 +74,8 @@ module.exports = Page.extend("AuthPage", {
     "data.Users.login | req.body | user",
     "@set | req.session, 'logged', true",
     "@set | req.session, 'user', res.data.user",
-    "@redirectIf | !!res.data.user, res, '/engine', 302",
+    `@redirectIf | !!res.data.user,
+      res, this.env.config.http_endpoints.authorize_success_redirect, 302`,
     "@handleError | 'Unknown error', req, res"
   ],
 
@@ -83,7 +85,8 @@ module.exports = Page.extend("AuthPage", {
     "data.Users.register | req.body | token",
     "@set | req.session, 'token', res.data.token",
     "mail.AuthorizationMailer.sendRegistrationVerification | {token: res.data.token, username: req.body.username }, {to:req.body.email} | mail_info",
-    "@redirectIf | !!res.data.token, res, '/auth/thank-you', 302",
+    `@redirectIf | !!res.data.token,
+      res, this.env.config.http_endpoints.thank_you_for_registration, 302`,
     "@handleError | 'Unknown error', req, res"
   ],
 
@@ -92,7 +95,8 @@ module.exports = Page.extend("AuthPage", {
   "GET /verify/:token": [
     "#auth/verify.mustache",
     "data.Users.verify | req.params.token | result",
-    "@redirectIf | res.data.result, res, '/auth/login', 302",
+    `@redirectIf | res.data.result, 
+      res, this.env.config.http_endpoints.not_authorized_redirect, 302`,
     "@handleError | 'Unknown error', req, res"
   ],
 

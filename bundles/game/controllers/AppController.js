@@ -1,7 +1,7 @@
 var _ = require("underscore");
 
 module.exports = require("infrastructure-appcontroller-ractive").extend("AppController", {
-  Layout: require("engine.views.Layout"),
+  Layout: require("game.views.Layout"),
   config: "app",
   /*
   Resolved config can contain the following working options:

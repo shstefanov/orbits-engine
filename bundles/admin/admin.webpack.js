@@ -1,16 +1,16 @@
 var Bundler = require("infrastructure-webpack/Bundler");
 
-module.exports = Bundler.extend("PanelBundler", {
+module.exports = Bundler.extend("AdminBundler", {
 
   CONFIG: {},
 
-  "name": "engine",
-  "entry": ["./engine.index.js", "./engine.index.less"],
-  "output": "bundles/engine/engine.bundle.js",
-  "styleFilename": "bundles/engine/engine.bundle.css",
+  "name": "admin",
+  "entry": ["./admin.index.less", "./admin.index.js"],
+  "output": "bundles/admin/admin.bundle.js",
+  "styleFilename": "bundles/admin/admin.bundle.css",
   "chunks": {
     "vendor": {
-      "output": "bundles/engine/engine.vendor.js",
+      "output": "bundles/admin/admin.vendor.js",
       "modules": [
         "underscore",
         "backbone",
@@ -38,21 +38,20 @@ module.exports = Bundler.extend("PanelBundler", {
     // },
 
     "alias": {
-      "ViewportController": "engine.lib.ViewportController",
       "View":               "infrastructure-appcontroller-ractive/ractive-backbone-view",
-      "data":               "engine.data",
-      "resources":          "engine.resources",
+      "data":               "admin.data",
+      "resources":          "admin.resources",
     },
 
     "fileLoaders": {
       
-      "bundles/engine/images": {
+      "bundles/admin/images": {
         "extensions": ["gif", "jpe?g", "png", "svg", "bmp" ],
         "inlineLimit": 1,
         "name": "[hash].[ext]"
       },
 
-      "bundles/engine/fonts": {
+      "bundles/admin/fonts": {
         "extensions": ["woff", "eot", "ttf", "woff2" ],
         "inlineLimit": 1,
         "name": "[hash].[ext]"

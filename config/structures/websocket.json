@@ -1,7 +1,8 @@
 {
   "engines": ["infrastructure-socketio/engine"],
   "instances": {
-    "engine": {
+    
+    "game": {
       "prototype": "./lib/websocket/Handler.js",
       "options": {
         "name":           "engine",
@@ -11,6 +12,20 @@
       "listenSocket": {
         "getBlocks": "data.Blocks.find | | blocks"
       }
+    },
+
+    "admin": {
+      "prototype": "./lib/websocket/Handler.js",
+      "options": {
+        "name":           "admin",
+        "port":           4005,
+        "connect_port":   4005
+      },
+      "listenSocket": {
+        "getBlocks": "data.Blocks.find | | blocks"
+      }
     }
+    
+
   }
 }

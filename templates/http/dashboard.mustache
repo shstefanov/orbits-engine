@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{page.title}}</title>
+  </head>
+  <body>
+  <h1>Welcome to Infrastructure Engine Dashboard</h1>
+  Fork repo: <a href="https://github.com/shstefanov/infrastructure-game-engine">https://github.com/shstefanov/infrastructure-game-engine</a>
+  <br>
+  <a href="{{ page.env.config.http_endpoints.logout_url }}">Logout</a>
+  <br>
+
+  {{#roles}}
+    <br>
+    <a href="{{url}}">
+      {{text}}
+    </a>
+  {{/roles}}
+
+  </body>
+</html>

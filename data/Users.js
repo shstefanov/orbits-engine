@@ -41,10 +41,10 @@ module.exports = require("infrastructure-mongodb/MongoLayer").extend("UsersLayer
 
     function(credentials, options, cb){
 
-      const find_user_query = { 
+      const find_user_query = {
         $or: [
           { username : credentials.username },
-          { email :    credentials.email    },
+          { email :    credentials.username },
        ]
      };
 

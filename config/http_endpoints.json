@@ -1,6 +1,0 @@
-{
-  "authorize_success_redirect": "/dashboard",
-  "not_authorized_redirect":    "/auth/login",
-  "logout_url":                 "/auth/logout",
-  "thank_you_for_registration": "/auth/thank-you"
-}

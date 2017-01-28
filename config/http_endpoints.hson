@@ -1,0 +1,14 @@
+{
+  "authorize_success_redirect": "/dashboard",
+  "not_authorized_redirect":    "/auth/login",
+  "logout_url":                 "/auth/logout",
+  "thank_you_for_registration": "/auth/thank-you",
+
+
+  "roles_access_links": {
+    "player":    { "url": "/game"  , "text":  "To the game"    },
+    "admin":     { "url": "/admin" , "text":  "To admin panel" },
+    "operator":  { "url": "/editor", "text":  "To editor"      },
+    "developer": { "url": "/dev",    "text":  "To Devcenter"   },
+  }
+}

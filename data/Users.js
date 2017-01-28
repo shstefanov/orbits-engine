@@ -22,7 +22,7 @@ module.exports = require("infrastructure-mongodb/MongoLayer").extend("UsersLayer
 
   collectionName: "Users",
 
-  publicFields:   ["username", "avatar"],
+  publicFields:   ["username", "avatar", "roles"],
 
   fields:         ["_id", "email", "username", "password", "avatar", "verified", "verify_token", "roles"],
 

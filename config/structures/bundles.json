@@ -1,5 +1,4 @@
 {
-  "path":   ["bundles", "*/*.webpack.js"    ],
-  "engine":  "infrastructure-webpack/engine",
-  "loader":  "infrastructure-webpack/loader"
+  "path":   ["bundles", "*.js"    ],
+  "engine":  "infrastructure-webpack/engine"
 }

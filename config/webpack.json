@@ -3,5 +3,20 @@
   "progress":         false,
   "sourceMap":        false,
   "buildDestination": "./public",
-  "publicPath":       "/public"
+  "publicPath":       "/public",
+  "colors":           true,
+  "commonLoaders":    true,
+  "vendorChunks": {
+    "singlepage_interface" : [
+      "underscore",
+      "backbone",
+      "ractive",
+      "ractive/ractive.runtime.js",
+      "infrastructure/lib/helpers",
+      "infrastructure-appcontroller-ractive",
+      "infrastructure/lib/ExtendedModel",
+      "infrastructure/lib/ExtendedCollection",
+      "infrastructure/lib/client/Controller"
+    ]
+  }
 }

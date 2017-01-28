@@ -4,7 +4,7 @@ module.exports = Page.extend("EnginePage", {
 
   title: "Infrastructure Engine",
   
-  root: "/engine",
+  root: "/game",
   
   pre:  [
     `@redirectIf | !req.session.logged, 

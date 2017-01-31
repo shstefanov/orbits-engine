@@ -20,6 +20,8 @@
         "game.resources": "resources.js",
         "ViewportController": "lib/ViewportController.js"
       }
+    },
+
     "editor": {
       "prototype": "./lib/bundles/BaseBundle.js",
       "target": "./editor",
@@ -46,6 +48,7 @@
         "dev.resources": "resources.js"
       }
     }
+
 
 
     

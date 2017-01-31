@@ -20,6 +20,31 @@
         "game.resources": "resources.js",
         "ViewportController": "lib/ViewportController.js"
       }
+    "editor": {
+      "prototype": "./lib/bundles/BaseBundle.js",
+      "target": "./editor",
+      "alias": {
+        "editor.data": "data.js",
+        "editor.resources": "resources.js"
+      }
+    },
+
+    "panel": {
+      "prototype": "./lib/bundles/BaseBundle.js",
+      "target": "./panel",
+      "alias": {
+        "panel.data": "data.js",
+        "panel.resources": "resources.js"
+      }
+    },
+
+    "dev": {
+      "prototype": "./lib/bundles/BaseBundle.js",
+      "target": "./dev",
+      "alias": {
+        "dev.data": "data.js",
+        "dev.resources": "resources.js"
+      }
     }
 
 

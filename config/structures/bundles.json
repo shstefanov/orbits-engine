@@ -6,7 +6,6 @@
     
     "admin": {
       "prototype": "./lib/bundles/BaseBundle.js",
-      "config": "bundles.admin",
       "target": "./admin",
       "alias": {
         "admin.data": "data.js"
@@ -15,7 +14,6 @@
     
     "game": {
       "prototype": "./lib/bundles/BaseBundle.js",
-      "config": "bundles.game",
       "target": "./game",
       "alias": {
         "game.data": "data.js",

@@ -1,5 +1,5 @@
 node_modules
-public/bundles
+public/dist
 config/mode.json
 config/local.json
 config/host.json

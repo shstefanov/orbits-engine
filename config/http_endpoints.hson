@@ -4,6 +4,8 @@
   "logout_url":                 "/auth/logout",
   "thank_you_for_registration": "/auth/thank-you",
 
+  "error_permissoin_denied":    "/error/403",
+
 
   "roles_access_links": {
     "player":    { "url": "/game"  , "text":  "To the game"    },

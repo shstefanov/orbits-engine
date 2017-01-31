@@ -4,6 +4,8 @@ module.exports = Page.extend("AdminPage", {
 
   title: "Infrastructure Engine Admin Page",
 
+  user_roles: [ "admin" ],
+
   root: "/admin",
   
   "GET *": [

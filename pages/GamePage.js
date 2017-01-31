@@ -3,8 +3,10 @@ var Page = require("../lib/http/ApplicationPage");
 module.exports = Page.extend("EnginePage", {
 
   title: "Infrastructure Engine",
-  
+
   root: "/game",
+
+  user_roles: [ "player" ],
   
   "GET *": [
     "bundles.game.getAssets | | assets",

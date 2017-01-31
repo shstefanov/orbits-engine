@@ -1,6 +1,6 @@
 var Page = require("../lib/http/ApplicationPage");
 
-module.exports = Page.extend("EnginePage", {
+module.exports = Page.extend("GamePage", {
 
   title: "Infrastructure Engine",
 

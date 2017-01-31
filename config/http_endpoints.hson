@@ -8,9 +8,10 @@
 
 
   "roles_access_links": {
-    "player":    { "url": "/game"  , "text":  "To the game"    },
-    "admin":     { "url": "/admin" , "text":  "To admin panel" },
-    "operator":  { "url": "/editor", "text":  "To editor"      },
-    "developer": { "url": "/dev",    "text":  "To Devcenter"   },
+    "player":    { "url": "/game"  , "text":  "To the game"        },
+    "admin":     { "url": "/admin" , "text":  "To admin panel"     },
+    "editor":    { "url": "/editor", "text":  "To editor panel"    },
+    "operator":  { "url": "/panel",  "text":  "To control panel"   },
+    "developer": { "url": "/dev",    "text":  "To developer panel" },
   }
 }

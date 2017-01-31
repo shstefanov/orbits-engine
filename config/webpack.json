@@ -28,10 +28,16 @@
   },
   "aliasSeparator": "/",
   "alias": {
-    "settings":  "bundles/lib/settings.js",
-    "resources": "bundles/resources",
-    "View": "infrastructure-appcontroller-ractive/ractive-backbone-view.js",
-    "lib":  "./bundles/lib"
+    "View":               "./bundles/lib/views/BaseView.js",
+    "App":                "./bundles/lib/app/App.js",
+    "app":                "./bundles/lib/app/_app.js",
+    "config":             "./bundles/lib/app/config.js",
+    "settings":           "./bundles/lib/app/settings.js",
+    "helpers":            "./bundles/lib/helpers.js",
+    "resources-context":  "./bundles/resources/index.js",
+
+    "resources":          "./bundles/resources",
+    "lib":                "./bundles/lib"
   },
 
   "fileLoaders": [
@@ -45,16 +51,6 @@
     }
   ],
 
-  "define": "@config.bundles",
-
-  "__define": {
-    "ADMIN_CONFIG":   "@config.bundles.ADMIN_CONFIG",
-    "GAME_CONFIG":    "@config.bundles.GAME_CONFIG",
-    "DEFAULT_ROUTES": "@config.bundles.DEFAULT_ROUTES",
-    "FOO":            "@env.HOST",
-    "BAR":            "normal string",
-    "BAZ":            ["other json"]
-  }
-
+  "define": "@config.bundles"
 
 }

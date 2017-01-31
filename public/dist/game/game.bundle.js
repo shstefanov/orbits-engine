@@ -2,7 +2,7 @@ webpackJsonp([1],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(66);
+	__webpack_require__(65);
 	module.exports = __webpack_require__(97);
 
 
@@ -20,54 +20,20 @@ webpackJsonp([1],[
 /* 11 */,
 /* 12 */,
 /* 13 */,
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(68).extend("BlockModel", {
-	
-	});
-
-/***/ },
+/* 14 */,
 /* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(67).extend("BlocksCollection", {
-	  model: __webpack_require__(14)
-	});
+	var App = __webpack_require__(2);
+	
+	const BlocksCollection = __webpack_require__(70);
+	
+	module.exports = {
+	  blocks: new BlocksCollection(),
+	};
 
 /***/ },
-/* 16 */
-/***/ function(module, exports, __webpack_require__) {
-
-	const App = __webpack_require__(2);
-	const helpers = __webpack_require__(3);
-	
-	class Resources{
-	  
-	  get(path){ return helpers.resolve(this, path);      }
-	  
-	  set(path, value){ helpers.patch(this, path, value); }
-	  
-	}
-	
-	const resources = new Resources();
-	
-	const context = __webpack_require__(76);
-	context.keys().forEach(function(path){
-	  if(path.match(/^\.\/index(\.js)?$/)) return;
-	  const value  = context(path);
-	  var new_path = path
-	    .replace("./", "")
-	    .replace(/^(.*)(\.\w+)$/, "$1")
-	    .replace(/\./, "_")
-	    .replace(/\//, ".");
-	  resources.set(new_path, value);
-	});
-	
-	module.exports = resources;
-
-
-/***/ },
+/* 16 */,
 /* 17 */,
 /* 18 */,
 /* 19 */,
@@ -81,7 +47,7 @@ webpackJsonp([1],[
 /* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(33)
+	module.exports = __webpack_require__(32)
 	.extend("GameAppController", {
 	  Layout: __webpack_require__(72)
 	});
@@ -98,7 +64,7 @@ webpackJsonp([1],[
 	    
 	    const app    = __webpack_require__(8);
 	    const socket = app.WebsocketController;
-	    const data   = __webpack_require__(31);
+	    const data   = __webpack_require__(15);
 	    cb();
 	
 	    socket.getBlocks(null, function(err, result){
@@ -115,8 +81,8 @@ webpackJsonp([1],[
 /***/ function(module, exports, __webpack_require__) {
 
 	const _                  = __webpack_require__(1);
-	const ViewportController = __webpack_require__(69);
-	var data                 = __webpack_require__(31);
+	const ViewportController = __webpack_require__(68);
+	var data                 = __webpack_require__(15);
 	module.exports = ViewportController.extend("MapViewportController", {
 	  initOrder:    2,
 	  config:       "viewport",
@@ -129,7 +95,7 @@ webpackJsonp([1],[
 /* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Controller = __webpack_require__(42);
+	var Controller = __webpack_require__(41);
 	module.exports = Controller.extend("Websocket", {
 	  initOrder: 0,
 	  config: window.ws_connection
@@ -139,23 +105,12 @@ webpackJsonp([1],[
 /* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var App = __webpack_require__(2);
-	
-	const BlocksCollection = __webpack_require__(15);
-	
-	module.exports = {
-	  blocks: new BlocksCollection(),
-	};
-
-/***/ },
-/* 32 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = module.exports = __webpack_require__(41).extend({
+	module.exports = module.exports = __webpack_require__(33).extend({
 	  log: console.log.bind(console),
 	});
 
 /***/ },
+/* 32 */,
 /* 33 */,
 /* 34 */,
 /* 35 */,
@@ -168,13 +123,13 @@ webpackJsonp([1],[
 /* 42 */,
 /* 43 */,
 /* 44 */,
-/* 45 */,
-/* 46 */
+/* 45 */
 /***/ function(module, exports) {
 
 	module.exports = true;
 
 /***/ },
+/* 46 */,
 /* 47 */,
 /* 48 */,
 /* 49 */,
@@ -191,14 +146,13 @@ webpackJsonp([1],[
 /* 60 */,
 /* 61 */,
 /* 62 */,
-/* 63 */,
-/* 64 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
 		"./app.hson": 103,
-		"./debug": 46,
-		"./debug.json": 46,
+		"./debug": 45,
+		"./debug.json": 45,
 		"./viewport.hson": 104
 	};
 	function webpackContext(req) {
@@ -212,11 +166,11 @@ webpackJsonp([1],[
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 64;
+	webpackContext.id = 63;
 
 
 /***/ },
-/* 65 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
@@ -240,50 +194,47 @@ webpackJsonp([1],[
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 65;
+	webpackContext.id = 64;
+
+
+/***/ },
+/* 65 */
+/***/ function(module, exports, __webpack_require__) {
+
+	const App = __webpack_require__(2);
+	//             Config object or folder    | patch
+	App.configure(   __webpack_require__(63), ({"debug":false}));
+	App.controllers( __webpack_require__(64) );
+	
+	const app = __webpack_require__(8);
+	app.init({
+	  App:     App,
+	  config:  __webpack_require__(3),
+	  data:    __webpack_require__(15),
+	  routes:  ({"":"setContext","/":"setContext","/:screen":"setContext","/:screen/:tab":"setContext","/:screen/:tab/:context":"setContext","/:screen/:tab/:context/:action":"setContext"}),
+	},function(err){
+	  if(err) return console.error(err.stack || err);
+	});
 
 
 /***/ },
 /* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var App = __webpack_require__(2);
-	App.config(__webpack_require__(64));
-	App.Controllers = App.bulk(__webpack_require__(65));
-	App.Models      = App.bulk(__webpack_require__(70));
+	module.exports = __webpack_require__(42).extend("BaseCollection", {
 	
-	var app = __webpack_require__(8);
-	
-	app.init({
-	  App:          App,
-	  config:       __webpack_require__(9),
-	  settings:     window.settings || {},
-	  routes:       __webpack_require__(111),
-	  data:         {}
-	}, function(err){
-	  if(err) throw err;
-	  console.log("app initialized");
 	});
-
 
 /***/ },
 /* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(43).extend("BaseCollection", {
-	
-	});
-
-/***/ },
-/* 68 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(44).extend("BaseModel", {
+	module.exports = __webpack_require__(43).extend("BaseModel", {
 	  idAttribute: "_id"
 	});
 
 /***/ },
-/* 69 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// http://learningthreejs.com/blog/2012/01/17/dom-events-in-3d-space/
@@ -472,34 +423,26 @@ webpackJsonp([1],[
 	});
 
 /***/ },
+/* 69 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(67).extend("BlockModel", {
+	
+	});
+
+/***/ },
 /* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var map = {
-		"./Blocks/BlockModel": 14,
-		"./Blocks/BlockModel.js": 14,
-		"./Blocks/BlocksCollection": 15,
-		"./Blocks/BlocksCollection.js": 15
-	};
-	function webpackContext(req) {
-		return __webpack_require__(webpackContextResolve(req));
-	};
-	function webpackContextResolve(req) {
-		return map[req] || (function() { throw new Error("Cannot find module '" + req + "'.") }());
-	};
-	webpackContext.keys = function webpackContextKeys() {
-		return Object.keys(map);
-	};
-	webpackContext.resolve = webpackContextResolve;
-	module.exports = webpackContext;
-	webpackContext.id = 70;
-
+	module.exports = __webpack_require__(66).extend("BlocksCollection", {
+	  model: __webpack_require__(69)
+	});
 
 /***/ },
 /* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(16);
+	module.exports = __webpack_require__(9);
 
 /***/ },
 /* 72 */
@@ -510,7 +453,7 @@ webpackJsonp([1],[
 	
 	function parse(name, context, cb){ cb(name.split("/").shift()); }
 	
-	module.exports = __webpack_require__(32).extend({
+	module.exports = __webpack_require__(31).extend({
 	  template: __webpack_require__(118),
 	  style: __webpack_require__(98),
 	  components: _.extend(
@@ -559,36 +502,14 @@ webpackJsonp([1],[
 /***/ function(module, exports, __webpack_require__) {
 
 	var App = __webpack_require__(2);
-	module.exports = __webpack_require__(32).extend({
+	module.exports = __webpack_require__(31).extend({
 	  template: __webpack_require__(119),
 	  style:    __webpack_require__(99),
 	});
 
 
 /***/ },
-/* 76 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var map = {
-		"./images/example.jpg": 130,
-		"./index": 16,
-		"./index.js": 16
-	};
-	function webpackContext(req) {
-		return __webpack_require__(webpackContextResolve(req));
-	};
-	function webpackContextResolve(req) {
-		return map[req] || (function() { throw new Error("Cannot find module '" + req + "'.") }());
-	};
-	webpackContext.keys = function webpackContextKeys() {
-		return Object.keys(map);
-	};
-	webpackContext.resolve = webpackContextResolve;
-	module.exports = webpackContext;
-	webpackContext.id = 76;
-
-
-/***/ },
+/* 76 */,
 /* 77 */,
 /* 78 */,
 /* 79 */,
@@ -640,19 +561,7 @@ webpackJsonp([1],[
 /* 108 */,
 /* 109 */,
 /* 110 */,
-/* 111 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"": "setContext",
-		"/": "setContext",
-		"/:screen": "setContext",
-		"/:screen/:tab": "setContext",
-		"/:screen/:tab/:context": "setContext",
-		"/:screen/:tab/:context/:action": "setContext"
-	};
-
-/***/ },
+/* 111 */,
 /* 112 */,
 /* 113 */,
 /* 114 */,
@@ -45514,13 +45423,6 @@ webpackJsonp([1],[
 	return THREEx
 	}
 
-
-/***/ },
-/* 129 */,
-/* 130 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "public/dist/images/example.ee02793f3c590e8b2f3d54ed67e2ff6c.jpg";
 
 /***/ }
 ]);

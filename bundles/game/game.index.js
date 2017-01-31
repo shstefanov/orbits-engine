@@ -1,17 +1,14 @@
-var App = require("App");
-App.config(require.context("./config", true));
-App.Controllers = App.bulk(require.context("./controllers"));
-App.Models      = App.bulk(require.context("./models", true));
+const App = require("App");
+//             Config object or folder    | patch
+App.configure(   require.context("./config", true), GAME_CONFIG);
+App.controllers( require.context("./controllers") );
 
-var app = require("app");
-
+const app = require("app");
 app.init({
-  App:          App,
-  config:       require("config"),
-  settings:     window.settings || {},
-  routes:       require("./routes.json"),
-  data:         {}
-}, function(err){
-  if(err) throw err;
-  console.log("app initialized");
+  App:     App,
+  config:  require("config"),
+  data:    require("game.data"),
+  routes:  DEFAULT_ROUTES,
+},function(err){
+  if(err) return console.error(err.stack || err);
 });

@@ -5,7 +5,7 @@
     "game": {
       "prototype": "./lib/websocket/Handler.js",
       "options": {
-        "name":           "engine",
+        "name":           "game",
         "port":           4004,
         "connect_port":   4004
       },

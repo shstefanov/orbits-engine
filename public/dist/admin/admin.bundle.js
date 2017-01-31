@@ -3,7 +3,7 @@ webpackJsonp([2],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(57);
+	__webpack_require__(56);
 	module.exports = __webpack_require__(94);
 
 
@@ -12,9 +12,9 @@ webpackJsonp([2],{
 /***/ 22:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(33)
+	module.exports = __webpack_require__(32)
 	.extend("AdminAppController", {
-	  Layout: __webpack_require__(60)
+	  Layout: __webpack_require__(59)
 	});
 
 
@@ -40,7 +40,7 @@ webpackJsonp([2],{
 /***/ 24:
 /***/ function(module, exports, __webpack_require__) {
 
-	var Controller = __webpack_require__(42);
+	var Controller = __webpack_require__(41);
 	module.exports = Controller.extend("Websocket", {
 	  initOrder: 0,
 	  config: window.ws_connection
@@ -63,72 +63,48 @@ webpackJsonp([2],{
 /***/ 26:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = module.exports = __webpack_require__(41).extend({
+	module.exports = module.exports = __webpack_require__(33).extend({
 	  log: console.log.bind(console),
 	});
 
 /***/ },
 
-/***/ 45:
+/***/ 44:
 /***/ function(module, exports) {
 
 	module.exports = false;
 
 /***/ },
 
-/***/ 57:
+/***/ 56:
 /***/ function(module, exports, __webpack_require__) {
 
 	const App = __webpack_require__(2);
 	//             Config object or folder    | patch
-	App.configure(   __webpack_require__(58), ({"debug":true}));
-	App.controllers( __webpack_require__(59) );
+	App.configure(   __webpack_require__(57), ({"debug":false}));
+	App.controllers( __webpack_require__(58) );
 	
 	const app = __webpack_require__(8);
 	app.init({
-	  config:  __webpack_require__(9),
+	  App:     App,
+	  config:  __webpack_require__(3),
 	  data:    __webpack_require__(25),
-	  routes:  ({"":setContext,"/":setContext,"/:screen":setContext,"/:screen/:tab":setContext,"/:screen/:tab/:context":setContext,"/:screen/:tab/:context/:action":setContext}),
+	  routes:  ({"":"setContext","/":"setContext","/:screen":"setContext","/:screen/:tab":"setContext","/:screen/:tab/:context":"setContext","/:screen/:tab/:context/:action":"setContext"}),
 	},function(err){
-	  if(err) return console.log(err.stack);
-	})
+	  if(err) return console.error(err.stack || err);
+	});
 	
-	
-	
-	
-	
-	
-	
-	// var App = require("App");
-	// App.config(require.context("./config", true));
-	// App.Controllers = App.bulk(require.context("./controllers"));
-	// App.Models      = App.bulk(require.context("./models", true));
-	
-	// var app = require("app");
-	
-	
-	
-	// app.init({
-	//   App:          App,
-	//   config:       require("config"),
-	//   settings:     window.settings || {},
-	//   routes:       require("./routes.json"),
-	//   data:         {}
-	// }, function(err){
-	//   if(err) throw err;
-	//   console.log("app initialized");
-	// });
 
 
 /***/ },
 
-/***/ 58:
+/***/ 57:
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
 		"./app.hson": 102,
-		"./debug": 45,
-		"./debug.json": 45
+		"./debug": 44,
+		"./debug.json": 44
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -141,12 +117,12 @@ webpackJsonp([2],{
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 58;
+	webpackContext.id = 57;
 
 
 /***/ },
 
-/***/ 59:
+/***/ 58:
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
@@ -168,12 +144,12 @@ webpackJsonp([2],{
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 59;
+	webpackContext.id = 58;
 
 
 /***/ },
 
-/***/ 60:
+/***/ 59:
 /***/ function(module, exports, __webpack_require__) {
 
 	var App = __webpack_require__(2);
@@ -185,15 +161,15 @@ webpackJsonp([2],{
 	  template: __webpack_require__(116),
 	  style: __webpack_require__(95),
 	  components: _.extend(
-	    App.bulk( __webpack_require__(62), parse ),
-	    App.bulk( __webpack_require__(61), parse )
+	    App.bulk( __webpack_require__(61), parse ),
+	    App.bulk( __webpack_require__(60), parse )
 	  )
 	});
 
 
 /***/ },
 
-/***/ 61:
+/***/ 60:
 /***/ function(module, exports) {
 
 	function webpackContext(req) {
@@ -202,16 +178,16 @@ webpackJsonp([2],{
 	webpackContext.keys = function() { return []; };
 	webpackContext.resolve = webpackContext;
 	module.exports = webpackContext;
-	webpackContext.id = 61;
+	webpackContext.id = 60;
 
 
 /***/ },
 
-/***/ 62:
+/***/ 61:
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./Header/Header.js": 63
+		"./Header/Header.js": 62
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -224,12 +200,12 @@ webpackJsonp([2],{
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 62;
+	webpackContext.id = 61;
 
 
 /***/ },
 
-/***/ 63:
+/***/ 62:
 /***/ function(module, exports, __webpack_require__) {
 
 	var App = __webpack_require__(2);

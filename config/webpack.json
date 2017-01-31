@@ -2,11 +2,18 @@
   "watch":            false,
   "progress":         false,
   "sourceMap":        false,
-  "buildDestination": "./public",
-  "publicPath":       "/public",
+  "buildDestination": "./public/dist",
+  "publicPath":       "/public/dist",
   "colors":           true,
+  "minify":           true,
+
+  "reportProgress":   "log.info",
+  "reportSummary":    "log.info",
+  "reportErrors":     "log.error",
+  "reportWarnings":   "log.warning",
+
   "commonLoaders":    true,
-  "vendorChunks": {
+  "commonChunks": {
     "singlepage_interface" : [
       "underscore",
       "backbone",
@@ -18,5 +25,36 @@
       "infrastructure/lib/ExtendedCollection",
       "infrastructure/lib/client/Controller"
     ]
+  },
+  "aliasSeparator": "/",
+  "alias": {
+    "settings":  "bundles/lib/settings.js",
+    "resources": "bundles/resources",
+    "View": "infrastructure-appcontroller-ractive/ractive-backbone-view.js",
+    "lib":  "./bundles/lib"
+  },
+
+  "fileLoaders": [
+    {
+      "extensions": ["gif","jpe?g","png","svg","bmp"],
+      "destination": "images/[name].[hash].[ext]"
+    },
+    {
+      "extensions": ["woff","woff2","eot","ttf"],
+      "destination": "fonts/[name].[hash].[ext]"
+    }
+  ],
+
+  "define": "@config.bundles",
+
+  "__define": {
+    "ADMIN_CONFIG":   "@config.bundles.ADMIN_CONFIG",
+    "GAME_CONFIG":    "@config.bundles.GAME_CONFIG",
+    "DEFAULT_ROUTES": "@config.bundles.DEFAULT_ROUTES",
+    "FOO":            "@env.HOST",
+    "BAR":            "normal string",
+    "BAZ":            ["other json"]
   }
+
+
 }

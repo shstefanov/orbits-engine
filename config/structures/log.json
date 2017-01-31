@@ -2,7 +2,8 @@
   "engine": "log", 
   "options": {
     "sys": true,
-    "build": true,
-    "warn": true
+    "info": true,
+    "error": true,
+    "warning": true
   }
 }

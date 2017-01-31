@@ -2,8 +2,11 @@ const App = require("App");
 const helpers = require("infrastructure/lib/helpers");
 
 class Resources{
+  
   get(path){ return helpers.resolve(this, path);      }
+  
   set(path, value){ helpers.patch(this, path, value); }
+  
 }
 
 const resources = new Resources();

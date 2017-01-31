@@ -1,3 +1,3 @@
-module.exports = require("game.lib.BaseCollection").extend("BlocksCollection", {
+module.exports = require("game/lib/BaseCollection.js").extend("BlocksCollection", {
   model: require("./BlockModel.js")
 });

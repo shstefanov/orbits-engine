@@ -3,7 +3,7 @@ var _ = require("underscore");
 
 function parse(name, context, cb){ cb(name.split("/").shift()); }
 
-module.exports = require("admin.lib.View").extend({
+module.exports = require("admin/lib/View.js").extend({
   template: require("./Layout.html"),
   style: require("./Layout.less"),
   components: _.extend(

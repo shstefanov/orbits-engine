@@ -1,0 +1,24 @@
+{
+
+  "DEFAULT_ROUTES": {
+    "":                                 "setContext",
+    "/":                                "setContext",
+    "/:screen" :                        "setContext",
+    "/:screen/:tab" :                   "setContext",
+    "/:screen/:tab/:context" :          "setContext",
+    "/:screen/:tab/:context/:action" :  "setContext"
+  },
+
+  "ROUTE_STATE_PARAMS": [
+    "screen", "tab", "context", "action", "param_1", "param_2", "param_3", "param_4"
+  ],
+
+  "STATE_VAR": "state",
+
+  "ADMIN_CONFIG": {
+    "debug":         false
+  },
+  "GAME_CONFIG": {
+    "debug":         false
+  }
+}

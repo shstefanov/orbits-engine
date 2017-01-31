@@ -1,11 +1,19 @@
 {
   patch: {
     "http.morgan": ":method :url :status :response-time ms - :res[content-length]",
-    "webpack.watch":            true,
-    "webpack.progress":         true,
-    "webpack.sourceMap":        true,
-    "views.cache":              false,
+    
 
-    "mongodb.db":               "engine_development"
+    "webpack.watch":              true,
+    "webpack.progress":           true,
+    "webpack.minify":             false,
+    "webpack.sourceMap":          true,
+
+    "bundles.ADMIN_CONFIG.debug": true,
+    "bundles.GAME_CONFIG.debug":  true,
+    
+
+    "views.cache":                false,
+
+    "mongodb.db":                 "engine_development"
   }
 }

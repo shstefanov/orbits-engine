@@ -56,7 +56,7 @@ module.exports = Controller.extend("ViewportController", {
       this.camera.updateProjectionMatrix();
     });
 
-    const data = require("data");
+    const data = this.data;
     data.blocks.each(this.addObject.bind(this));
     data.blocks
       .on("reset", (blocks, data)=>{

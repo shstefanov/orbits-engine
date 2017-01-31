@@ -5,7 +5,7 @@ module.exports = Controller.extend("DataController", {
   init: function(options, cb){
     const app    = require("app");
     const socket = app.WebsocketController;
-    const data   = require("data");
+    const data   = require("admin.data");
     cb();
   }
 });

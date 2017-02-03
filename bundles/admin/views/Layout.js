@@ -5,7 +5,7 @@ function parse(name, context, cb){ cb(name.split("/").shift()); }
 
 module.exports = require("admin/lib/View.js").extend({
   template: require("./Layout.html"),
-  style: require("./Layout.less"),
+  style:    require("./Layout.less"),
   components: _.extend(
     App.bulk( require.context("./sections", true, /\.\/[^/]+\/[^\/]+\.js$/), parse ),
     App.bulk( require.context("./screens",  true, /\.\/[^/]+\/[^\/]+\.js$/), parse )

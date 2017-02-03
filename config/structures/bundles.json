@@ -6,7 +6,7 @@
     
     "admin": {
       "prototype": "./lib/bundles/BaseBundle.js",
-      "target": "./admin",
+      "target": "./app/admin",
       "alias": {
         "admin.data": "data.js"
       }
@@ -14,7 +14,7 @@
     
     "game": {
       "prototype": "./lib/bundles/BaseBundle.js",
-      "target": "./game",
+      "target": "./app/game",
       "alias": {
         "game.data": "data.js",
         "game.resources": "resources.js",
@@ -24,7 +24,7 @@
 
     "editor": {
       "prototype": "./lib/bundles/BaseBundle.js",
-      "target": "./editor",
+      "target": "./app/editor",
       "alias": {
         "editor.data": "data.js",
         "editor.resources": "resources.js"
@@ -33,7 +33,7 @@
 
     "panel": {
       "prototype": "./lib/bundles/BaseBundle.js",
-      "target": "./panel",
+      "target": "./app/panel",
       "alias": {
         "panel.data": "data.js",
         "panel.resources": "resources.js"
@@ -42,7 +42,7 @@
 
     "dev": {
       "prototype": "./lib/bundles/BaseBundle.js",
-      "target": "./dev",
+      "target": "./app/dev",
       "alias": {
         "dev.data": "data.js",
         "dev.resources": "resources.js"

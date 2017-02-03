@@ -37,7 +37,9 @@
     "resources-context":  "./bundles/resources/index.js",
 
     "resources":          "./bundles/resources",
-    "lib":                "./bundles/lib"
+    "lib":                "./bundles/lib",
+    "common-templates":   "./bundles/common-templates"
+
   },
 
   "fileLoaders": [

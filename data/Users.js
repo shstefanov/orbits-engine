@@ -31,6 +31,7 @@ module.exports = require("infrastructure-mongodb/MongoLayer").extend("UsersLayer
     "register",
     "facebookLogin",
     "getUsers",
+    "updateUser",
     "findOne",
     "update",
     "verify",
@@ -50,6 +51,12 @@ module.exports = require("infrastructure-mongodb/MongoLayer").extend("UsersLayer
   getUsers: function(query, options, cb){
     options.fields = this.publicFields;
     this.find(query, options, cb);
+  },
+
+  updateUser: function(data, options, cb){
+    var pattern = {_id: this.env.helpers.objectify(data._id)};
+    var update  = {$set: _.pick(data, this.publicFields)};
+    this.update(pattern, update, cb);
   },
 
   login: helpers.chain([

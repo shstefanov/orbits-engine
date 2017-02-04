@@ -13,6 +13,8 @@
     "screen", "tab", "context", "action", "param_1", "param_2", "param_3", "param_4"
   ],
 
+  "USER_ROLES": ["admin", "player", "operator", "editor", "developer"],
+
   "STATE_VAR": "state",
 
   "ADMIN_CONFIG": {

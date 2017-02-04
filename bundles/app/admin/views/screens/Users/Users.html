@@ -1,5 +1,30 @@
 <h1>Manage users here</h1>
 
-{{#users}}
-  <p>{{username}}</p>
-{{/users}}
+<table>
+  <tr>
+    <th>Username</th>
+    {{#user_roles}}
+      <th>{{.}}</th>
+    {{/user_roles}}
+    <th>#</th>
+  </tr>
+
+  {{#users:i}}
+    <tr>
+      <td>{{username}}</td>
+        {{#user_roles:j}}
+          <td>
+            <input
+              on-click="toggleRole(users[i], user_roles[j])"
+              type="checkbox" 
+              {{#if roles.indexOf(user_roles[j]) !== -1}} checked {{/if}}
+            >            
+          </td>
+        {{/user_roles}}
+        <td>
+          <button on-click="saveUser(.)">Save</button>
+        </td>
+    </tr>
+  {{/users}}
+
+</table>

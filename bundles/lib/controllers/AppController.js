@@ -19,7 +19,7 @@ module.exports = require("infrastructure-appcontroller-ractive").extend("BaseApp
   contextParams: ROUTE_STATE_PARAMS,
 
   setContext: function( screen_name, tab, context, action ){
-    this.reset( STATE_VAR, _.chain(this.contextParams).zip(arguments).object().value() ); 
+    this.set( STATE_VAR, _.chain(this.contextParams).zip(arguments).object().value() );
   },
 
   displayError: function(err, xhr){

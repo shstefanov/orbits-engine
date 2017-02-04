@@ -6,5 +6,9 @@
     "connect_port":   4005
   },
   "listenSocket": {
+    "getUsers": {
+      "users": "data.Users.getUsers | {}, { limit: data.limit || 20, skip: data.skip || 0 }",
+      "stats.total": "data.Users.count"
+    }
   }
 }

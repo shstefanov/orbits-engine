@@ -1,9 +1,9 @@
-const _                  = require("underscore");
-const ViewportController = require("ViewportController");
-var data                 = require("game.data");
-module.exports = ViewportController.extend("MapViewportController", {
+const _                         = require("underscore");
+const ThreejsViewportController = require("lib/controllers/ThreejsViewportController.js");
+var data                        = require("game/data.js");
+module.exports = ThreejsViewportController.extend("MapViewportController", {
   initOrder:    2,
   config:       "viewport",
-  data:         _.pick(data, ["blocks"] ),
+  data:         _.pick(data, ["voxels"] ),
   resources:    require("game.resources"),
 });

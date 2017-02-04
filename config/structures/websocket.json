@@ -10,7 +10,7 @@
         "connect_port":   4004
       },
       "listenSocket": {
-        "getBlocks": "data.Blocks.find | | blocks"
+        "getVoxels": "data.Blocks.find | | voxels"
       }
     },
 

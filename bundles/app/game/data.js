@@ -1,7 +1,7 @@
 var App = require("App");
 
-const BlocksCollection = require("game/models/Blocks/BlocksCollection.js");
+const VoxelsCollection = require("lib/models/Voxels/VoxelsCollection.js");
 
 module.exports = {
-  blocks: new BlocksCollection(),
+  voxels: new VoxelsCollection(),
 };

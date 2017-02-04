@@ -9,10 +9,9 @@ module.exports = Controller.extend("DataController", {
     const data   = require("game/data.js");
     cb();
 
-    socket.getBlocks(null, function(err, result){
+    socket.getVoxels(null, function(err, result){
       if(err) return console.error(err);
-      console.log("blocks comming");
-      data.blocks.reset(result.blocks);
+      data.voxels.reset(result.voxels);
     });
 
   }

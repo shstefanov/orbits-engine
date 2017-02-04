@@ -1,3 +1,11 @@
-<div class="flex-toolbar"> {{>resolveComponent("Header",   {state: "state"})}} </div>
-<div class="flex-content">Hi, Admin!</div>
-<div class="flex-toolbar"> {{>resolveComponent("Footer",   {state: "state"})}} </div>
+<div class="flex-toolbar"> {{>resolveComponent("Header", {state: "state"})}} </div>
+
+<div class="flex-content">
+  {{#if !state.screen }}
+    {{>resolveComponent("Dashboard",   {state: "state"})}}
+  {{else}}
+    {{>resolveComponent(helpers.toCamelCase(state.screen), {state: "state"})}}
+  {{/if}}
+</div>
+
+<div class="flex-toolbar"> {{>resolveComponent("Footer", {state: "state"})}} </div>

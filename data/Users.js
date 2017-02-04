@@ -26,7 +26,17 @@ module.exports = require("infrastructure-mongodb/MongoLayer").extend("UsersLayer
 
   fields:         ["_id", "email", "username", "password", "avatar", "verified", "verify_token", "roles"],
 
-  callable: ["login", "register", "facebookLogin", "find", "findOne", "update", "verify", "forgot"],
+  callable: [
+    "login",
+    "register",
+    "facebookLogin",
+    "getUsers",
+    "findOne",
+    "update",
+    "verify",
+    "forgot",
+    "count",
+  ],
 
   index: [
     { index : { email: 1    }, options: { unique: true } },
@@ -35,6 +45,11 @@ module.exports = require("infrastructure-mongodb/MongoLayer").extend("UsersLayer
 
   defaults: {
     roles: ["player"]
+  },
+
+  getUsers: function(query, options, cb){
+    options.fields = this.publicFields;
+    this.find(query, options, cb);
   },
 
   login: helpers.chain([

@@ -10,5 +10,5 @@ app.init({
   data:    require("game.data"),
   routes:  DEFAULT_ROUTES,
 },function(err){
-  if(err) return console.error(err.stack || err);
+  if(err) throw err;
 });

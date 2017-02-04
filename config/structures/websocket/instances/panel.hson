@@ -1,0 +1,10 @@
+{
+  "prototype": "./lib/websocket/Handler.js",
+  "options": {
+    "name":           "panel",
+    "port":           4007,
+    "connect_port":   4007
+  },
+  "listenSocket": {
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "prototype": "./lib/websocket/Handler.js",
+  "options": {
+    "name":           "editor",
+    "port":           4006,
+    "connect_port":   4006
+  },
+  "listenSocket": {
+  }
+}

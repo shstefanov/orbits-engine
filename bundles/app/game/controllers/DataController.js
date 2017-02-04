@@ -6,7 +6,7 @@ module.exports = Controller.extend("DataController", {
     
     const app    = require("app");
     const socket = app.WebsocketController;
-    const data   = require("game.data");
+    const data   = require("game/data.js");
     cb();
 
     socket.getBlocks(null, function(err, result){

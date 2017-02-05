@@ -9,8 +9,11 @@ module.exports = require("lib/views/BaseLayout.js").extend({
 
   data: function(){
     return {
-      left_sidebar: {
-        
+      left_sidebar_state: {
+        materials:  false,
+        geometries: false,
+        animations: false,
+        objects:    false,
       }
     };
   },

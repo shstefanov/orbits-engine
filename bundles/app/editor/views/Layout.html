@@ -2,9 +2,16 @@
   {{>resolveComponent("Header",        {state: "state"})}}
 </div>
 
-<div class="flex-toolbar navigation-panel">
-  {{>resolveComponent("SubNavigation", {left_sidebar: "left_sidebar"})}}
+<div class="flex-content flex flex-row">
+  {{>resolveComponent("LeftSidebarSwitcher", {left_sidebar_state: "left_sidebar_state"})}}
+  {{#if left_sidebar_state.__active}}
+    {{>resolveComponent("LeftSidebar", {left_sidebar_state: "left_sidebar_state"})}}
+  {{/if}}
+
+  <div class="flex-content">
+    Viewport here
+  </div>
+
 </div>
 
-<div class="flex-content">Hi, Editor!</div>
 <div class="flex-toolbar"> {{>resolveComponent("Footer",   {state: "state"})}} </div>

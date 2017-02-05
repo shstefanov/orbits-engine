@@ -1,0 +1,7 @@
+<div class="flex-toolbar editor-sidebar-switcher">
+  <span class="fa fa-cubes   {{ left_sidebar_state.objects    ? 'active' : '' }}" title="Objects"     on-click="radioToggle('left_sidebar_state.objects')"    ></span>
+  <span class="fa fa-photo   {{ left_sidebar_state.images     ? 'active' : '' }}" title="Images"      on-click="radioToggle('left_sidebar_state.images')"     ></span>
+  <span class="fa fa-eercast {{ left_sidebar_state.materials  ? 'active' : '' }}" title="Materials"   on-click="radioToggle('left_sidebar_state.materials')"  ></span>
+  <span class="fa fa-cube    {{ left_sidebar_state.geometries ? 'active' : '' }}" title="Geometries"  on-click="radioToggle('left_sidebar_state.geometries')" ></span>
+  <span class="fa fa-code    {{ left_sidebar_state.templates  ? 'active' : '' }}" title="Templates"   on-click="radioToggle('left_sidebar_state.templates')"  ></span>
+</div>

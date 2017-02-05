@@ -3,17 +3,21 @@
     "http.morgan": ":method :url :status :response-time ms - :res[content-length]",
     
 
-    "webpack.watch":              true,
-    "webpack.progress":           true,
-    "webpack.minify":             false,
-    "webpack.sourceMap":          true,
+    "webpack.watch":               true,
+    "webpack.progress":            true,
+    "webpack.minify":              false,
+    "webpack.sourceMap":           true,
 
-    "bundles.ADMIN_CONFIG.debug": true,
-    "bundles.GAME_CONFIG.debug":  true,
+    "bundles.ADMIN_CONFIG.debug":  true,
+    "bundles.GAME_CONFIG.debug":   true,
+    "bundles.EDITOR_CONFIG.debug": true,
+    "bundles.PANEL_CONFIG.debug":  true,
+    "bundles.DEV_CONFIG.debug":    true,
+
     
 
-    "views.cache":                false,
+    "views.cache":                 false,
 
-    "mongodb.db":                 "engine_development"
+    "mongodb.db":                  "engine_development"
   }
 }

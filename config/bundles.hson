@@ -20,7 +20,20 @@
   "ADMIN_CONFIG": {
     "debug":         false
   },
+  
   "GAME_CONFIG": {
     "debug":         false
+  },
+
+  "EDITOR_CONFIG": {
+    "debug": false
+  },
+
+  "PANEL_CONFIG": {
+    "debug": false
+  },
+
+  "DEV_CONFIG": {
+    "debug": false
   }
 }

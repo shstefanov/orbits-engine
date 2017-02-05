@@ -1,5 +1,10 @@
 <div class="flex-toolbar navigation-panel">
   {{>resolveComponent("Header",        {state: "state"})}}
 </div>
+
+<div class="flex-toolbar navigation-panel">
+  {{>resolveComponent("SubNavigation", {left_sidebar: "left_sidebar"})}}
+</div>
+
 <div class="flex-content">Hi, Editor!</div>
 <div class="flex-toolbar"> {{>resolveComponent("Footer",   {state: "state"})}} </div>

@@ -163,6 +163,12 @@ module.exports = Controller.extend("ThreejsViewportController", {
     this.dom_events.addEventListener(mesh, 'mouseout', function(e){
       mesh.translateY(-0.25);
     }, false );
+
+    this.dom_events.addEventListener(mesh, 'click', function(e){
+      window.mesh = mesh;
+      console.log("mesh: ", mesh);
+    }, false );
+
     this.scene.add(mesh);
   },
 

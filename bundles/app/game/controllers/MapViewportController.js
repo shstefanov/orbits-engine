@@ -6,6 +6,9 @@ module.exports = ThreejsViewportController.extend("MapViewportController", {
   config:       "viewport",
   data:         _.pick(data, ["voxels"] ),
   resources:    require("game.resources"),
+
+  template:     require("game/templates/viewport.xml"),
+
   // observe: {
   //   "voxels.*": "viewVoxels"
   // },

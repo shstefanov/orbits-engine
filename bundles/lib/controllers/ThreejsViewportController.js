@@ -58,6 +58,10 @@ module.exports = Controller.extend("ThreejsViewportController", {
       this.camera.updateProjectionMatrix();
     });
 
+    if(this.template){
+      this.parseTemplate();
+    }
+
 
     if(this.bindCollection){
       for(var key in this.bindCollection){
@@ -78,6 +82,9 @@ module.exports = Controller.extend("ThreejsViewportController", {
 
     cb();
      
+  },
+
+  parseTemplate: function(){
   },
 
   setViewportDimmensions: function(){

@@ -2,13 +2,22 @@
   background-color: black;
   text-align: center;
 }
-.editor-sidebar-switcher > .fa{
-  font-size: 35px;
+.editor-sidebar-switcher > a{
+  display: block;
   color: white;
-  cursor: pointer;
-  margin: 10px auto;
+  margin: 15px auto;
 }
 
-.editor-sidebar-switcher > .fa.active{
+.editor-sidebar-switcher > a > span{
+  font-size: 12px;
+}
+
+.editor-sidebar-switcher > a > span.fa:before{
+  font-size: 20px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.editor-sidebar-switcher > a.active{
   color: yellow;
 }

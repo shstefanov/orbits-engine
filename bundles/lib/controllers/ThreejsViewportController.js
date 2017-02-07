@@ -17,6 +17,27 @@ const initializeDomEvents = require('threex-domevents');
 const THREEx = {};
 initializeDomEvents(THREE, THREEx);
 
+var stop_traverse = ["undefined", "string", "number", "function", "boolean"];
+function traverse(obj, iterator, path, refs){
+  path = path || [];
+  refs = refs || new WeakSet();
+  if(obj === null || stop_traverse.indexOf(typeof obj) > -1 ) return iterator(obj, path);;
+  if(refs.has(obj)) return;
+  refs.add(obj);
+  iterator(obj, path);
+  if(obj[Symbol.iterator]){
+    for(let i = 0; i< obj.length; i++){
+      traverse(obj[i], iterator, path.concat([i]), refs);
+    }
+  }
+  else{
+    for(var k in obj){
+      traverse(obj[k], iterator, path.concat([k]), refs);
+    }
+  }
+}
+
+
 module.exports = Controller.extend("ThreejsViewportController", {
 
   THREE: THREE,
@@ -85,6 +106,18 @@ module.exports = Controller.extend("ThreejsViewportController", {
   },
 
   parseTemplate: function(){
+
+    var parser = new DOMParser();
+    var xmlDoc = parser.parseFromString(this.template, "text/xml");
+
+    window.xmlDoc = xmlDoc;
+    window.helpers = require("infrastructure/lib/helpers");
+
+    traverse(xmlDoc.childNodes, function(val, path){
+      console.log("traverse: ", path.join("."), val);
+    });
+
+    // console.log("template: ", Object.keys(xmlDoc) );
   },
 
   setViewportDimmensions: function(){

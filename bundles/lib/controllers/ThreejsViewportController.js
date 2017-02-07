@@ -19,6 +19,8 @@ initializeDomEvents(THREE, THREEx);
 
 module.exports = Controller.extend("ThreejsViewportController", {
 
+  THREE: THREE,
+
   init: function(options, cb){
     const app = require("app");
     this.container = document.querySelector(this.config.container);
@@ -56,20 +58,26 @@ module.exports = Controller.extend("ThreejsViewportController", {
       this.camera.updateProjectionMatrix();
     });
 
-    const data = this.data;
-    data.voxels.each(this.addVoxel.bind(this));
-    data.voxels
-      .on("reset", (voxels, data)=>{
-        if(data.previousModels){
-          data.previousModels.forEach((voxel)=>{ this.removeVoxel(voxel) });
+
+    if(this.bindCollection){
+      for(var key in this.bindCollection){
+        var collection = this.data[key];
+        if(!collection) return cb(new Error("Can't find collection: "+key));
+        var defs = this.bindCollection[key];
+        for(var event in defs){
+          var methods = defs[event];
+          if(typeof methods === "string") methods = [methods];
+          for(var i = 0; i< methods.length; i++){
+            var method = this[methods[i]];
+            if(typeof method !== "function") return cb(new Error("Can't find method: " + methods[i]));
+            collection.on(event, method, this);
+          }
         }
-        voxels.forEach((voxel)=>this.addVoxel(voxel));
-      }, this )
-      .on("add", this.addVoxel, this)
-      .on("remove", this.removeVoxel, this)
-      .on("change:x change:y change:z", this.changeObjectPosition, this);
+      }
+    }
 
     cb();
+     
   },
 
   setViewportDimmensions: function(){
@@ -148,43 +156,6 @@ module.exports = Controller.extend("ThreejsViewportController", {
 
   cube_geometry: new THREE.CubeGeometry( 1,1,1 ),
 
-  addVoxel: function(object){
-    const type = object.get("type");
-    const material = this.blockMaterials[type];
-    const mesh = new THREE.Mesh(this.cube_geometry, material);
-    const {x,y,z} = object.pick(["x", "y", "z"]);
-    mesh.position.set(x,y,z);
 
-    this.object_map.set(object, mesh);
-
-    this.dom_events.addEventListener(mesh, 'mouseover', function(e){
-      mesh.translateY(0.25);
-    }, false );
-    this.dom_events.addEventListener(mesh, 'mouseout', function(e){
-      mesh.translateY(-0.25);
-    }, false );
-
-    this.dom_events.addEventListener(mesh, 'click', function(e){
-      window.mesh = mesh;
-      console.log("mesh: ", mesh);
-    }, false );
-
-    this.scene.add(mesh);
-  },
-
-  removeVoxel: function(voxel){
-    const mesh = this.object_map.get(voxel);
-    if(mesh){
-      this.scene.remove(mesh);
-    }
-  },
-
-  changeObjectPosition: function(object){
-    const mesh = this.object_map.get(object);
-    if(mesh){
-      const { x, y, z } = object.attributes;
-      mesh.position.set(x,y,z);
-    }
-  }
 
 });

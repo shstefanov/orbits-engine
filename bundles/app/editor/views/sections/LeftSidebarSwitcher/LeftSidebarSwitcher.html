@@ -1,41 +1,36 @@
 <div class="flex-toolbar editor-sidebar-switcher">
   
   <a
-    href="javascript:void(0)" 
-    on-click="radioToggle('left_sidebar_state.objects')"
-    class="{{ left_sidebar_state.objects ? 'active' : '' }}"
+    href="{{location === 'objects' ? '/editor' : 'objects'}}"
+    class="{{ location === 'objects' ? 'active' : '' }}"
   >
     <span class="fa fa-cubes" title="Objects">Objects</span>
   </a>
 
   <a
-    href="javascript:void(0)"
-    on-click="radioToggle('left_sidebar_state.images')"
-    class="{{ left_sidebar_state.images ? 'active' : '' }}"
+    href="{{location === 'images' ? '/editor' : 'images'}}"
+    class="{{ location === 'images' ? 'active' : '' }}"
   >
     <span class="fa fa-photo" title="Images">Images</span>
   </a>
 
   <a
-    href="javascript:void(0)"
-    on-click="radioToggle('left_sidebar_state.materials')"
-    class="{{ left_sidebar_state.materials  ? 'active' : '' }}"
+    href="{{location === 'materials' ? '/editor' : 'materials'}}"
+    class="{{ location === 'materials'  ? 'active' : '' }}"
   >
     <span class="fa fa-eercast" title="Materials">Materials</span>
   </a>
 
   <a
-    href="javascript:void(0)"
-    on-click="radioToggle('left_sidebar_state.geometries')"
-    class="{{ left_sidebar_state.geometries ? 'active' : '' }}"
+    href="{{location === 'geometries' ? '/editor' : 'geometries'}}"
+    class="{{ location === 'geometries' ? 'active' : '' }}"
   >
     <span class="fa fa-cube" title="Geometries">Geometries</span>
   </a>
 
   <a
-    href="javascript:void(0)"
-    on-click="radioToggle('left_sidebar_state.templates')"
-    class="{{ left_sidebar_state.templates  ? 'active' : '' }}"
+    href="{{location === 'templates' ? '/editor' : 'templates'}}"
+    class="{{ location === 'templates'  ? 'active' : '' }}"
   >
     <span class="fa fa-code" title="Templates">Templates</span>
   </a>

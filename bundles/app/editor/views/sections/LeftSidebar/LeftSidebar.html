@@ -1,8 +1,8 @@
 <div class="flex-sidebar flex flex-column">
   <div class="flex-toolbar editor-sidebar-title">
-    {{ helpers.toCamelCase(left_sidebar_state.__active) }}
-    <span 
-      on-click="radioToggle('left_sidebar_state.'+left_sidebar_state.__active)"
-      class="fa fa-close pull-right cursor-pointer"></span>
+    {{ helpers.toCamelCase(state.tab) }}
+    <a href="" class="pull-right">
+      <span class="fa fa-close"></span>
+    </a>
   </div>
 </div>

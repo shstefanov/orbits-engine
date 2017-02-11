@@ -79,24 +79,6 @@ module.exports = Controller.extend("ThreejsViewportController", {
       this.camera.updateProjectionMatrix();
     });
 
-
-    if(this.bindCollection){
-      for(var key in this.bindCollection){
-        var collection = this.data[key];
-        if(!collection) return cb(new Error("Can't find collection: "+key));
-        var defs = this.bindCollection[key];
-        for(var event in defs){
-          var methods = defs[event];
-          if(typeof methods === "string") methods = [methods];
-          for(var i = 0; i< methods.length; i++){
-            var method = this[methods[i]];
-            if(typeof method !== "function") return cb(new Error("Can't find method: " + methods[i]));
-            collection.on(event, method, this);
-          }
-        }
-      }
-    }
-
     cb();
      
   },

@@ -77,6 +77,10 @@ module.exports = Controller.extend("ThreejsViewportController", {
      
   },
 
+  updateViewportSize: function(){
+    setTimeout(()=>{ this.setViewportDimmensions(); }, 0);
+  },
+
   setViewportDimmensions: function(){
     const container = this.container;
     let { width, height } = getComputedStyle(this.container);

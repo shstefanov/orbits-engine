@@ -6,4 +6,7 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
   config:       "viewport",
   // data:         _.pick(data, ["voxels"] ),
   // resources:    require("game.resources"),
+  observe: {
+    "left_sidebar_state.__active": "updateViewportSize"
+  }
 });

@@ -8,9 +8,9 @@ module.exports = View.extend({
 
       helpers: {
         toCamelCase: function(str){
-          return str.split("-").map((part)=>{
+          return str ? str.split("-").map((part)=>{
             return part[0].toUpperCase() + part.slice(1);
-          }).join("");
+          }).join("") : "";
         }        
       }
 

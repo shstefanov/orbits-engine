@@ -79,10 +79,6 @@ module.exports = Controller.extend("ThreejsViewportController", {
       this.camera.updateProjectionMatrix();
     });
 
-    if(this.template){
-      this.parseTemplate();
-    }
-
 
     if(this.bindCollection){
       for(var key in this.bindCollection){
@@ -103,21 +99,6 @@ module.exports = Controller.extend("ThreejsViewportController", {
 
     cb();
      
-  },
-
-  parseTemplate: function(){
-
-    var parser = new DOMParser();
-    var xmlDoc = parser.parseFromString(this.template, "text/xml");
-
-    window.xmlDoc = xmlDoc;
-    window.helpers = require("infrastructure/lib/helpers");
-
-    traverse(xmlDoc.childNodes, function(val, path){
-      console.log("traverse: ", path.join("."), val);
-    });
-
-    // console.log("template: ", Object.keys(xmlDoc) );
   },
 
   setViewportDimmensions: function(){

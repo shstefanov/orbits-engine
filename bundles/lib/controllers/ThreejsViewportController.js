@@ -97,7 +97,6 @@ module.exports = Controller.extend("ThreejsViewportController", {
         this.viewport_dimmensions.height
       );
     }
-    console.log("setViewportDimmensions", this.viewport_dimmensions);
     if(this.camera){
       this.camera.aspect = this.viewport_dimmensions.width / this.viewport_dimmensions.height;
       this.camera.updateProjectionMatrix();      

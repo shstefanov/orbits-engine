@@ -71,12 +71,6 @@ module.exports = Controller.extend("ThreejsViewportController", {
 
     window.addEventListener('resize', ()=> {
       this.setViewportDimmensions();
-      this.renderer.setSize(
-        this.viewport_dimmensions.width,
-        this.viewport_dimmensions.height
-      );
-      this.camera.aspect = this.viewport_dimmensions.width / this.viewport_dimmensions.height;
-      this.camera.updateProjectionMatrix();
     });
 
     cb();
@@ -89,6 +83,21 @@ module.exports = Controller.extend("ThreejsViewportController", {
     width  = parseInt(width  .replace("px", ""));
     height = parseInt(height .replace("px", ""));
     this.viewport_dimmensions = { width, height };
+
+    this.container.width  = width;
+    this.container.height = height;
+
+    if(this.renderer) {
+      this.renderer.setSize(
+        this.viewport_dimmensions.width,
+        this.viewport_dimmensions.height
+      );
+    }
+    console.log("setViewportDimmensions", this.viewport_dimmensions);
+    if(this.camera){
+      this.camera.aspect = this.viewport_dimmensions.width / this.viewport_dimmensions.height;
+      this.camera.updateProjectionMatrix();      
+    }
   },
 
   setCameraOptions: function(){

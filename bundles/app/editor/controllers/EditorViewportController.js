@@ -5,6 +5,6 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
   initOrder:    2,
   config:       "viewport",
   observe: {
-    "left_sidebar_state.__active": "updateViewportSize"
+    "state.screen": "updateViewportSize"
   }
 });

@@ -1,5 +1,5 @@
-var View = require("infrastructure-appcontroller-ractive/ractive-backbone-view.js");
-var resource_context = require("resources-context");
+const View = require("infrastructure-appcontroller-ractive/ractive-backbone-view.js");
+const resource_context = require("resources-context");
 
 const base_href = document.querySelector("base").getAttribute("href");
 

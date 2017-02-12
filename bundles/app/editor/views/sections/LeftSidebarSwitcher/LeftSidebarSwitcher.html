@@ -1,35 +1,35 @@
 <div class="flex-toolbar editor-sidebar-switcher">
   
   <a
-    href="{{location === 'objects' ? '/editor' : 'objects'}}"
+    href="{{helpers.innerLink('objects')}}"
     class="{{ location === 'objects' ? 'active' : '' }}"
   >
     <span class="fa fa-cubes" title="Objects">Objects</span>
   </a>
 
   <a
-    href="{{location === 'images' ? '/editor' : 'images'}}"
+    href="{{helpers.innerLink('images')}}"
     class="{{ location === 'images' ? 'active' : '' }}"
   >
     <span class="fa fa-photo" title="Images">Images</span>
   </a>
 
   <a
-    href="{{location === 'materials' ? '/editor' : 'materials'}}"
+    href="{{helpers.innerLink('materials')}}"
     class="{{ location === 'materials'  ? 'active' : '' }}"
   >
     <span class="fa fa-eercast" title="Materials">Materials</span>
   </a>
 
   <a
-    href="{{location === 'geometries' ? '/editor' : 'geometries'}}"
+    href="{{helpers.innerLink('geometries')}}"
     class="{{ location === 'geometries' ? 'active' : '' }}"
   >
     <span class="fa fa-cube" title="Geometries">Geometries</span>
   </a>
 
   <a
-    href="{{location === 'templates' ? '/editor' : 'templates'}}"
+    href="{{helpers.innerLink('templates')}}"
     class="{{ location === 'templates'  ? 'active' : '' }}"
   >
     <span class="fa fa-code" title="Templates">Templates</span>

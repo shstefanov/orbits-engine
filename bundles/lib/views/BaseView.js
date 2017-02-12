@@ -1,5 +1,8 @@
 var View = require("infrastructure-appcontroller-ractive/ractive-backbone-view.js");
 var resource_context = require("resources-context");
+
+const base_href = document.querySelector("base").getAttribute("href");
+
 module.exports = View.extend({
   data: function(){
     return {
@@ -11,7 +14,10 @@ module.exports = View.extend({
           return str ? str.split("-").map((part)=>{
             return part[0].toUpperCase() + part.slice(1);
           }).join("") : "";
-        }        
+        },
+        innerLink: function(str){
+          return (base_href + "/" + str).replace(/\/\//, "/").replace(/\/$/, "");
+        }       
       }
 
     };

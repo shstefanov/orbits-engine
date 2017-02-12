@@ -8,6 +8,7 @@ module.exports = require("lib/views/BaseLayout.js").extend({
   style: require("./Layout.less"),
   components: _.extend(
     App.bulk( require.context("./sections", true, /\.\/[^/]+\/[^\/]+\.js$/), parse ),
-    App.bulk( require.context("./screens",  true, /\.\/[^/]+\/[^\/]+\.js$/), parse )
+    App.bulk( require.context("./screens",  true, /\.\/[^/]+\/[^\/]+\.js$/), parse ),
+    App.bulk( require.context("./sidebars", true, /\.\/[^/]+\/[^\/]+\.js$/), parse )
   )
 });

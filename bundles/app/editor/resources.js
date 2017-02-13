@@ -1,0 +1,4 @@
+// Resources namespace
+module.exports = {
+  
+};

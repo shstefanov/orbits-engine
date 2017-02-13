@@ -6,5 +6,14 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
   config:       "viewport",
   observe: {
     "state.screen": "updateViewportSize"
+  resources: function(){
+    const data = require("editor.data");
+    return _.pick(data, [
+      "objectModels",
+      "materials",
+      "geometries",
+    ]);
+  },
+
   }
 });

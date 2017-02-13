@@ -46,7 +46,8 @@ module.exports = Controller.extend("ThreejsViewportController", {
     const app = require("app");
     this.container = document.querySelector(this.config.container);
     if(!this.container) return cb("Can't find DOM element " + this.config.container);
-    this.data = _.result(this, "data") || {};
+    this.data      = _.result(this, "data")      || {};
+    this.resources = _.result(this, "resources") || {};
     this.setViewportDimmensions();
     this.setCameraOptions();
     this.createRenderer();

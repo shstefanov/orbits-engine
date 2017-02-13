@@ -163,14 +163,8 @@ module.exports = Controller.extend("ThreejsViewportController", {
     this.object_map = new WeakMap();
   },
 
-  blockMaterials: {
-    "dirt":  new THREE.MeshLambertMaterial({color: 0xCC0000 }),
-    "grass": new THREE.MeshLambertMaterial({color: 0x00CC00 }),
-    "water": new THREE.MeshLambertMaterial({color: 0x0000CC }),
-    "stone": new THREE.MeshLambertMaterial({color: 0xAAAAAA }),
   },
 
-  cube_geometry: new THREE.CubeGeometry( 1,1,1 ),
 
 
 

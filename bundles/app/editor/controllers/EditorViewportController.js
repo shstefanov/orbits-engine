@@ -10,12 +10,7 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
   },
 
   resources: function(){
-    const data = require("editor.data");
-    return _.pick(data, [
-      "objectModels",
-      "materials",
-      "geometries",
-    ]);
+    return require("editor/resources.js");
   },
 
   // blockMaterials: {

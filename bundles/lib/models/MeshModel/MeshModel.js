@@ -1,4 +1,4 @@
-module.exports = require("lib/models/BaseModel.js").extend("ObjectModel", {
+module.exports = require("lib/models/BaseModel.js").extend("MeshModel", {
   defaults: {
     // coordinates
     x: 0, y: 0, z: 0,

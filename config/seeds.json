@@ -1,3 +1,3 @@
 {
-  "Blocks": "seeds/development/Blocks.js"
+  "MeshModels": "seeds/default/MeshModels.js"
 }

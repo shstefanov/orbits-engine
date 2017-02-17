@@ -1,8 +1,8 @@
 const ObjectModel = require("lib/models/ObjectModels/ObjectModel.js");
 
 module.exports = require("lib/views/BaseHeaderView.js").extend({
-  template: require("./ObjectsSidebar.html"),
-  style:    require("./ObjectsSidebar.less"),
+  template: require("./ModelsSidebar.html"),
+  style:    require("./ModelsSidebar.less"),
 
   data: function(){
     return {

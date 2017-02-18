@@ -163,9 +163,9 @@ module.exports = Controller.extend("ThreejsViewportController", {
     this.object_map = new WeakMap();
   },
 
-  createMeshFromModel: function(model){
+  createMeshFromObject: function(object){
     console.log("resources: ", this.resources);
-    console.log("model: ", model.toJSON());
+    console.log("object: ", object.toJSON());
   },
 
   createMaterialFromModel: function(model, options){

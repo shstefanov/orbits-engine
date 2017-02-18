@@ -1,4 +1,5 @@
 {
-  "MeshModels":    "seeds/default/MeshModels.js",
-  "MeshMaterials": "seeds/default/MeshMaterials.js"
+  "MeshModels":     "seeds/default/MeshModels.js",
+  "MeshMaterials":  "seeds/default/MeshMaterials.js",
+  "MeshGeometries": "seeds/default/MeshGeometries.js"
 }

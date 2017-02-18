@@ -11,6 +11,7 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
     "state.screen":       "updateViewportSize",
     "selectedMeshModel":  "selectedMeshModel",
     "selectedMaterial":   "selectedMaterial",
+    "selectedGeometry":   "selectedGeometry",
   },
 
   defaultGeometry: new THREE.CubeGeometry(1, 1, 1),
@@ -24,9 +25,19 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
       .on("add",    this.createMaterial, this )
       .on("change", this.updateMaterial, this )
       .on("remove", this.removeMaterial, this )
-      .on("reset",  (collection, event)=>{
+      .on("reset",  (materials, event)=>{
         event.previousModels.forEach( (material) => this.removeMaterial(material) );
-        collection.each(              (material) => this.createMaterial(material) );
+        materials.each(              (material) => this.createMaterial(material) );
+      });
+
+    this.resources.meshGeometries.each( (geometry)=>this.createGeometry(geometry) );
+    this.resources.meshGeometries
+      .on("add",    this.createGeometry, this )
+      .on("change", this.updateGeometry, this )
+      .on("remove", this.removeGeometry, this )
+      .on("reset",  (geometries, event)=>{
+        event.previousModels.forEach( (geometry) => this.removeGeometry(geometry) );
+        geometries.each(              (geometry) => this.createGeometry(geometry) );
       });
   },
 
@@ -43,9 +54,12 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
     console.log("selectedMaterial", material_id);
   },
 
-
   selectedMeshModel: function(model_id){
     console.log("selectedMeshModel", model_id);
+  },
+
+  selectedGeometry: function(geometry_id){
+    console.log("selectedGeometry", geometry_id);
   },
 
 });

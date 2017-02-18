@@ -29,6 +29,15 @@ module.exports = Controller.extend("DataController", {
         });
       }),
 
+      // Get MeshGeometries
+      new Promise(function(success, error){
+        socket.getMeshGeometries(null, function(err, result){
+          if(err) return error(err);
+          resources.meshGeometries.reset(result.models);
+          success(true);
+        });
+      }),
+
     ]).then(function(){
       data.is_loaded = true;
       app.set(data);

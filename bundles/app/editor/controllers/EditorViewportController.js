@@ -26,37 +26,41 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
 
 
   selectedMeshModel: function(model_id){
-    var meshModels = require("app").get("meshModels");
-    if(!meshModels.loaded) return meshModels.once("reset", this.selectedMeshModel.bind(this, model_id));
-    
-    var model =meshModels.get(model_id);
+    var app = require("app");
+    var data = require("editor/data.js");
 
-    if(this.objectModel){
-      if(this.objectModel === model) return;
-      else this.removeObjectModel();
+    if(!data.is_loaded){
+      return app.once("data_loaded", this.selectedMeshModel.bind(this, model_id));
     }
 
-    model && this.addMeshModel(model);
+    var object = new this.defaultObject({model: model_id});
+
+    if(this.currentObject){
+      if(this.currentObject === object) return;
+      else this.removeObject();
+    }
+
+    object && this.addObject(object);
 
   },
 
-  removeObjectModel: function(){
-    const model = this.objectModel;
-    const mesh  = this.object_map.get(model);
+  removeObject: function(){
+    const object = this.currentObject;
+    const mesh  = this.object_map.get(object);
 
-    delete this.objectModel;
-    this.scene.remove(mesh);
+    delete this.currentObject;
+    mesh && this.scene.remove(mesh);
 
+    this.object_map.delete(object);
     this.object_map.delete(mesh);
-    this.object_map.delete(model);
   },
 
-  addMeshModel: function(model){
-    const mesh = this.createMeshFromModel(model);
+  addObject: function(object){
+    const mesh = this.createMeshFromObject(object);
     if(!mesh) return;
-    this.objectModel = model;
-    this.object_map.set(mesh, model);
-    this.object_map.set(model, mesh);
+    this.currentObject = object;
+    this.object_map.set(mesh, object);
+    this.object_map.set(object, mesh);
   }
 
 });

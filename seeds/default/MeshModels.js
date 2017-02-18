@@ -1,16 +1,19 @@
 
 module.exports = function(cb){
+ 
+ return cb(null, []);
+
   const dataLayers = this.env.i.data;
   Promise.all([
 
     new Promise(function(done, error){
-      dataLayers.MeshGeometries.collection.findOne({ name: "SimpleCubeGeometry" }, function(err, geometry){
+      dataLayers.MeshGeometries.collection.findOne({ geometry: "BoxGeometry", }, function(err, geometry){
         err ? error(err) : ( geometry ? done(geometry) : error("Can't find geometry") );
       });
     }),
 
     new Promise(function(done, error){
-      dataLayers.MeshMaterials.collection.findOne({ name: "Basic Mesh Material", }, function(err, material){
+      dataLayers.MeshMaterials.collection.findOne({ material: "MeshNormalMaterial", }, function(err, material){
         err ? error(err) : ( material ? done(material) : error("Can't find material") );
       });
     }),

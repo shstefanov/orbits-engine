@@ -1,4 +1,4 @@
-const ObjectModel = require("lib/models/MeshModel/MeshModel.js");
+const ObjectModel = require("lib/models/MeshModels/MeshModel.js");
 
 module.exports = require("lib/views/BaseHeaderView.js").extend({
   template: require("./ModelsSidebar.html"),

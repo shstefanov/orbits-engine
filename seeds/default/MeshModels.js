@@ -10,7 +10,7 @@ module.exports = function(cb){
     }),
 
     new Promise(function(done, error){
-      dataLayers.MeshMaterials.collection.findOne({ name: "MeshDefaultLabmertMaterial" }, function(err, material){
+      dataLayers.MeshMaterials.collection.findOne({ name: "Basic Mesh Material", }, function(err, material){
         err ? error(err) : ( material ? done(material) : error("Can't find material") );
       });
     }),

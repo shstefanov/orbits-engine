@@ -180,11 +180,10 @@ module.exports = Controller.extend("ThreejsViewportController", {
   },
 
   createMeshFromObject: function(object){
-    console.log("resources: ", this.resources);
-    console.log("object: ", object.toJSON());
+    // console.log("resources: ", this.resources);
+    // console.log("object: ", object.toJSON());
   },
 
-  createMaterialFromModel: function(model, options){
 
   /*
   ** Materials lifecycle

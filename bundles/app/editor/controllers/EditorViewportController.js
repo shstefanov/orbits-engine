@@ -29,6 +29,16 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
         event.previousModels.forEach( (material) => this.removeMaterial(material) );
         collection.each(              (material) => this.createMaterial(material) );
       });
+
+    this.resources.meshGeometries.each( (geometry)=>this.createGeometry(geometry) );
+    this.resources.meshGeometries
+      .on("add",    this.createGeometry, this )
+      .on("change", this.updateGeometry, this )
+      .on("remove", this.removeGeometry, this )
+      .on("reset",  (geometries, event)=>{
+        event.previousModels.forEach( (geometry) => this.removeGeometry(geometry) );
+        geometries.each(              (geometry) => this.createGeometry(geometry) );
+      });
   },
 
   // blockMaterials: {

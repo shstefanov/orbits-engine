@@ -208,5 +208,29 @@ module.exports = Controller.extend("ThreejsViewportController", {
     this.resources_map.delete(material_model.id);
   },
 
+  /*
+  ** Geometries lifecycle
+  ** this.resources_map used to map models -> instances
+  */
+  createGeometry: function(geometry_model){
+    var Prototype = this.THREE[geometry_model.get("geometry")];
+    if(!_.isFunction(Prototype)){
+      throw new Error("Can't find geometry: " + geometry_model.get("geometry"));
+    }
+    var geometry = instantiate(Prototype, geometry_model.get("geometry_options"));
+    this.resources_map.set(geometry_model.id, geometry);
+  },
+
+  updateGeometry: function(geometry_model){
+    this.createGeometry(geometry_model);
+    this.removeGeometry(geometry_model);
+    // TODO: update Models and Objects
+  },
+
+  removeGeometry: function(geometry_model){
+    this.resources_map.delete(geometry_model.id);
+  },
+
+
 
 });

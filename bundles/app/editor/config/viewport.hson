@@ -14,6 +14,6 @@
   clear_color_opacity: 1,
 
   // Zoom in and out limits
-  min_distance:        20,
-  max_distance:        10000,
+  min_distance:        1,
+  max_distance:        100,
 }

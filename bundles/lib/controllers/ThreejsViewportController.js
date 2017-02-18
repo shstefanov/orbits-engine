@@ -186,11 +186,28 @@ module.exports = Controller.extend("ThreejsViewportController", {
 
   createMaterialFromModel: function(model, options){
 
+  /*
+  ** Materials lifecycle
+  ** this.resources_map used to map models -> instances
+  */
+  createMaterial: function(material_model){
+    var Prototype = this.THREE[material_model.get("material")];
+    if(!_.isFunction(Prototype)){
+      throw new Error("Can't find material: " + material_model.get("material"));
+    }
+    var material = instantiate(Prototype, material_model.get("material_options"));
+    this.resources_map.set(material_model.id, material);
   },
 
-  createGeometryFromModel: function(model, options){
+  updateMaterial: function(material_model){
+    this.removeMaterial(material_model);
+    this.createMaterial(material_model);
+    // TODO: update Models and Objects
+  },
 
-  }
+  removeMaterial: function(material_model){
+    this.resources_map.delete(material_model.id);
+  },
 
 
 });

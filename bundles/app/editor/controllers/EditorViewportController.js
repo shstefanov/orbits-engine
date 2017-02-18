@@ -61,6 +61,28 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
 
   updateScene: function(model_id){
     this.setMeshModel(this.resources.meshModels.get(model_id) || this.defaultmeshModel);
+  },
+
+  /*
+  ** MeshModels lifecycle
+  */
+  setMeshModel: function(model){
+    this.removeMeshModel();
+    if(model){
+      this.meshModel = model;
+      this.currentMesh = this.createMeshFromModel(model);
+      this.scene.add(this.currentMesh);
+    }
+  },
+
+  removeMeshModel: function(){
+    if(this.meshModel){
+      var model = this.meshModel;
+      delete this.meshModel;
+      var mesh = this.currentMesh;
+      delete this.currentMesh;
+      this.scene.remove(mesh);
+    }
   }
 
 });

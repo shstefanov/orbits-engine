@@ -179,9 +179,17 @@ module.exports = Controller.extend("ThreejsViewportController", {
     this.object_map = new WeakMap();
   },
 
-  createMeshFromObject: function(object){
-    // console.log("resources: ", this.resources);
-    // console.log("object: ", object.toJSON());
+
+  // End iniitalizers
+
+
+
+  createMeshFromModel(model){
+    var geometry_id = model.get("geometry");
+    var material_id = model.get("material");
+    var geometry = this.resources_map.get(geometry_id) || this.defaultGeometry;
+    var material = this.resources_map.get(material_id) || this.defaultMaterial;
+    return new this.THREE.Mesh(geometry, material);
   },
 
 
@@ -233,34 +241,5 @@ module.exports = Controller.extend("ThreejsViewportController", {
 
 
 
-  /*
-  ** MeshModels lifecycle
-  */
-  setMeshModel: function(model){
-    this.removeMeshModel();
-    if(model){
-      this.meshModel = model;
-      this.currentMesh = this.createMeshFromModel(model);
-      this.scene.add(this.currentMesh);
-    }
-  },
-
-  removeMeshModel: function(){
-    if(this.meshModel){
-      var model = this.meshModel;
-      delete this.meshModel;
-      var mesh = this.currentMesh;
-      delete this.currentMesh;
-      this.scene.remove(mesh);
-    }
-  },
-
-  createMeshFromModel(model){
-    var geometry_id = model.get("geometry");
-    var material_id = model.get("material");
-    var geometry = this.resources_map.get(geometry_id) || this.defaultGeometry;
-    var material = this.resources_map.get(material_id) || this.defaultMaterial;
-    return new this.THREE.Mesh(geometry, material);
-  }
 
 });

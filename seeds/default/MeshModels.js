@@ -22,7 +22,7 @@ module.exports = function(cb){
 
     cb(null, [
       {
-        name:             "DefaultCubeModel",
+        name:             "Basic Cube Model",
         geometry:         geometry._id,
         material:         material._id,
       }

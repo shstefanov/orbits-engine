@@ -17,6 +17,11 @@ const initializeDomEvents = require('threex-domevents');
 const THREEx = {};
 initializeDomEvents(THREE, THREEx);
 
+var bind = Function.prototype.bind, f_arg = [null];
+function instantiate(Proto, args){
+  return new ( bind.apply(Proto, f_arg.concat(args) ) );
+}
+
 var stop_traverse = ["undefined", "string", "number", "function", "boolean"];
 function traverse(obj, iterator, path, refs){
   path = path || [];

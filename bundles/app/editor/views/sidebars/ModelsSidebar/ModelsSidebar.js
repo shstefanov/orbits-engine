@@ -1,5 +1,3 @@
-const ObjectModel = require("lib/models/MeshModels/MeshModel.js");
-
 module.exports = require("lib/views/BaseHeaderView.js").extend({
   template: require("./ModelsSidebar.html"),
   style:    require("./ModelsSidebar.less"),
@@ -7,6 +5,7 @@ module.exports = require("lib/views/BaseHeaderView.js").extend({
   data: function(){ return { search: "" }; },
 
   onrender: function(){
+    this.set("meshModels", require("editor/resources.js").meshModels);
     this.observe("state.tab", this.selectMeshModel, this);
   },
 

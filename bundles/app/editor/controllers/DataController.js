@@ -13,6 +13,7 @@ module.exports = Controller.extend("DataController", {
       new Promise(function(success, error){
         socket.getMeshModels(null, function(err, result){
           if(err) return error(err);
+          data.meshModels.loaded = true;
           data.meshModels.reset(result.models);
           success(true);
         });

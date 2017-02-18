@@ -24,8 +24,10 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
 
 
   selectedMeshModel: function(model_id){
-    var model = require("app").get("meshModels").get(model_id);
-    console.log("??", model_id, model);
+    var meshModels = require("app").get("meshModels");
+    if(!meshModels.loaded) return meshModels.once("reset", this.selectedMeshModel.bind(this, model_id));
+    
+    var model =meshModels.get(model_id);
 
     if(this.objectModel){
       if(this.objectModel === model) return;

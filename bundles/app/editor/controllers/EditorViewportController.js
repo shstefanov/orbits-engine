@@ -9,9 +9,9 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
   config:       "viewport",
   observe: {
     "state.screen":       "updateViewportSize",
-    "selectedMeshModel":  "selectedMeshModel",
-    "selectedMaterial":   "selectedMaterial",
-    "selectedGeometry":   "selectedGeometry",
+    "selectedMaterial":   "updateObject",
+    "selectedGeometry":   "updateObject",
+    "selectedMeshModel":  "updateScene",
   },
 
   defaultGeometry:  new THREE.CubeGeometry(1, 1, 1),
@@ -28,7 +28,7 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
       .on("remove", this.removeMaterial, this )
       .on("reset",  (materials, event)=>{
         event.previousModels.forEach( (material) => this.removeMaterial(material) );
-        materials.each(              (material) => this.createMaterial(material) );
+        materials.each(               (material) => this.createMaterial(material) );
       });
 
     this.resources.meshGeometries.each( (geometry)=>this.createGeometry(geometry) );
@@ -42,25 +42,25 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
       });
   },
 
-  // blockMaterials: {
-  //   "dirt":  new THREE.MeshLambertMaterial({color: 0xCC0000 }),
-  //   "grass": new THREE.MeshLambertMaterial({color: 0x00CC00 }),
-  //   "water": new THREE.MeshLambertMaterial({color: 0x0000CC }),
-  //   "stone": new THREE.MeshLambertMaterial({color: 0xAAAAAA }),
-  // },
+  updateObject: function(){
+    var data = require("app").fetch({
+      geometry:  "selectedGeometry",
+      material:  "selectedMaterial",
+    });
 
-  // cube_geometry: new THREE.CubeGeometry( 1,1,1 ),
+    var model = this.meshModel || this.defaultmeshModel;
 
-  selectedMaterial: function(material_id){
-    console.log("selectedMaterial", material_id);
+    model.set({
+      geometry: data.geometry || model.get("geometry"),
+      material: data.material || model.get("material"),
+    });
+
+    this.setMeshModel(model);
+
   },
 
-  selectedMeshModel: function(model_id){
-    console.log("selectedMeshModel", model_id);
-  },
-
-  selectedGeometry: function(geometry_id){
-    console.log("selectedGeometry", geometry_id);
-  },
+  updateScene: function(model_id){
+    this.setMeshModel(this.resources.meshModels.get(model_id) || this.defaultmeshModel);
+  }
 
 });

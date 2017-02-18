@@ -102,7 +102,7 @@ module.exports = function(cb){
       *  wireframe: <boolean>,
       *  wireframeLinewidth: <float>
       */
-      material_options: [{color: 0xAAAA00}]
+      material_options: [{}]
     },
 
     {
@@ -168,7 +168,7 @@ module.exports = function(cb){
       *  morphTargets: <bool>,
       *  morphNormals: <bool>
       */
-      material_options: [{color: 0xAAAA00}]
+      material_options: [{}]
     },
 
     {

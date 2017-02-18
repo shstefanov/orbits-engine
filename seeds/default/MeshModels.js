@@ -15,7 +15,7 @@ module.exports = function(cb){
       });
     }),
 
-  ]).catch(cb).then(function(results){
+  ]).then(function(results){
     
     const geometry = results[0];
     const material = results[1];
@@ -28,6 +28,6 @@ module.exports = function(cb){
       }
     ]);
 
-  });
+  }).catch((err)=>cb(err));
 
 }

@@ -11,6 +11,7 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
     "state.screen":       "updateViewportSize",
     "selectedMeshModel":  "selectedMeshModel",
     "selectedMaterial":   "selectedMaterial",
+    "selectedGeometry":   "selectedGeometry",
   },
 
   defaultGeometry: new THREE.CubeGeometry(1, 1, 1),
@@ -43,9 +44,12 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
     console.log("selectedMaterial", material_id);
   },
 
-
   selectedMeshModel: function(model_id){
     console.log("selectedMeshModel", model_id);
+  },
+
+  selectedGeometry: function(geometry_id){
+    console.log("selectedGeometry", geometry_id);
   },
 
 });

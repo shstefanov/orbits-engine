@@ -1,7 +1,7 @@
 <div class="flex-toolbar editor-sidebar-switcher">
   
   <a
-    href="{{helpers.innerLink('models')}}"
+    href="{{helpers.innerLink('models' + ( selectedMeshModel ? '/' + selectedMeshModel : '') )}}"
     class="{{ location === 'models' ? 'active' : '' }}"
   >
     <span class="fa fa-cubes" title="Models">Models</span>
@@ -15,14 +15,14 @@
   </a>
 
   <a
-    href="{{helpers.innerLink('materials')}}"
+    href="{{helpers.innerLink('materials' + ( selectedMaterial ? '/' + selectedMaterial : '' ) )}}"
     class="{{ location === 'materials'  ? 'active' : '' }}"
   >
     <span class="fa fa-eercast" title="Materials">Materials</span>
   </a>
 
   <a
-    href="{{helpers.innerLink('geometries')}}"
+    href="{{helpers.innerLink('geometries' + ( selectedGeometry ? '/' + selectedGeometry : '' ) )}}"
     class="{{ location === 'geometries' ? 'active' : '' }}"
   >
     <span class="fa fa-cube" title="Geometries">Geometries</span>

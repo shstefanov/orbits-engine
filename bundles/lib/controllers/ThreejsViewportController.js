@@ -53,6 +53,13 @@ module.exports = Controller.extend("ThreejsViewportController", {
     if(!this.container) return cb("Can't find DOM element " + this.config.container);
     this.data      = _.result(this, "data")      || {};
     this.resources = _.result(this, "resources") || {};
+
+
+    // _id : THREE instance
+    this.resources_map = new Map();
+
+    this.bindResources();
+
     this.setViewportDimmensions();
     this.setCameraOptions();
     this.createRenderer();
@@ -81,6 +88,10 @@ module.exports = Controller.extend("ThreejsViewportController", {
 
     cb();
      
+  },
+
+  bindResources: function(){
+    // Just placeholder - override this method to build the resource map
   },
 
   updateViewportSize: function(){

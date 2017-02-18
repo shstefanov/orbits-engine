@@ -45,41 +45,7 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
 
 
   selectedMeshModel: function(model_id){
-    var app = require("app");
-    var data = require("editor/data.js");
-
-    if(!data.is_loaded){
-      return app.once("data_loaded", this.selectedMeshModel.bind(this, model_id));
-    }
-
-    var object = new this.defaultObject({model: model_id});
-
-    if(this.currentObject){
-      if(this.currentObject === object) return;
-      else this.removeObject();
-    }
-
-    object && this.addObject(object);
-
+    console.log("selectedMeshModel", model_id);
   },
-
-  removeObject: function(){
-    const object = this.currentObject;
-    const mesh  = this.object_map.get(object);
-
-    delete this.currentObject;
-    mesh && this.scene.remove(mesh);
-
-    this.object_map.delete(object);
-    this.object_map.delete(mesh);
-  },
-
-  addObject: function(object){
-    const mesh = this.createMeshFromObject(object);
-    if(!mesh) return;
-    this.currentObject = object;
-    this.object_map.set(mesh, object);
-    this.object_map.set(object, mesh);
-  }
 
 });

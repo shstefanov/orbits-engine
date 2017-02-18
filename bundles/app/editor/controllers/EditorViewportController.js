@@ -9,6 +9,8 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
     "selectedMeshModel":  "selectedMeshModel",
   },
 
+  defaultObject: require("lib/models/Objects/ObjectModel.js"),
+
   resources: function(){
     return require("editor/resources.js");
   },

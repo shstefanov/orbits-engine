@@ -1,6 +1,9 @@
 const _                         = require("underscore");
 const ThreejsViewportController = require("lib/controllers/ThreejsViewportController.js");
 const data                      = require("game/data.js");
+
+const THREE = ThreejsViewportController.prototype.THREE;
+
 module.exports = ThreejsViewportController.extend("EditorViewportController", {
   initOrder:    2,
   config:       "viewport",

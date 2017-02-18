@@ -12,7 +12,8 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
     "selectedMeshModel":  "selectedMeshModel",
   },
 
-  defaultObject: require("lib/models/Objects/ObjectModel.js"),
+  defaultGeometry: new THREE.CubeGeometry(1, 1, 1),
+  defaultMaterial: new THREE.MeshNormalMaterial(),
 
   resources: require("editor/resources.js"),
 

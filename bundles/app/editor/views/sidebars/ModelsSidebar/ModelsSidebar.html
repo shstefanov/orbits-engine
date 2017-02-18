@@ -4,7 +4,10 @@
 </div>
 
 <div class="flex-content">
-  {{search}}
+  <br><br><br><br>
+  {{#meshModels}}
+    <a href="{{helpers.innerLink('models/' + _id)}}">{{name}}</a>
+  {{/meshModels}}
 </div>
 
 <div class="flex-toolbar flex flex-row">

@@ -164,7 +164,8 @@ module.exports = Controller.extend("ThreejsViewportController", {
   },
 
   createMeshFromModel: function(model){
-    console.log("createMeshFromModel", this.resources);
+    console.log("resources: ", this.resources);
+    console.log("model: ", model.toJSON());
   },
 
   createMaterialFromModel: function(model, options){

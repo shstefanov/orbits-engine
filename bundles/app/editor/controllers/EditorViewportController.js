@@ -6,7 +6,7 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
   config:       "viewport",
   observe: {
     "state.screen":       "updateViewportSize",
-    "currentObjectModel": "setObjectModel",
+    "selectedMeshModel":  "selectedMeshModel",
   },
 
   resources: function(){
@@ -23,15 +23,17 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
   // cube_geometry: new THREE.CubeGeometry( 1,1,1 ),
 
 
-  setObjectModel: function(model){
+  selectedMeshModel: function(model_id){
+    var model = require("app").get("meshModels").get(model_id);
+    console.log("??", model_id, model);
+
     if(this.objectModel){
       if(this.objectModel === model) return;
       else this.removeObjectModel();
     }
 
-    if(model){
-      this.addObjectModel(require("app").get("currentObjectModel"));
-    }
+    model && this.addMeshModel(model);
+
   },
 
   removeObjectModel: function(){
@@ -45,8 +47,7 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
     this.object_map.delete(model);
   },
 
-  addObjectModel: function(model){
-    console.log("addObjectModel", model);
+  addMeshModel: function(model){
     const mesh = this.createMeshFromModel(model);
     if(!mesh) return;
     this.objectModel = model;

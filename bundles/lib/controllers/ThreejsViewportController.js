@@ -17,7 +17,12 @@ const initializeDomEvents = require('threex-domevents');
 const THREEx = {};
 initializeDomEvents(THREE, THREEx);
 
-var stop_traverse = ["undefined", "string", "number", "function", "boolean"];
+const bind = Function.prototype.bind, f_arg = [null];
+function instantiate(Proto, args){
+  return new ( bind.apply(Proto, f_arg.concat(args) ) );
+}
+
+const stop_traverse = ["undefined", "string", "number", "function", "boolean"];
 function traverse(obj, iterator, path, refs){
   path = path || [];
   refs = refs || new WeakSet();
@@ -48,6 +53,13 @@ module.exports = Controller.extend("ThreejsViewportController", {
     if(!this.container) return cb("Can't find DOM element " + this.config.container);
     this.data      = _.result(this, "data")      || {};
     this.resources = _.result(this, "resources") || {};
+
+
+    // _id : THREE instance
+    this.resources_map = new Map();
+
+    this.bindResources();
+
     this.setViewportDimmensions();
     this.setCameraOptions();
     this.createRenderer();
@@ -76,6 +88,10 @@ module.exports = Controller.extend("ThreejsViewportController", {
 
     cb();
      
+  },
+
+  bindResources: function(){
+    // Just placeholder - override this method to build the resource map
   },
 
   updateViewportSize: function(){
@@ -164,17 +180,33 @@ module.exports = Controller.extend("ThreejsViewportController", {
   },
 
   createMeshFromObject: function(object){
-    console.log("resources: ", this.resources);
-    console.log("object: ", object.toJSON());
+    // console.log("resources: ", this.resources);
+    // console.log("object: ", object.toJSON());
   },
 
-  createMaterialFromModel: function(model, options){
 
+  /*
+  ** Materials lifecycle
+  ** this.resources_map used to map models -> instances
+  */
+  createMaterial: function(material_model){
+    var Prototype = this.THREE[material_model.get("material")];
+    if(!_.isFunction(Prototype)){
+      throw new Error("Can't find material: " + material_model.get("material"));
+    }
+    var material = instantiate(Prototype, material_model.get("material_options"));
+    this.resources_map.set(material_model.id, material);
   },
 
-  createGeometryFromModel: function(model, options){
+  updateMaterial: function(material_model){
+    this.removeMaterial(material_model);
+    this.createMaterial(material_model);
+    // TODO: update Models and Objects
+  },
 
-  }
+  removeMaterial: function(material_model){
+    this.resources_map.delete(material_model.id);
+  },
 
 
 });

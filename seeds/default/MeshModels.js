@@ -1,14 +1,33 @@
 
 module.exports = function(cb){
-  cb(null, [
-    
-    {
-      name:             "DefaultCubeModel",
-      geometry:         "DefaultCubeGeometry",
-      geometry_options: [ 1, 1, 1 ],
-      material:         "DefaultLambertMaterial",
-      material_options: { color: 0xAAAAAA }
-    }
+  const dataLayers = this.env.i.data;
+  Promise.all([
 
-  ]);
+    new Promise(function(done, error){
+      dataLayers.MeshGeometries.collection.findOne({ name: "SimpleCubeGeometry" }, function(err, geometry){
+        err ? error(err) : ( geometry ? done(geometry) : error("Can't find geometry") );
+      });
+    }),
+
+    new Promise(function(done, error){
+      dataLayers.MeshMaterials.collection.findOne({ name: "MeshDefaultLabmertMaterial" }, function(err, material){
+        err ? error(err) : ( material ? done(material) : error("Can't find material") );
+      });
+    }),
+
+  ]).catch(cb).then(function(results){
+    
+    const geometry = results[0];
+    const material = results[1];
+
+    cb(null, [
+      {
+        name:             "DefaultCubeModel",
+        geometry:         geometry._id,
+        material:         material._id,
+      }
+    ]);
+
+  });
+
 }

@@ -10,6 +10,8 @@ module.exports = require("lib/views/BaseHeaderView.js").extend({
   },
 
   selectMeshMaterial: function(id){
-    require("app").set("selectedMaterial", id || null);
+    if(this.get("state.screen") === "materials"){
+      require("app").set("selectedMaterial", id || null);
+    }
   }
 });

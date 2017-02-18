@@ -6,7 +6,8 @@
     "connect_port":   4006
   },
   "listenSocket": {
-    "getMeshModels":    "data.MeshModels.find    | | models",
-    "getMeshMaterials": "data.MeshMaterials.find | | models"
+    "getMeshModels":     "data.MeshModels.find     | | models",
+    "getMeshMaterials":  "data.MeshMaterials.find  | | models",
+    "getMeshGeometries": "data.MeshGeometries.find | | models",
   }
 }

@@ -19,6 +19,15 @@ module.exports = Controller.extend("DataController", {
         });
       }),
 
+      // Get MeshMaterials
+      new Promise(function(success, error){
+        socket.getMeshMaterials(null, function(err, result){
+          if(err) return error(err);
+          resources.meshMaterials.reset(result.models);
+          success(true);
+        });
+      }),
+
     ]).then(function(){
       data.is_loaded = true;
       app.set(data);

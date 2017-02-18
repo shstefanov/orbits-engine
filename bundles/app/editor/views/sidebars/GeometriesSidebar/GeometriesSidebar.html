@@ -1,0 +1,17 @@
+<div class="flex-toolbar flex flex-row">
+  <span class="fa fa-search flex-toolbar"></span>
+  <input type="text" class="flex-content" value="{{search}}">
+</div>
+
+<div class="flex-content">
+  <br><br><br><br>
+  {{#meshGeometries}}
+    <a href="{{helpers.innerLink('geometries/' + _id)}}">{{name}}</a>
+  {{/meshGeometries}}
+</div>
+
+<div class="flex-toolbar flex flex-row">
+  <a 
+    on-click="addObject()"
+    href="javascript:void(0);"><span class="fa fa-plus flex-toolbar"></span></a>
+</div>

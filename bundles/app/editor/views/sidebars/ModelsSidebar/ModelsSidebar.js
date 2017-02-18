@@ -10,10 +10,6 @@ module.exports = require("lib/views/BaseHeaderView.js").extend({
     this.observe("state.tab", this.selectMeshModel, this);
   },
 
-  addObject: function(){
-    require("app").set({ currentObjectModel: new ObjectModel() });
-  },
-
   selectMeshModel: function(id){
     require("app").set("selectedMeshModel", id || null);
   }

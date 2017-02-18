@@ -11,8 +11,18 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
 
   defaultObject: require("lib/models/Objects/ObjectModel.js"),
 
-  resources: function(){
-    return require("editor/resources.js");
+  resources: require("editor/resources.js"),
+
+  bindResources: function(){
+    this.resources.meshMaterials.each( (material)=>this.createMaterial(material) );
+    this.resources.meshMaterials
+      .on("add",    this.createMaterial, this )
+      .on("change", this.updateMaterial, this )
+      .on("remove", this.removeMaterial, this )
+      .on("reset",  (collection, event)=>{ 
+        event.previousModels.forEach( (material) => this.removeMaterial(material) );
+        collection.each(              (material) => this.createMaterial(material) );
+      });
   },
 
   // blockMaterials: {

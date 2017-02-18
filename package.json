@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     
-    "seed": "npm run seed-mesh-models && npm run seed-mesh-materials && npm run seed-mesh-geometries",
+    "seed": "npm run seed-mesh-materials && npm run seed-mesh-geometries && npm run seed-mesh-models",
     "seed-mesh-models":     "node app --seed.MeshModels     --drop.MeshModels     --config.process_mode=single --config.only=data,log --exit",
     "seed-mesh-materials":  "node app --seed.MeshMaterials  --drop.MeshMaterials  --config.process_mode=single --config.only=data,log --exit",
     "seed-mesh-geometries": "node app --seed.MeshGeometries --drop.MeshGeometries --config.process_mode=single --config.only=data,log --exit",

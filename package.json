@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     
-    "seed": "npm run seed-mesh-models && npm run seed-mesh-materials",
-    "seed-mesh-models":    "node app --seed.MeshModels    --drop.MeshModels    --config.process_mode=single --config.only=data,log --exit",
-    "seed-mesh-materials": "node app --seed.MeshMaterials --drop.MeshMaterials --config.process_mode=single --config.only=data,log --exit",
+    "seed": "npm run seed-mesh-models && npm run seed-mesh-materials && npm run seed-mesh-geometries",
+    "seed-mesh-models":     "node app --seed.MeshModels     --drop.MeshModels     --config.process_mode=single --config.only=data,log --exit",
+    "seed-mesh-materials":  "node app --seed.MeshMaterials  --drop.MeshMaterials  --config.process_mode=single --config.only=data,log --exit",
+    "seed-mesh-geometries": "node app --seed.MeshGeometries --drop.MeshGeometries --config.process_mode=single --config.only=data,log --exit",
     
 
     "test": "for f in $( ls test ); do if [ -d \"test/$f\" ]; then node node_modules/mocha/bin/mocha --recursive --colors --sort --check-leaks --full-trace --throw-deprecation \"test/$f\" || exit 1; fi done"

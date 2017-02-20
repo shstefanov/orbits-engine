@@ -47,6 +47,8 @@ module.exports = Controller.extend("ThreejsViewportController", {
 
   THREE: THREE,
 
+  materialLoader: new THREE.MaterialLoader(),
+
   init: function(options, cb){
     const app = require("app");
     this.container = document.querySelector(this.config.container);

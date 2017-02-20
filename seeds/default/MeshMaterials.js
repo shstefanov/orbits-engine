@@ -9,7 +9,13 @@ module.exports = function(cb){
     {
       name:             "Basic Line Material",
       description:      "Basic Line Material",
-      material:         "LineBasicMaterial",
+      json: {
+        "type": "LineBasicMaterial",
+        "color": 11184810,
+        "depthFunc": 3,
+        "depthTest": true,
+        "depthWrite": true
+      }
 
       /*
       *  color: <hex>,
@@ -19,14 +25,21 @@ module.exports = function(cb){
       *  linecap: "round",
       *  linejoin: "round"
       */
-      material_options: [{color: 0xAAAAAA }]
+      // material:         "LineBasicMaterial",
+      // material_options: [{color: 0xAAAAAA }]
     },
 
     
     {
       name:             "Dashed Line Material",
       description:      "Dashed Line Material",
-      material:         "LineDashedMaterial",
+      json: {
+        "type": "LineDashedMaterial",
+        "color": 11184810,
+        "depthFunc": 3,
+        "depthTest": true,
+        "depthWrite": true
+      },
 
       /*
       *  color: <hex>,
@@ -38,7 +51,8 @@ module.exports = function(cb){
       *  dashSize: <float>,
       *  gapSize: <float>
       */
-      material_options: [{color: 0xAAAAAA }]
+      // material:         "LineDashedMaterial",
+      // material_options: [{color: 0xAAAAAA }]
     },
 
 
@@ -49,7 +63,16 @@ module.exports = function(cb){
     {
       name:             "Basic Mesh Material",
       description:      "Basic Mesh Material",
-      material:         "MeshBasicMaterial",
+      json: {
+        "type": "MeshBasicMaterial",
+        "color": 11184810,
+        "depthFunc": 3,
+        "depthTest": true,
+        "depthWrite": true,
+        "skinning": false,
+        "morphTargets": false
+      },
+
 
       /*
       *  color: <hex>,
@@ -81,13 +104,23 @@ module.exports = function(cb){
       *  skinning: <bool>,
       *  morphTargets: <bool>
       */
-      material_options: [{color: 0xAAAAAA }]
+      // material:         "MeshBasicMaterial",
+      // material_options: [{color: 0xAAAAAA }]
     },
 
     {
       name:             "Mesh Depth Material",
       description:      "Mesh Depth Material",
-      material:         "MeshDepthMaterial",
+
+      json: {
+        "type": "MeshDepthMaterial",
+        "depthFunc": 3,
+        "depthTest": true,
+        "depthWrite": true,
+        "skinning": false,
+        "morphTargets": false
+      },
+
       /*
       *  opacity: <float>,
       *
@@ -102,13 +135,24 @@ module.exports = function(cb){
       *  wireframe: <boolean>,
       *  wireframeLinewidth: <float>
       */
-      material_options: [{}]
+      // material:         "MeshDepthMaterial",
+      // material_options: [{}]
     },
 
     {
       name:             "Mesh Lambert Material",
       description:      "Mesh Lambert Material",
-      material:         "MeshLambertMaterial",
+      json: {
+        "type": "MeshLambertMaterial",
+        "color": 11184640,
+        "emissive": 0,
+        "depthFunc": 3,
+        "depthTest": true,
+        "depthWrite": true,
+        "skinning": false,
+        "morphTargets": false
+      },
+
       /*
       *  color: <hex>,
       *  opacity: <float>,
@@ -141,13 +185,21 @@ module.exports = function(cb){
       *  morphTargets: <bool>,
       *  morphNormals: <bool>
       */
-      material_options: [{color: 0xAAAA00}]
+      // material:         "MeshLambertMaterial",
+      // material_options: [{color: 0xAAAA00}]
     },
 
     {
       name:             "Mesh Normal Material",
       description:      "Mesh Normal Material",
-      material:         "MeshNormalMaterial",
+      json: {
+        "type": "MeshNormalMaterial",
+        "depthFunc": 3,
+        "depthTest": true,
+        "depthWrite": true,
+        "skinning": false,
+        "morphTargets": false
+      },
       /*
       *  opacity: <float>,
       *
@@ -168,23 +220,48 @@ module.exports = function(cb){
       *  morphTargets: <bool>,
       *  morphNormals: <bool>
       */
-      material_options: [{}]
+      // material:         "MeshNormalMaterial",
+      // material_options: [{}]
     },
 
     {
       name:             "Mesh Toon Material",
       description:      "Mesh Toon Material",
-      material:         "MeshToonMaterial",
-      /*
-      *  gradientMap: new THREE.Texture( <Image> )
-      */
-      material_options: [{}]
+      json: {
+        "type": "MeshToonMaterial",
+        "color": 16777215,
+        "emissive": 0,
+        "specular": 1118481,
+        "shininess": 30,
+        "depthFunc": 3,
+        "depthTest": true,
+        "depthWrite": true,
+        "skinning": false,
+        "morphTargets": false
+      },
+
+      // gradientMap: new THREE.Texture( <Image> )
+
+      // material:         "MeshToonMaterial",
+      // material_options: [{}]
     },
 
     {
       name:             "Mesh Phong Material",
       description:      "Mesh Phong Material",
-      material:         "MeshPhongMaterial",
+      json: {
+        "type": "MeshPhongMaterial",
+        "color": 11184640,
+        "emissive": 0,
+        "specular": 1118481,
+        "shininess": 30,
+        "depthFunc": 3,
+        "depthTest": true,
+        "depthWrite": true,
+        "skinning": false,
+        "morphTargets": false
+      }
+      // material:         "MeshPhongMaterial",
       /*
       *  color: <hex>,
       *  specular: <hex>,
@@ -229,13 +306,24 @@ module.exports = function(cb){
       *  morphTargets: <bool>,
       *  morphNormals: <bool>
       */
-      material_options: [{color: 0xAAAA00}]
+      // material_options: [{color: 0xAAAA00}]
     },
 
     {
       name:             "Mesh Standard Material",
       description:      "Mesh Standard Material",
-      material:         "MeshStandardMaterial",
+      json: {
+        "type": "MeshStandardMaterial",
+        "color": 11184810,
+        "roughness": 0.5,
+        "metalness": 0.5,
+        "emissive": 0,
+        "depthFunc": 3,
+        "depthTest": true,
+        "depthWrite": true,
+        "skinning": false,
+        "morphTargets": false
+      },
       /*
       *  color: <hex>,
       *  roughness: <float>,
@@ -282,17 +370,33 @@ module.exports = function(cb){
       *  morphTargets: <bool>,
       *  morphNormals: <bool>
       */
-      material_options: [{color: 0xAAAAAA}]
+      // material:         "MeshStandardMaterial",
+      // material_options: [{color: 0xAAAAAA}]
     },
 
     {
       name:             "Mesh Physical Material",
       description:      "Mesh Physical Material",
-      material:         "MeshPhysicalMaterial",
-      /*
-      *  reflectivity: <float>
-      */
-      material_options: [{}]
+      json: {
+        "type": "MeshPhysicalMaterial",
+        "color": 16777215,
+        "roughness": 0.5,
+        "metalness": 0.5,
+        "emissive": 0,
+        "clearCoat": 0,
+        "clearCoatRoughness": 0,
+        "depthFunc": 3,
+        "depthTest": true,
+        "depthWrite": true,
+        "skinning": false,
+        "morphTargets": false
+      },
+
+
+      //  reflectivity: <float>
+
+      // material:         "MeshPhysicalMaterial",
+      // material_options: [{}]
     }
 
     // TODO: more materials

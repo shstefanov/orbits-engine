@@ -200,11 +200,18 @@ module.exports = Controller.extend("ThreejsViewportController", {
   ** this.resources_map used to map models -> instances
   */
   createMaterial: function(material_model){
-    var Prototype = this.THREE[material_model.get("material")];
-    if(!_.isFunction(Prototype)){
-      throw new Error("Can't find material: " + material_model.get("material"));
+    var material;
+    if(material_model.has("json")) {
+      let material_data = _.extend({}, material_model.get("json"), { uuid: material_model.id });
+      material = this.materialLoader.parse(material_data);
     }
-    var material = instantiate(Prototype, material_model.get("material_options"));
+    else{
+      var Prototype = this.THREE[material_model.get("material")];
+      if(!_.isFunction(Prototype)){
+        throw new Error("Can't find material: " + material_model.get("material"));
+      }
+      material = instantiate(Prototype, material_model.get("material_options"));
+    }
     this.resources_map.set(material_model.id, material);
   },
 

@@ -199,6 +199,11 @@ module.exports = Controller.extend("ThreejsViewportController", {
   ** Materials lifecycle
   ** this.resources_map used to map models -> instances
   */
+
+  createMaterials: function(material_models){
+    material_models.forEach((material_model)=>this.createMaterial(material_model));
+  },
+
   createMaterial: function(material_model){
     var material;
     if(material_model.has("json")) {
@@ -229,6 +234,10 @@ module.exports = Controller.extend("ThreejsViewportController", {
   ** Geometries lifecycle
   ** this.resources_map used to map models -> instances
   */
+  createGeometries: function(geometries_models){
+    geometries_models.forEach((geometry_model) => this.createGeometry(geometry_model));
+  },
+
   createGeometry: function(geometry_model){
     var Prototype = this.THREE[geometry_model.get("geometry")];
     if(!_.isFunction(Prototype)){

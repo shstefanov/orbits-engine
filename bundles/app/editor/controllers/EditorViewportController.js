@@ -21,24 +21,24 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
   resources: require("editor/resources.js"),
 
   bindResources: function(){
-    this.resources.meshMaterials.each( (material)=>this.createMaterial(material) );
+    this.createMaterials(this.resources.meshMaterials.models);
     this.resources.meshMaterials
       .on("add",    this.createMaterial, this )
       .on("change", this.updateMaterial, this )
       .on("remove", this.removeMaterial, this )
-      .on("reset",  (materials, event)=>{
-        event.previousModels.forEach( (material) => this.removeMaterial(material) );
-        materials.each(               (material) => this.createMaterial(material) );
+      .on("reset",  (materials, event) => {
+        this.removeMaterials(event.previousModels);
+        this.createMaterials(materials.models);
       });
 
-    this.resources.meshGeometries.each( (geometry)=>this.createGeometry(geometry) );
+    this.createGeometries(this.resources.meshGeometries.models);
     this.resources.meshGeometries
       .on("add",    this.createGeometry, this )
       .on("change", this.updateGeometry, this )
       .on("remove", this.removeGeometry, this )
       .on("reset",  (geometries, event)=>{
-        event.previousModels.forEach( (geometry) => this.removeGeometry(geometry) );
-        geometries.each(              (geometry) => this.createGeometry(geometry) );
+        this.removeGeometries(event.previousModels);
+        this.createGeometries(geometries.models);
       });
   },
 

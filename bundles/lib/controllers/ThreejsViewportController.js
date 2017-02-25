@@ -225,6 +225,10 @@ module.exports = Controller.extend("ThreejsViewportController", {
     // TODO: update Models and Objects
   },
 
+  removeMaterials: function(material_models){
+    material_models.forEach((material_model)=>this.removeMaterial(material_model));
+  },
+
   removeMaterial: function(material_model){
     this.resources_map.delete(material_model.id);
   },
@@ -250,6 +254,10 @@ module.exports = Controller.extend("ThreejsViewportController", {
     this.createGeometry(geometry_model);
     this.removeGeometry(geometry_model);
     // TODO: update Models and Objects
+  },
+
+  removeGeometries: function(geometries_models){
+    geometries_models.forEach((geometry_model) => this.removeGeometry(geometry_model));
   },
 
   removeGeometry: function(geometry_model){

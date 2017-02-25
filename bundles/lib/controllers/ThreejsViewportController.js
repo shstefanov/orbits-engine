@@ -47,8 +47,6 @@ module.exports = Controller.extend("ThreejsViewportController", {
 
   THREE: THREE,
 
-  materialLoader: new THREE.MaterialLoader(),
-
   init: function(options, cb){
     const app = require("app");
     this.container = document.querySelector(this.config.container);
@@ -56,6 +54,7 @@ module.exports = Controller.extend("ThreejsViewportController", {
     this.data      = _.result(this, "data")      || {};
     this.resources = _.result(this, "resources") || {};
 
+    this.materialLoader  = new THREE.MaterialLoader();
 
     // _id : THREE instance
     this.resources_map = new Map();

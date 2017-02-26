@@ -10,7 +10,7 @@
   max_polar_angle:     1.2566370614359172,
 
   // Renderer background color and opacity
-  clear_color_hex:     "#ffffff",
+  clear_color_hex:     "#aaaaaa",
   clear_color_opacity: 1,
 
   // Zoom in and out limits

@@ -1,8 +1,15 @@
-module.exports = require("lib/views/BaseHeaderView.js").extend({
-  template: require("./ModelsSidebar.html"),
+module.exports = require("BaseSidebarComponent").extend({
   style:    require("./ModelsSidebar.less"),
 
-  data: function(){ return { search: "" }; },
+  partials: {
+    ItemsList: `
+      {{#meshModels}}
+        <a 
+          {{#if selectedMeshModel === _id }} class="active" {{/if}}
+          href="{{helpers.innerLink('models/' + _id)}}">{{name}}</a>
+      {{/meshModels}}`,
+    SidebarControls: "<span>SidebarControls partial example/span>",
+  },
 
   onrender: function(){
     this.set("meshModels", require("editor/resources.js").meshModels);

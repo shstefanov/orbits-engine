@@ -27,7 +27,8 @@
       "target": "./app/editor",
       "alias": {
         "editor.data": "data.js",
-        "editor.resources": "resources.js"
+        "editor.resources": "resources.js",
+        "BaseSidebarComponent": "lib/components/BaseSidebarComponent/index.js"
       }
     },
 

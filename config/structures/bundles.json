@@ -28,7 +28,10 @@
       "alias": {
         "editor.data": "data.js",
         "editor.resources": "resources.js",
-        "BaseSidebarComponent": "lib/components/BaseSidebarComponent/index.js"
+
+        
+        "BaseSidebarComponent": "lib/components/BaseSidebarComponent/index.js",
+        "BaseGeometryPropertiesComponent": "lib/components/BaseGeometryPropertiesComponent/index.js"
       }
     },
 

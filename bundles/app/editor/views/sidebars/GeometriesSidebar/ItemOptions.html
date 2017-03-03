@@ -1,0 +1,13 @@
+{{#if selectedGeometry}}
+
+  {{#meshGeometries.get(selectedGeometry)}}
+
+    <div class="flex-content">
+      <input type="text" value="{{name}}" />
+      <input type="text" value="[[geometry]]" disabled />
+      {{>resolveComponent( geometry+"Properties", { geometry: "." })}}
+    </div>
+
+  {{/meshGeometries}}
+
+{{/if}}

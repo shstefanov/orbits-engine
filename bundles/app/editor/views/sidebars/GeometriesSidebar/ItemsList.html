@@ -1,0 +1,5 @@
+{{#meshGeometries}}
+  <a 
+    {{#if selectedGeometry === _id }} class="active" {{/if}}
+    href="{{helpers.innerLink('geometries/' + _id)}}">{{name}}</a>
+{{/meshGeometries}}

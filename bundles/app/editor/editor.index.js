@@ -10,6 +10,6 @@ app.init({
   data:    require("admin.data"),
   routes:  DEFAULT_ROUTES,
 },function(err){
-  if(err) return console.error(err.stack || err);
+  if(err) throw err;
 });
 

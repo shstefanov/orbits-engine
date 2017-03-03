@@ -10,7 +10,7 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
   observe: {
     "state.screen":       "updateViewportSize",
     "selectedMaterial":   "updateObject",
-    "selectedGeometry":   "updateObject",
+    "selectedGeometry":   [ "observeGeometry", "updateObject"],
     "selectedMeshModel":  "updateScene",
   },
 
@@ -25,6 +25,7 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
     this.resources.meshMaterials
       .on("add",    this.createMaterial, this )
       .on("change", this.updateMaterial, this )
+      .on("change", this.updateObject,   this )
       .on("remove", this.removeMaterial, this )
       .on("reset",  (materials, event) => {
         this.removeMaterials(event.previousModels);
@@ -35,6 +36,7 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
     this.resources.meshGeometries
       .on("add",    this.createGeometry, this )
       .on("change", this.updateGeometry, this )
+      .on("change", this.updateObject,   this )
       .on("remove", this.removeGeometry, this )
       .on("reset",  (geometries, event)=>{
         this.removeGeometries(event.previousModels);
@@ -43,17 +45,19 @@ module.exports = ThreejsViewportController.extend("EditorViewportController", {
   },
 
   updateObject: function(){
+    // console.log("updateObject", arguments);
     var data = require("app").fetch({
       geometry:  "selectedGeometry",
       material:  "selectedMaterial",
     });
 
     var model = this.meshModel || this.defaultmeshModel;
-
+    // console.log("-----------------");
     model.set({
       geometry: data.geometry || model.get("geometry"),
       material: data.material || model.get("material"),
     });
+    // console.log("+++++++++++++++++");
 
     this.setMeshModel(model);
 

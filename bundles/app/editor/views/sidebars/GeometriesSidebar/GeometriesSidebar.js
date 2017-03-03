@@ -1,17 +1,17 @@
+const App = require("App");
+
+function parse(name, context, cb){ cb(name.split("/").shift()); }
+
 module.exports = require("BaseSidebarComponent").extend({
+
   style:    require("./GeometriesSidebar.less"),
 
   components: App.bulk( require.context("./GeometrySettingsComponets", true, /\.\/[^/]+\/[^\/]+\.js$/), parse ),
 
   partials: {
-    ItemsList:       `
-      {{#meshGeometries}}
-        <a 
-          {{console.log("-->>", selectedGeometry, _id)}}
-          {{#if selectedGeometry === _id }} class="active" {{/if}}
-          href="{{helpers.innerLink('geometries/' + _id)}}">{{name}}</a>
-      {{/meshGeometries}}`,
-    SidebarControls: "<span>SidebarControls partial example/span>",
+    ItemsList:       require("./ItemsList.html"),
+    SidebarControls: require("./SidebarControls.html"),
+    ItemOptions:     require("./ItemOptions.html"),
   },
   
   onrender: function(){

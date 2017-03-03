@@ -11,8 +11,9 @@ module.exports = require("lib/views/BaseView.js").extend({
   },
 
   partials: {
-    ItemsList:       "<span>ItemsList partial not implemented</span>",
-    SidebarControls: "<span>SidebarControls partial not implemented</span>",
+    ItemsList:       "<span> ItemsList partial not implemented       </span>",
+    SidebarControls: "<span> SidebarControls partial not implemented </span>",
+    ItemOptions:     "<span> ItemOptions partial not implemented     </span>",
   }
 
 });

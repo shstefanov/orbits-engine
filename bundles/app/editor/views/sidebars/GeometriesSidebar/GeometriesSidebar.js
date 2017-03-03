@@ -1,6 +1,8 @@
 module.exports = require("BaseSidebarComponent").extend({
   style:    require("./GeometriesSidebar.less"),
 
+  components: App.bulk( require.context("./GeometrySettingsComponets", true, /\.\/[^/]+\/[^\/]+\.js$/), parse ),
+
   partials: {
     ItemsList:       `
       {{#meshGeometries}}

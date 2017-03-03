@@ -39,9 +39,7 @@ module.exports = Controller.extend("DataController", {
       }),
 
     ]).then(function(){
-      data.is_loaded = true;
       app.set(data);
-      app.trigger("data_loaded");
       cb();
     }).catch(cb);
 

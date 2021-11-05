@@ -1,0 +1,22 @@
+{
+  "name": "@orbits/engine",
+  "version": "0.1.0",
+  "description": "React - ThreeJS integration",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [
+    "react",
+    "three.js",
+    "3D"
+  ],
+  "author": "Stefan Stefanov <s.h.stefanov@mail.bg>",
+  "license": "ISC",
+  "dependencies": {
+    "@orbits/timer": "git+https://github.com/shstefanov/orbits-timer.git#master",
+    "camera-controls": "^1.30.0"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2",
+    "three": "^0.131.3"
+  }
+}

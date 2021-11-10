@@ -31,10 +31,13 @@ import Tetrahedron      from "./lib/components/geometries/Tetrahedron";
 import Torus            from "./lib/components/geometries/Torus";
 import TorusKnot        from "./lib/components/geometries/TorusKnot";
 import Tube             from "./lib/components/geometries/Tube";
+import Text             from "./lib/components/geometries/Text";
 
 import Audio            from "./lib/components/Audio";
 import AudioEffect      from "./lib/components/AudioEffect";
 import PositionalAudio  from "./lib/components/PositionalAudio";
+
+import Group            from "./lib/components/Group";
 
 export {
 	OrbitsScene,
@@ -59,6 +62,7 @@ export {
 	Torus,
 	TorusKnot,
 	Tube,
+	Text,
 
 	// Lights
 	AmbientLight,
@@ -75,6 +79,8 @@ export {
 	// Audio
 	Audio,
 	AudioEffect,
-	PositionalAudio
+	PositionalAudio,
+
+	Group
 
 }

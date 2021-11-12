@@ -11,7 +11,7 @@ import Fog              from "./lib/components/Fog"
 
 import ObjLoader        from "./lib/components/ObjLoader"
 
-
+import Line             from "./lib/components/geometries/Line"
 import Box              from "./lib/components/geometries/Box"
 
 import Circle           from "./lib/components/geometries/Circle";
@@ -39,11 +39,14 @@ import PositionalAudio  from "./lib/components/PositionalAudio";
 
 import Group            from "./lib/components/Group";
 
+import CameraControls   from "./lib/components/CameraControls";
+
 export {
 	OrbitsScene,
 	Object3Component,
 
 	// Geometries
+	Line,
 	Box,
 	Circle,
 	Cone,
@@ -81,6 +84,8 @@ export {
 	AudioEffect,
 	PositionalAudio,
 
-	Group
+	Group,
+
+	CameraControls
 
 }

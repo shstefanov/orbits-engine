@@ -11,6 +11,8 @@ import Fog              from "./lib/components/Fog"
 
 import ObjLoader        from "./lib/components/ObjLoader"
 
+import Point            from "./lib/components/geometries/Point"
+import Points           from "./lib/components/geometries/Points"
 import Line             from "./lib/components/geometries/Line"
 import Box              from "./lib/components/geometries/Box"
 
@@ -32,6 +34,7 @@ import Torus            from "./lib/components/geometries/Torus";
 import TorusKnot        from "./lib/components/geometries/TorusKnot";
 import Tube             from "./lib/components/geometries/Tube";
 import Text             from "./lib/components/geometries/Text";
+import Sprite           from "./lib/components/geometries/Sprite";
 
 import Audio            from "./lib/components/Audio";
 import AudioEffect      from "./lib/components/AudioEffect";
@@ -46,6 +49,8 @@ export {
 	Object3Component,
 
 	// Geometries
+	Point,
+	Points,
 	Line,
 	Box,
 	Circle,
@@ -66,6 +71,7 @@ export {
 	TorusKnot,
 	Tube,
 	Text,
+	Sprite,
 
 	// Lights
 	AmbientLight,

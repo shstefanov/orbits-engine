@@ -43,6 +43,7 @@ import PositionalAudio  from "./lib/components/PositionalAudio";
 import Group            from "./lib/components/Group";
 
 import CameraControls   from "./lib/components/CameraControls";
+import Timer            from "./lib/components/Timer";
 
 export {
 	OrbitsScene,
@@ -92,6 +93,6 @@ export {
 
 	Group,
 
-	CameraControls
-
+	CameraControls,
+	Timer,
 }

@@ -1,6 +1,6 @@
 {
   "name": "@orbits/engine",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "React - ThreeJS integration",
   "main": "index.js",
   "scripts": {},

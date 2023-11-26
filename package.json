@@ -20,7 +20,7 @@
     "url": "https://github.com/shstefanov/orbits-engine.git"
   },
   "peerDependencies": {
-    "react": ">=17.0.2",
-    "three": "^0.155.0"
+    "react": "^18.2.0",
+    "three": "^0.158.0"
   }
 }

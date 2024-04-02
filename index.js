@@ -33,7 +33,7 @@ import Tetrahedron      from "./lib/components/geometries/Tetrahedron";
 import Torus            from "./lib/components/geometries/Torus";
 import TorusKnot        from "./lib/components/geometries/TorusKnot";
 import Tube             from "./lib/components/geometries/Tube";
-import Surface          from "./lib/components/geometries/Surface";
+import Buffer           from "./lib/components/geometries/Buffer";
 // import Text             from "./lib/components/geometries/Text";
 import Sprite           from "./lib/components/geometries/Sprite";
 
@@ -72,7 +72,7 @@ export {
 	Torus,
 	TorusKnot,
 	Tube,
-	Surface,
+	Buffer,
 	// Text,
 	Sprite,
 

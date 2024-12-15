@@ -25,7 +25,7 @@ export default function MyApp(){
         // And all constructor options, provided by threejs, including "canvas"
         // https://threejs.org/docs/?q=Renderer#api/en/renderers/WebGLRenderer
         // Option "canvas" means it is externally created and managed,
-        // so className and style props will be ignored
+        // so "className", "style" and "size" props will be ignored
 
     >
         {/* Children components here */}

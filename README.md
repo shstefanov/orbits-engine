@@ -32,3 +32,8 @@ export default function MyApp(){
     </OrbitsRenderer>;
 }
 ```
+
+The hook
+```js
+import { useRenedrer } from "@orbits/engine";
+```

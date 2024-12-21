@@ -55,6 +55,7 @@ export default function OrbitsRenderer({
         Object.assign(renderer, renererAdditionalFunctions);
         renderer.initRenderer();
         setRenderer(renderer);
+
         return () => {
             renderer.dispose();
             delete renderer.renderScenes;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import * as THREE                  from "three";
 import { useScene, SceneProvider } from "../OrbitsScene.jsx";
 
-import createTransformManager from "../utils/createTransformManager.js";
+import createTransformManager from "../utils/createMeshManager.js";
 
 const boxDefaultMaterial = new THREE.MeshBasicMaterial();
 

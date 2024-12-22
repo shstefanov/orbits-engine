@@ -24,20 +24,21 @@ export default function OrbitsRenderer({
     autoresize=false,
     size=null,
 
+    canvas,
+    config = {},
+
     ...options
 
 
 }){
 
-    const [ renderer, setRenderer ] = useState(null);
-    const [ canvas,   setCanvas   ] = useState(null);
-
-
+    const [ renderer,   setRenderer   ] = useState(null);
+    const [ domElement, setDomElement ] = useState(null);
 
     // In case canvas is externally created and managed
-    options.canvas && useEffect( () => {
-        const renderer = new THREE.WebGLRenderer(options);
-        renderer.actualSize = getSize(options.canvas);
+    config.canvas && useEffect( () => {
+        const renderer = new THREE.WebGLRenderer(config);
+        renderer.actualSize = getSize(canvas);
         Object.assign(renderer, renererAdditionalFunctions);
         renderer.initRenderer();
         setRenderer(renderer);
@@ -48,10 +49,10 @@ export default function OrbitsRenderer({
     }, []);
 
     // In case we need to create and mount canvas domElement
-    !options.canvas && useEffect( () => {
-        if(!canvas) return;
-        const renderer = new THREE.WebGLRenderer({...options, canvas});
-        renderer.actualSize = getSize(canvas);
+    !config.canvas && useEffect( () => {
+        if(!domElement) return;
+        const renderer = new THREE.WebGLRenderer({...config, canvas: domElement});
+        renderer.actualSize = getSize(domElement);
         Object.assign(renderer, renererAdditionalFunctions);
         renderer.initRenderer();
         setRenderer(renderer);
@@ -60,13 +61,13 @@ export default function OrbitsRenderer({
             renderer.dispose();
             delete renderer.renderScenes;
         };
-    }, [canvas]);
+    }, [domElement]);
 
 
     !autoresize && useEffect(() => {
-        if(renderer && size && (canvas||options.canvas)) {
-            (canvas||options.canvas).width  = size.width;
-            (canvas||options.canvas).height = size.height;
+        if(renderer && size && (domElement||canvas)) {
+            (domElement||canvas).width  = size.width;
+            (domElement||canvas).height = size.height;
             renderer.setSize( size.width, size.height );
         }
     }, [renderer, size]);
@@ -74,15 +75,15 @@ export default function OrbitsRenderer({
     // Getting size from css style and update
     // Subscribe to windor resize event and apply
     autoresize && useEffect(() => {
-        if(renderer && (canvas||options.canvas)){
+        if(renderer && (domElement||canvas)){
             let t;
-            renderer.actualSize = getSize(canvas||options.canvas);
+            renderer.actualSize = getSize(domElement||canvas);
             function setSize(){
 
                 if(t) clearTimeout(t);
 
                 t = setTimeout(() => {
-                    const { width, height } = getSize((canvas||options.canvas));
+                    const { width, height } = getSize((domElement||canvas));
                     renderer.setSize( width, height, false );
                     renderer.actualSize = { width, height };
                     renderer.updateResizeListeners(width, height);
@@ -99,13 +100,18 @@ export default function OrbitsRenderer({
         }
     }, [ renderer ]);
 
-
+    // Handle the rest of the options
+    const options_arr = [renderer, ...Object.values(options)];
+    options_arr.length > 1 && useEffect(() => {
+        if(!renderer) return;
+        Object.assign(renderer, options);
+        renderer.doRender = true;
+    }, options_arr );
     
     // renderer && children means children are allowed to render after renderer is initiated
-
-    if(options.canvas) return renderer && <RendererProvider value={renderer}> { children } </RendererProvider>;
+    if(canvas) return renderer && <RendererProvider value={renderer}> { children } </RendererProvider>;
     else return <>
-        <canvas ref={setCanvas} style={style} className={className}></canvas>
+        <canvas ref={setDomElement} style={style} className={className}></canvas>
         { renderer && <RendererProvider value={renderer}> { children } </RendererProvider> }
     </>;
 

@@ -11,14 +11,14 @@ export { default as PerspectiveCamera  } from "./lib/cameras/PerspectiveCamera.j
 export { default as StereoCamera       } from "./lib/cameras/StereoCamera.jsx";
 export { default as useCamera          } from "./lib/cameras/useCamera.jsx";
 
-export {
-    AmbientLight,
-    DirectionalLight,
-    PointLight,
-    SpotLight,
-    HemisphereLight,
-    RectAreaLight,
-    LightProbe,
-} from "./lib/Lights.jsx";
+export { default as AmbientLight       } from "./lib/lights/AmbientLight.jsx";
+export { default as DirectionalLight   } from "./lib/lights/DirectionalLight.jsx";
+export { default as PointLight         } from "./lib/lights/PointLight.jsx";
+export { default as SpotLight          } from "./lib/lights/SpotLight.jsx";
+export { default as HemisphereLight    } from "./lib/lights/HemisphereLight.jsx";
+export { default as RectAreaLight      } from "./lib/lights/RectAreaLight.jsx";
+export { default as LightProbe         } from "./lib/lights/LightProbe.jsx";
+
+
 
 export { default as Box }    from "./lib/geometries/Box.jsx";

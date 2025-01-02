@@ -163,7 +163,7 @@ const renererAdditionalFunctions = {
 
 
     addResizeListener: function(fn){
-       this.resizeListeners.push(fn); 
+       this.resizeListeners.push(fn);
     },
 
     removeResizeListener: function(fn){

@@ -29,13 +29,13 @@ export default function PerspectiveCamera(props){
         // If there is no props.aspect, means it will be autocomputed from viewport size
         let resizeListener;
         if(!props.hasOwnProperty("aspect")){
+            console.warn("Warning - TODO: dynamically added camera may not receive initial resize event");
             renderer.addResizeListener(resizeListener = (width, height) => {
                 camera.aspect = width / height;
                 camera.updateProjectionMatrix();
             });
         }
 
-        console.log({renderer});
         setCameraManager( createCameraManager(camera, props, renderer.domElement) );
 
         setCamera(camera);

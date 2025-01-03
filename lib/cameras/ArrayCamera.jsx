@@ -15,8 +15,6 @@ const cameraTypes = [ PerspectiveCamera, OrthographicCamera, StereoCamera, CubeC
 
 export default function ArrayCamera(props){
 
-    console.log("children", props.children);
-
     const renderer = useRenderer();
     const scene    = useScene();
 
@@ -27,8 +25,8 @@ export default function ArrayCamera(props){
     const mockContext = useMemo( () => ({
         render: scene.render,
         cameras: [],
+        remove: () => {},
         add: function(camera) {
-            console.log("add", camera);
             if(camera instanceof THREE.Camera){
                 this.cameras.push(camera);
                 setNumberOfCameras(this.cameras.length);
@@ -48,11 +46,8 @@ export default function ArrayCamera(props){
         setCamera(camera);
         setCameraManager(createCameraManager(null, props, renderer.domElement));
 
-        console.log("DONE:::");
-
-
         return () => {
-
+            scene.remove(camera);
         };
     }, [numberOfCameras]);
 

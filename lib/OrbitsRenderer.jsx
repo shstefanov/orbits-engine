@@ -83,6 +83,7 @@ export default function OrbitsRenderer({
                 if(t) clearTimeout(t);
 
                 t = setTimeout(() => {
+                    renderer.resizeInitialized = true;
                     const { width, height } = getSize((domElement||canvas));
                     renderer.setSize( width, height, false );
                     renderer.actualSize = { width, height };
@@ -164,6 +165,7 @@ const renererAdditionalFunctions = {
 
     addResizeListener: function(fn){
        this.resizeListeners.push(fn);
+       if(this.resizeInitialized) fn(this.actualSize.width, this.actualSize.height);
     },
 
     removeResizeListener: function(fn){

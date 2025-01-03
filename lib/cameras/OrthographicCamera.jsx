@@ -56,6 +56,11 @@ export default function OrthographicCamera(props){
                     top: camera.top,   bottom: camera.bottom,
                 }
 
+                if(props.hasOwnProperty("viewport")) {
+                    camera.viewport = props.viewport;
+                    camera.updateMatrixWorld();
+                }
+
                 scene.add(camera);
                 setCameraManager( createOrthographicCameraManager(camera, props, renderer.domElement) );
 

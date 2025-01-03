@@ -22,6 +22,12 @@ export default function PerspectiveCamera(props){
 
         // TODO - set some default value, we can have undefined for some of them
         const camera = new THREE.PerspectiveCamera( props.fov, props.aspect || (width / height), props.near, props.far );
+        
+        if(props.hasOwnProperty("viewport")) {
+            camera.viewport = props.viewport;
+            camera.updateMatrixWorld();
+        }
+        
         scene.camera = camera;
         camera.render = scene.render;
         scene.add(camera);

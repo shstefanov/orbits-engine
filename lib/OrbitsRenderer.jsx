@@ -78,28 +78,30 @@ export default function OrbitsRenderer({
         if(renderer && (domElement||canvas)){
             let t;
             renderer.actualSize = getSize(domElement||canvas);
-            function setSize(){
+            
+            function setSize(e, timeout = 100){
 
                 if(t) clearTimeout(t);
 
                 t = setTimeout(() => {
-                    renderer.resizeInitialized = true;
+                    
                     const { width, height } = getSize((domElement||canvas));
                     renderer.setSize( width, height, false );
                     renderer.actualSize = { width, height };
+                    renderer.resizeInitialized = true;
                     renderer.updateResizeListeners(width, height);
                     renderer.doRender = true;
                     t = null;
-                }, 100);
+                }, timeout);
             }
-            setSize();
+            setSize(null, 0);
             window.addEventListener("resize", setSize);
             return () => {
                 window.removeEventListener("resize", setSize);
             }
             
         }
-    }, [ renderer ]);
+    }, [ renderer, domElement || canvas ]);
 
     // Handle the rest of the options
     const options_arr = [renderer, ...Object.values(options)];

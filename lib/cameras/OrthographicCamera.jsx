@@ -1,13 +1,3 @@
-// import React, { useEffect, useState, createContext } from "react";
-// import * as THREE from "three";
-// import { useRenderer } from "../OrbitsRenderer.jsx";
-// import { SceneProvider, useScene } from "../OrbitsScene.jsx";
-
-
-// export default function OrthographicCamera(){
-//     return null;
-// }
-
 import React, { useEffect, useState, createContext } from "react";
 import * as THREE from "three";
 import { useRenderer } from "../OrbitsRenderer.jsx";
@@ -61,7 +51,9 @@ export default function OrthographicCamera(props){
                 }
 
                 scene.add(camera);
-                setCameraManager( createOrthographicCameraManager(camera, props, renderer.domElement) );
+                const manager = createOrthographicCameraManager(camera, props, renderer.domElement);
+                manager.set(props);
+                setCameraManager( manager );
 
                 setCamera(camera);
                 scene.render();
@@ -77,7 +69,7 @@ export default function OrthographicCamera(props){
 
     }, []);
 
-    cameraManager && cameraManager.set(props);
+    cameraManager && cameraManager.set(props, useEffect);
 
     return <SceneProvider value={camera}>
         { camera && props.children }

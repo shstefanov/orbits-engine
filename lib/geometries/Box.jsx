@@ -33,7 +33,9 @@ export default function Box(props){
         setMaterial(material);
         setGeometry(geometry);
 
-        setTransformManager( createTransformManager(mesh, props) );
+        const manager = createTransformManager(mesh, props);
+        manager.set(props);
+        setTransformManager( manager );
 
         return () => {
             scene.remove(mesh);
@@ -42,7 +44,7 @@ export default function Box(props){
 
     }, []);
 
-    transformManager && transformManager.set(props);
+    transformManager && transformManager.set(props, useEffect);
 
     return <SceneProvider value={mesh}>
         { mesh && props.children }

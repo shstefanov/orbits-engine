@@ -57,5 +57,5 @@ export default function ArrayCamera(props){
 
     return <SceneProvider value={mockContext}>
         { props.children }
-</SceneProvider>;
+    </SceneProvider>;
 }

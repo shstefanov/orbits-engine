@@ -41,7 +41,9 @@ export default function PerspectiveCamera(props){
             });
         }
 
-        setCameraManager( createCameraManager(camera, props, renderer.domElement) );
+        const manager = createCameraManager(camera, props, renderer.domElement);
+        manager.set(props);
+        setCameraManager( manager );
 
         setCamera(camera);
         scene.render();
@@ -55,7 +57,7 @@ export default function PerspectiveCamera(props){
 
     }, []);
 
-    cameraManager && cameraManager.set(props);
+    cameraManager && cameraManager.set(props, useEffect);
 
     return <SceneProvider value={camera}>
         { camera && props.children }

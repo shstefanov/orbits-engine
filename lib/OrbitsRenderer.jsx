@@ -127,15 +127,52 @@ const renererAdditionalFunctions = {
         this.scenes = [];
         this.resizeListeners = [];
         this.waitForQueue = [];
-        const render = () => {
-            if(!this.renderScenes) return;
-            if(!this.doRender) return requestAnimationFrame(render);
-            this.doRender = false;
-            this.processWaitFor();
+        let delta_anchor = Date.now();
+        
+        const renderWithAnimations = (delta, now) => {
+            this.processAnimations(animatedMeshes.entries(), delta, now);
             this.renderScenes();
+        };
+
+        const renderWithoutAnimations = (delta, now) => {
+            if(this.doRender) {
+                this.doRender = false;
+                this.renderScenes();
+            }
+        };
+        
+        
+        
+        let render = () => {
+
+            const now = Date.now();
+            const delta = now - delta_anchor;
+            delta_anchor = now;
+
+            this.processWaitFor(); // always run
+
+            if(!this.renderScenes) return;
+
+            if(animatedMeshes.size) renderWithAnimations(delta, now);
+            else                    renderWithoutAnimations(delta, now);
+
             requestAnimationFrame(render);
+
         }
         requestAnimationFrame(render);
+
+        let animatedMeshes = new Set();
+
+        this.addAnimatedMesh = mesh => {
+            animatedMeshes.add(mesh);
+        }
+
+        this.removeAnimatedMesh = mesh => {
+
+        }
+
+
+
     },
     
     addScene: function addScene(scene){
@@ -164,6 +201,11 @@ const renererAdditionalFunctions = {
         }
     },
 
+    processAnimations: function(entries, delta, now){
+        const delta_seconds = delta / 1000;
+        for(let [ mesh ] of entries) mesh.updateAnimation(delta_seconds, now);
+    },
+
 
     addResizeListener: function(fn){
        this.resizeListeners.push(fn);
@@ -188,7 +230,17 @@ const renererAdditionalFunctions = {
             if(wf()) wf.done = true;
         }
         this.waitForQueue = this.waitForQueue.filter(wf => !wf.done);
-    }
+    },
+
+
+    addAnimatedMesh: function(mesh){
+
+    },
+
+    removeAnimatedMesh: function(mesh){
+
+    },
+
 
 
 };

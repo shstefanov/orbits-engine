@@ -25,7 +25,9 @@ export default function OrbitsScene({
         scene.renderOrder = renderOrder;
         scene.waitFor = renderer.waitFor.bind(renderer);
         renderer.addScene(scene);
-        scene.render = () => { renderer.doRender = true; }
+        scene.render         = () => { renderer.doRender = true; }
+        scene.addAnimated    = mesh => renderer.addAnimatedMesh(mesh);
+        scene.removeAnimated = mesh => renderer.removeAnimatedMesh(mesh);
         setScene(scene);
         return () => renderer.removeScene(scene);
     }, []);

@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useScene, SceneProvider } from "../OrbitsScene.jsx";
 import * as THREE from "three";
-import createTransformManager from "../utils/createMeshManager.js";
+import createMeshManager from "../utils/createMeshManager.js";
 
 // https://threejs.org/docs/#api/en/lights/PointLight
 export default function PointLight(props){
     const scene = useScene();
     const [ light, setLight ] = useState(null);
 
-    const [ transformManager, setTransformManager ] = useState(createTransformManager(null, props, light));
-
+    const [ meshManager, setMeshManager ] = useState(createMeshManager(null, props, light));
 
     useEffect(() => {
 
@@ -26,9 +25,15 @@ export default function PointLight(props){
             props.decay     || 2
         );
 
+        light.render = scene.render;
 
-        console.log("ADD POINLIGHT TO: ", scene);
-
+        if(meshManager){
+            const meshManager = createMeshManager(light, props);
+            meshManager.set(props);
+            setMeshManager( meshManager );
+        }
+        
+        
         scene.add(light);
         setLight(light);
         scene.render();
@@ -60,14 +65,14 @@ export default function PointLight(props){
     }, [light && props.distance]);
 
     props.hasOwnProperty("power") && useEffect( () => {
-        if(light){ light.power = props.power ; scene.render(); }
+        if(light){ light.power = props.power; scene.render(); }
     }, [light && props.power ]);
 
     props.hasOwnProperty("shadow") && useEffect( () => {
-        if(light){ light.shadow = props.shadow  ; scene.render(); }
+        if(light){ light.shadow = props.shadow; scene.render(); }
     }, [light && props.shadow  ]);
 
-    transformManager && transformManager.set(props);
+    meshManager && meshManager.set(props, useEffect);
 
     return <SceneProvider value={light}>
         { light && props.children }

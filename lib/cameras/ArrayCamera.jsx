@@ -9,7 +9,6 @@ import PerspectiveCamera from "./PerspectiveCamera.jsx";
 import OrthographicCamera from "./OrthographicCamera.jsx";
 import StereoCamera from "./StereoCamera.jsx";
 import CubeCamera from "./CubeCamera.jsx";
-import { add } from "three/tsl";
 
 const cameraTypes = [ PerspectiveCamera, OrthographicCamera, StereoCamera, CubeCamera ];
 
@@ -41,10 +40,17 @@ export default function ArrayCamera(props){
 
         const camera = new THREE.ArrayCamera( mockContext.cameras );
         scene.camera = camera;
+        camera.render = scene.render;
         scene.add(camera);
         
         setCamera(camera);
-        setCameraManager(createCameraManager(null, props, renderer.domElement));
+
+        if(cameraManager){
+            const manager = createCameraManager(camera, props, renderer.domElement);
+            manager.set(props);
+            setCameraManager(manager);
+        }
+
 
         return () => {
             scene.remove(camera);
@@ -52,7 +58,7 @@ export default function ArrayCamera(props){
     }, [numberOfCameras]);
 
 
-
+    cameraManager && cameraManager.set(props, useEffect);
 
 
     return <SceneProvider value={mockContext}>

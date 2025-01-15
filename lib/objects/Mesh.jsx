@@ -7,7 +7,7 @@ import createMeshManager from "../utils/createMeshManager.js";
 const meshDefaultMaterial = new THREE.MeshBasicMaterial();
 
 const meshContext = createContext();
-const MeshProvider = meshContext.Provider;
+export const MeshProvider = meshContext.Provider;
 export const useMesh = () => useContext(meshContext);
 
 function skip(){};
@@ -32,14 +32,16 @@ export default function Mesh(props){
     useEffect(() => {
 
         
-        console.log("Initialize mesh::", {geometry, material});
+        console.log("Initialize mesh::", props.id, {geometry, material});
 
         if(!geometry || !material) return;
-        if(mesh) return;
+        // if(mesh) return;
 
         const newMesh = new THREE.Mesh( geometry, material );
 
         newMesh.render = scene.render; // Pass render trough the hierarchy
+        newMesh.addAnimated    = scene.addAnimated;
+        newMesh.removeAnimated = scene.removeAnimated;
 
         if(props.id) newMesh.name = props.id;
 
@@ -48,11 +50,16 @@ export default function Mesh(props){
 
         setMesh(newMesh);
 
+        props.onCreate && props.onCreate(newMesh);
+
         scene.render();
 
-        const meshManager = createMeshManager(newMesh, props);
-        meshManager.set(props);
-        setMeshManager( meshManager );
+        if(meshManager){
+            const meshManager = createMeshManager(newMesh, props);
+            meshManager.set(props);
+            setMeshManager( meshManager );
+        }
+
 
 
         return () => {

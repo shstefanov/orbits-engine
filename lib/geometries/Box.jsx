@@ -33,9 +33,12 @@ export default function Box(props){
         setMaterial(material);
         setGeometry(geometry);
 
-        const manager = createTransformManager(mesh, props);
-        manager.set(props);
-        setTransformManager( manager );
+        if(transformManager){
+            const manager = createTransformManager(mesh, props);
+            manager.set(props);
+            setTransformManager( manager );
+        }
+
 
         return () => {
             scene.remove(mesh);

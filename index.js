@@ -31,5 +31,7 @@ export { default as MeshBasicMaterial  } from "./lib/materials/MeshBasicMaterial
 
 
 // Objects exports
-export { default as Mesh }    from "./lib/objects/Mesh.jsx";
-export { default as Box  }    from "./lib/geometries/Box.jsx";
+export { default as Mesh }       from "./lib/objects/Mesh.jsx";
+export { default as MeshLoader } from "./lib/objects/MeshLoader.jsx";
+
+export { default as Box  }       from "./lib/geometries/Box.jsx";

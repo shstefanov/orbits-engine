@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useScene, SceneProvider } from "../OrbitsScene.jsx";
+import { useRenderer } from "../OrbitsRenderer.jsx";
 import * as THREE from "three";
 import createMeshManager from "../utils/createMeshManager.js";
 
 // https://threejs.org/docs/#api/en/lights/PointLight
 export default function PointLight(props){
+    
+    const renderer = useRenderer();
     const scene = useScene();
     const [ light, setLight ] = useState(null);
 
-    const [ meshManager, setMeshManager ] = useState(createMeshManager(null, props, light));
+    const [ meshManager, setMeshManager ] = useState(createMeshManager(null, props, renderer, light));
 
     useEffect(() => {
 
@@ -27,52 +30,50 @@ export default function PointLight(props){
 
         light.render = scene.render;
 
-        if(meshManager){
-            const meshManager = createMeshManager(light, props);
-            meshManager.set(props);
-            setMeshManager( meshManager );
-        }
+        const meshManager = createMeshManager(light, props, renderer);
+        meshManager.set(props);
+        setMeshManager( meshManager );
         
         
         scene.add(light);
         setLight(light);
-        scene.render();
+        renderer.render();
         return () => {
             light.dispose();
             scene.remove(light);
-            scene.render();
+            renderer.render();
         }
     }, []);
 
     props.hasOwnProperty("color") && useEffect( () => {
-        if(light){ light.color.set(props.color); scene.render(); }
+        if(light){ light.color.set(props.color); renderer.render(); }
     }, [light && props.color]);
 
     props.hasOwnProperty("intensity") && useEffect( () => {
-        if(light){ light.color.set(props.color); scene.render(); }
-    }, [light && props.color]);
+        if(light){ light.intensity = props.intensity; renderer.render(); }
+    }, [light && props.intensity]);
 
     props.hasOwnProperty("castShadow") && useEffect( () => {
-        if(light){ light.castShadow = props.castShadow; scene.render(); }
+        if(light){ light.castShadow = props.castShadow; renderer.render(); }
     }, [light && props.castShadow]);
 
     props.hasOwnProperty("decay") && useEffect( () => {
-        if(light){ light.decay = props.decay; scene.render(); }
+        if(light){ light.decay = props.decay; renderer.render(); }
     }, [light && props.decay]);
 
     props.hasOwnProperty("distance") && useEffect( () => {
-        if(light){ light.distance = props.distance; scene.render(); }
+        if(light){ light.distance = props.distance; renderer.render(); }
     }, [light && props.distance]);
 
     props.hasOwnProperty("power") && useEffect( () => {
-        if(light){ light.power = props.power; scene.render(); }
+        if(light){ light.power = props.power; renderer.render(); }
     }, [light && props.power ]);
 
     props.hasOwnProperty("shadow") && useEffect( () => {
-        if(light){ light.shadow = props.shadow; scene.render(); }
+        if(light){ light.shadow = props.shadow; renderer.render(); }
     }, [light && props.shadow  ]);
 
-    meshManager && meshManager.set(props, useEffect);
+    meshManager.set(props, useEffect);
 
     return <SceneProvider value={light}>
         { light && props.children }

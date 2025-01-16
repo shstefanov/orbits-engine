@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react";
-import * as THREE                  from "three";
-import { useScene, SceneProvider } from "../OrbitsScene.jsx";
+import * as THREE                     from "three";
+import { useScene, SceneProvider }    from "../OrbitsScene.jsx";
+import { useRenderer }                from "../OrbitsRenderer.jsx";
 
-import createTransformManager from "../utils/createMeshManager.js";
+import createMeshManager from "../utils/createMeshManager.js";
 
 const boxDefaultMaterial = new THREE.MeshBasicMaterial();
 
 export default function Box(props){
-    
+
+    const renderer = useRenderer();
     const scene = useScene();
     
     const [ mesh,     setMesh     ] = useState(null);
     const [ material, setMaterial ] = useState(null);
     const [ geometry, setGeometry ] = useState(null);
     
-    const [ transformManager, setTransformManager ] = useState(createTransformManager(null, props, mesh));
+    const [ transformManager, setTransformManager ] = useState(createMeshManager(null, props, renderer, mesh));
     // Creating the mesh here
     useEffect(() => {
         
@@ -22,19 +24,17 @@ export default function Box(props){
         const material = (props.material || boxDefaultMaterial).clone();
         const mesh     = new THREE.Mesh( geometry, material );
 
-        mesh.render = scene.render; // Pass render trough the hierarchy
-
         if(props.id) mesh.name = props.id;
 
         scene.add(mesh);
-        scene.render();
+        renderer.render();
 
         setMesh(mesh);
         setMaterial(material);
         setGeometry(geometry);
 
         if(transformManager){
-            const manager = createTransformManager(mesh, props);
+            const manager = createMeshManager(mesh, props, renderer);
             manager.set(props);
             setTransformManager( manager );
         }
@@ -42,7 +42,7 @@ export default function Box(props){
 
         return () => {
             scene.remove(mesh);
-            scene.render();
+            renderer.render();
         }
 
     }, []);

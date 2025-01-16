@@ -15,15 +15,15 @@ export default function OrthographicCamera(props){
     const scene    = useScene();
 
     const [ camera,        setCamera        ] = useState(null);
-    const [ cameraManager, setCameraManager ] = useState(createOrthographicCameraManager(null, props, renderer.domElement, camera));
+    const [ cameraManager, setCameraManager ] = useState(createOrthographicCameraManager(null, props, renderer, camera));
 
     useEffect(() => {
-        const { width, height } = renderer.actualSize;
+        const size = renderer.getSize();
 
-        const left   = props.hasOwnProperty("left")   ? props.left   : width  / -2;
-        const right  = props.hasOwnProperty("right")  ? props.right  : width  /  2;
-        const top    = props.hasOwnProperty("top")    ? props.top    : height /  2;
-        const bottom = props.hasOwnProperty("bottom") ? props.bottom : height / -2;
+        const left   = props.hasOwnProperty("left")   ? props.left   : size.width  / -2;
+        const right  = props.hasOwnProperty("right")  ? props.right  : size.width  /  2;
+        const top    = props.hasOwnProperty("top")    ? props.top    : size.height /  2;
+        const bottom = props.hasOwnProperty("bottom") ? props.bottom : size.height / -2;
 
         // TODO - set some default value, we can have undefined for some of them
         const camera = new THREE.OrthographicCamera( left, right, top, bottom, props.near, props.far );
@@ -33,13 +33,13 @@ export default function OrthographicCamera(props){
         // If there is no props.aspect, means it will be autocomputed from viewport size
         let resizeListener;
         if(!props.hasOwnProperty("left")){
-            renderer.addResizeListener(resizeListener = (width, height) => {
-                camera.left   = width  / -2;
-                camera.right  = width  /  2;
-                camera.top    = height /  2;
-                camera.bottom = height / -2;
+            renderer.addResizeListener(resizeListener = (size) => {
+                camera.left   = size.width  /  2;
+                camera.right  = size.width  / -2;
+                camera.top    = size.height / -2;
+                camera.bottom = size.height /  2;
                 camera.updateProjectionMatrix();
-                camera.render();
+                renderer.render();
                 if(!camera.initialViewPort) camera.initialViewPort = {
                     left: camera.left, right: camera.right,
                     top: camera.top,   bottom: camera.bottom,
@@ -52,14 +52,12 @@ export default function OrthographicCamera(props){
 
                 scene.add(camera);
                 
-                if(cameraManager){
-                    const manager = createOrthographicCameraManager(camera, props, renderer.domElement);
-                    manager.set(props);
-                    setCameraManager( manager );
-                }
+                const manager = createOrthographicCameraManager(camera, props, renderer);
+                manager.set(props);
+                setCameraManager( manager );
 
                 setCamera(camera);
-                scene.render();
+                renderer.render();
             });
         }
 
@@ -67,12 +65,12 @@ export default function OrthographicCamera(props){
             delete scene.camera;
             resizeListener && renderer.removeResizeListener(resizeListener);
             scene.remove(camera);
-            scene.render();
+            renderer.render();
         }
 
     }, []);
 
-    cameraManager && cameraManager.set(props, useEffect);
+    cameraManager.set(props, useEffect);
 
     return <SceneProvider value={camera}>
         { camera && props.children }

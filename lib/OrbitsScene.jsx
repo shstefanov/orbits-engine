@@ -23,11 +23,7 @@ export default function OrbitsScene({
     useEffect( () => {
         const scene = new THREE.Scene();
         scene.renderOrder = renderOrder;
-        scene.waitFor = renderer.waitFor.bind(renderer);
         renderer.addScene(scene);
-        scene.render         = () => { renderer.doRender = true; }
-        scene.addAnimated    = mesh => renderer.addAnimatedMesh(mesh);
-        scene.removeAnimated = mesh => renderer.removeAnimatedMesh(mesh);
         setScene(scene);
         return () => renderer.removeScene(scene);
     }, []);
@@ -36,15 +32,15 @@ export default function OrbitsScene({
     if(options.hasOwnProperty("renderOrder")) useEffect( () => {
         if(scene){
             scene.renderOrder = renderOrder;
-            renderer.updateScene(scene);
+            renderer.updateSceneс(scene);
         }
-    }, [scene && renderOrder, ]);
+    }, [ scene && renderOrder ]);
 
     // Handle clearDepth
     if(options.hasOwnProperty("clearDepth")) useEffect( () => {
         if(scene){
             scene.clearDepth = clearDepth || 0;
-            renderer.updateScene(scene);
+            renderer.updateSceneс(scene);
         }
     }, [scene && clearDepth]);
 
@@ -53,36 +49,31 @@ export default function OrbitsScene({
         
         useEffect( () => {
             if(!scene) return;
-            // if(!options.background) scene.background = null;
             if(typeof options.background === "number") {
                 scene.background = new THREE.Color().setHex( options.background );
-                scene.render();
+                renderer.render();
             }
             else if(typeof options.background === "string") { // Hex color or image url
                 if(options.background.match(/^#[0-9a-z]{6}$/)){
                     scene.background = new THREE.Color().setHex( parseInt(options.background.replace("#", "0x")) );
-                    scene.render();
+                    renderer.render();
                 }
                 else {
                     scene.background = new THREE.TextureLoader()
-                    .load( options.background, () => scene.render() );
+                    .load( options.background, () => renderer.render() );
                 }
             }
             else if(Array.isArray(options.background)){ // 6 image urls for CubeTexture
                 scene.background = new THREE.CubeTextureLoader()
-                .load( options.background, () => scene.render() );
+                .load( options.background, () => renderer.render() );
             }
             else if(options.background instanceof THREE.Texture) {
                 scene.background = options.background;
-                renderer.waitFor(() => {
-                   if(scene.background.source.data){
-                     return renderer.doRender = true
-                   } 
-                })
+                renderer.waitFor( () => scene.background.source.data && renderer.render() );
             }
             else scene.background = null;
             
-            renderer.updateScene();
+            renderer.updateScenes();
     
             // const color = new THREE.Color().setHex( 0x112233 );
     
@@ -92,7 +83,7 @@ export default function OrbitsScene({
         if(options.hasOwnProperty("backgroundBlurriness")) useEffect( () => {
             if(scene) {
                 scene.backgroundBlurriness = options.backgroundBlurriness || 0;
-                renderer.updateScene();
+                renderer.updateScenes();
             }
         }, [scene && options.backgroundBlurriness ]);
         
@@ -100,14 +91,14 @@ export default function OrbitsScene({
         if(options.hasOwnProperty("backgroundIntensity")) useEffect( () => {
             if(!scene) return;
             scene.backgroundIntensity = options.backgroundIntensity;
-            renderer.updateScene();
+            renderer.updateScenes();
         }, [scene && typeof options.backgroundIntensity ]);
         
         // Handle options.backgroundRotation
         if(options.hasOwnProperty("backgroundRotation")) useEffect( () => {
             if(!scene) return;
             scene.backgroundRotation = THREE.Euler( ...[...options.backgroundRotation, 'XYZ'] );
-            renderer.updateScene();
+            renderer.updateScenes();
         }, [scene, ...options.backgroundRotation ]);
 
     }

@@ -19,10 +19,9 @@ export default function ArrayCamera(props){
 
     const [ camera,          setCamera          ] = useState(null);
     const [ numberOfCameras, setNumberOfCameras ] = useState(0);
-    const [ cameraManager,   setCameraManager   ] = useState(createCameraManager(null, props, renderer.domElement, camera));
+    const [ cameraManager,   setCameraManager   ] = useState(createCameraManager(null, props, renderer, camera));
 
     const mockContext = useMemo( () => ({
-        render: scene.render,
         cameras: [],
         remove: () => {},
         add: function(camera) {
@@ -40,16 +39,13 @@ export default function ArrayCamera(props){
 
         const camera = new THREE.ArrayCamera( mockContext.cameras );
         scene.camera = camera;
-        camera.render = scene.render;
         scene.add(camera);
         
         setCamera(camera);
 
-        if(cameraManager){
-            const manager = createCameraManager(camera, props, renderer.domElement);
-            manager.set(props);
-            setCameraManager(manager);
-        }
+        const manager = createCameraManager(camera, props, renderer);
+        manager.set(props);
+        setCameraManager(manager);
 
 
         return () => {
@@ -58,7 +54,7 @@ export default function ArrayCamera(props){
     }, [numberOfCameras]);
 
 
-    cameraManager && cameraManager.set(props, useEffect);
+    cameraManager.set(props, useEffect);
 
 
     return <SceneProvider value={mockContext}>

@@ -15,10 +15,10 @@ export default function PerspectiveCamera(props){
     const scene    = useScene();
 
     const [ camera,        setCamera        ] = useState(null);
-    const [ cameraManager, setCameraManager ] = useState(createCameraManager(null, props, renderer.domElement, camera));
+    const [ cameraManager, setCameraManager ] = useState(createCameraManager(null, props, renderer, camera));
 
     useEffect(() => {
-        const { width, height } = renderer.actualSize;
+        const { width, height } = renderer.getSize();
 
         // TODO - set some default value, we can have undefined for some of them
         const camera = new THREE.PerspectiveCamera( props.fov, props.aspect || (width / height), props.near, props.far );
@@ -29,38 +29,36 @@ export default function PerspectiveCamera(props){
         }
         
         scene.camera = camera;
-        camera.render = scene.render;
         scene.add(camera);
 
         // If there is no props.aspect, means it will be autocomputed from viewport size
         let resizeListener;
         if(!props.hasOwnProperty("aspect")){
-            renderer.addResizeListener(resizeListener = (width, height) => {
-                camera.aspect = width / height;
+            renderer.addResizeListener(resizeListener = (size) => {
+                camera.aspect = size.width / size.height;
                 camera.updateProjectionMatrix();
             });
         }
 
-        if(cameraManager){
-            const manager = createCameraManager(camera, props, renderer.domElement);
-            manager.set(props);
-            setCameraManager( manager );
-        }
+        const manager = createCameraManager(camera, props, renderer);
+        manager.set(props);
+        setCameraManager( manager );
+
 
 
         setCamera(camera);
-        scene.render();
+        renderer.render();
 
         return () => {
             delete scene.camera;
             resizeListener && renderer.removeResizeListener(resizeListener);
             scene.remove(camera);
-            scene.render();
+            renderer.render();
         }
 
     }, []);
 
-    cameraManager && cameraManager.set(props, useEffect);
+    cameraManager.set(props, useEffect);
 
     return <SceneProvider value={camera}>
         { camera && props.children }

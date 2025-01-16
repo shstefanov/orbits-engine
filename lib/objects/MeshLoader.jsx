@@ -2,11 +2,13 @@ import React, { useState, useEffect, createContext, useContext, useMemo } from "
 import * as THREE                  from "three";
 import { GLTFLoader }              from 'three/addons/loaders/GLTFLoader.js';
 import { useScene, SceneProvider } from "../OrbitsScene.jsx";
+import { useRenderer }             from "../OrbitsRenderer.jsx";
 
 const objLoader  = new THREE.ObjectLoader();
 const gltfLoader = new GLTFLoader();
 
-import createMeshManager from "../utils/createMeshManager.js";
+import createMeshManager  from "../utils/createMeshManager.js";
+import createEventManager from "../utils/createEventManager.js";
 
 const objectsCache = new Map();
 
@@ -16,38 +18,42 @@ function createAnimationUpdater(mesh, mixer){
 
 export default function MeshLoader(props){
     
-    const scene = useScene();
+    const renderer = useRenderer();
+    const scene    = useScene();
 
     // If json is provided or object is stored in cache
-    if(props.hasOwnProperty("json") || objectsCache.has(props.src) ){
+    if(props.hasOwnProperty("json")){
         const { mesh, meshManager } = useMemo( () => {
             const mesh  = objLoader.parse(props.json || objectsCache.get(props.src));
             if(props.id) newMesh.name = props.id;
-            mesh.render = scene.render;
-            const meshManager = createMeshManager(mesh, props, false);
-            meshManager && meshManager.set(props);
+            const meshManager = createMeshManager(mesh, props, renderer, false);
+            meshManager.set(props);
             scene.add(mesh);
-            scene.render();
+            renderer.render();
             return { mesh, meshManager };
         }, []);
-        // console.log("MESHMANAGER::::", meshManager);
-        meshManager && meshManager.set(props, useEffect);
+        mesh.userData = props;
+        meshManager.set(props, useEffect);
         return <SceneProvider value={mesh}>{props.children}</SceneProvider>;
     }
     else if(props.hasOwnProperty("src")){
+        
         const [ mesh, setMesh ] = useState(null);
-        const [ meshManager, setMeshManager ] = useState(createMeshManager(null, props, mesh));
 
+        if(mesh) mesh.userData = props;
+
+        const [ meshManager, setMeshManager ] = useState(createMeshManager(null, props, renderer, mesh));
+        
         useEffect(() => {
             let loaded_mesh = null;
 
             function handleMesh(mesh, animations){
+
+                objectsCache.set(props.src, mesh);
+
                 loaded_mesh = mesh;
-                
-                // Pass render and other global handlers trough the hierarchy
-                mesh.render         = scene.render;
-                mesh.addAnimated    = scene.addAnimated;
-                mesh.removeAnimated = scene.removeAnimated;
+
+                mesh.animations = animations;
                 
                 if(props.id) mesh.name = props.id;
                 
@@ -58,21 +64,18 @@ export default function MeshLoader(props){
 
                     mesh.animClips = {};
                     for(let animation of animations){
-                        console.log("animation.name", animation.name);
                         mesh.animClips[animation.name] =  mixer.clipAction( animation );
                     }
 
                     createAnimationUpdater(mesh, mixer);
-                    scene.addAnimated(mesh);
+                    renderer.addAnimatedObject(mesh);
 
                 }
 
                 // Create meshManager
-                if(meshManager){
-                    const meshManager = createMeshManager(mesh, props);
-                    meshManager.set(props);
-                    setMeshManager( meshManager );
-                }
+                const meshManager = createMeshManager(mesh, props, renderer);
+                meshManager.set(props);
+                setMeshManager( meshManager );
 
                 setMesh(mesh);
                 
@@ -80,21 +83,24 @@ export default function MeshLoader(props){
 
                 props.onCreate && props.onCreate(mesh);
                 
-                scene.render();
-                // setTimeout(() => scene.render(), 3000);
+                renderer.render();
             }
 
             function handleProgress(xhr){
-                // console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
+                props.onProgress && props.onProgress(xhr.loaded / xhr.total * 100);
             }
 
             function handleError(err){
-                console.error( err );
+                props.onError && props.onError(err);
             }
 
 
             if(props.src.match(/^.+\.json$/)){
-                objLoader.load(props.src, handleMesh, handleProgress, handleError);
+                if(objectsCache.has(props.src)){
+                    const object = objectsCache.get(props.src);
+                    handleMesh(object, object.animations);
+                }
+                else objLoader.load(props.src, handleMesh, handleProgress, handleError);
             }
 
 
@@ -102,8 +108,20 @@ export default function MeshLoader(props){
             // GLTF Loader
             else if(props.src.match(/^.+\.(glb|gltf)$/)){
                 
-                // https://sbedit.net/a3ff4f37795ce85098816514bd00d3ab822f2fd7#L173-L173
-                gltfLoader.load(props.src, (gltf)=>{
+                if(objectsCache.has(props.src)){
+                    const object = objectsCache.get(props.src);
+                    handleMesh(object, object.animations);
+                }
+                else gltfLoader.load(props.src, (gltf)=>{
+
+                    console.log("gltf: ", gltf.scene.traverse( obj => {
+                        if(obj.material) {
+                            for(let item of Object.values(obj.material || {})) item instanceof THREE.Texture && ( item => {
+                                return item.source.data && renderer.render();
+                            })(item)
+                        }
+                    }));
+
                     handleMesh(gltf.scene, gltf.animations);
                 }, handleProgress, handleError);
             }
@@ -111,14 +129,14 @@ export default function MeshLoader(props){
             return () => {
                 if(loaded_mesh){
                     scene.remove(loaded_mesh);
-                    loaded_mesh.animMixer && scene.removeAnimated(loaded_mesh);
-                    scene.render();
+                    loaded_mesh.animMixer && renderer.removeAnimatedObject(loaded_mesh);
+                    renderer.render();
                 }
             }
             
         }, [props.src]);
 
-        meshManager && meshManager.set(props, useEffect);
+        meshManager.set(props, useEffect);
 
         return <SceneProvider value={mesh}> { mesh && props.children } </SceneProvider>
     }

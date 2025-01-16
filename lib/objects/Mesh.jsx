@@ -1,10 +1,9 @@
 import React, { useState, useEffect, createContext, useContext, useMemo } from "react";
 import * as THREE                  from "three";
 import { useScene, SceneProvider } from "../OrbitsScene.jsx";
-
-import createMeshManager from "../utils/createMeshManager.js";
-
-const meshDefaultMaterial = new THREE.MeshBasicMaterial();
+import { useRenderer }             from "../OrbitsRenderer.jsx";
+import createMeshManager           from "../utils/createMeshManager.js";
+import createEventManager          from "../utils/createEventManager.js";
 
 const meshContext = createContext();
 export const MeshProvider = meshContext.Provider;
@@ -14,13 +13,16 @@ function skip(){};
 
 export default function Mesh(props){
     
-    const scene = useScene();
+    const renderer = useRenderer();
+    const scene    = useScene();
     
     const [ mesh,     setMesh     ] = useState(null);
     const [ material, setMaterial ] = useState(props.material);
     const [ geometry, setGeometry ] = useState(props.geometry);
+
+    if(mesh) mesh.userData = props;
     
-    const [ meshManager, setMeshManager ] = useState(createMeshManager(null, props, mesh));
+    const [ meshManager,  setMeshManager  ] = useState(createMeshManager  (null, props, renderer, mesh));
 
     const collectContext = useMemo( () => ({
         setGeometry: props.hasOwnProperty("geometry") ? skip : setGeometry,
@@ -30,46 +32,30 @@ export default function Mesh(props){
 
     // Creating the mesh here
     useEffect(() => {
-
-        
-        console.log("Initialize mesh::", props.id, {geometry, material});
-
         if(!geometry || !material) return;
-        // if(mesh) return;
-
-        const newMesh = new THREE.Mesh( geometry, material );
-
-        newMesh.render = scene.render; // Pass render trough the hierarchy
-        newMesh.addAnimated    = scene.addAnimated;
-        newMesh.removeAnimated = scene.removeAnimated;
-
-        if(props.id) newMesh.name = props.id;
-
-        scene.add(newMesh);
-
-
-        setMesh(newMesh);
-
-        props.onCreate && props.onCreate(newMesh);
-
-        scene.render();
-
-        if(meshManager){
-            const meshManager = createMeshManager(newMesh, props);
-            meshManager.set(props);
-            setMeshManager( meshManager );
-        }
-
-
+        const mesh = new THREE.Mesh( geometry, material );
+        if(props.id) mesh.name = props.id;
+        if(!props.nonInteractive) renderer.addMouseInteractiveObject(mesh);
+        scene.add(mesh);
+        setMesh(mesh);
+        props.onCreate && props.onCreate(mesh);
+        renderer.render();
+        const meshManager  = createMeshManager(mesh, props, renderer);
+        // const eventManager = createEventManager (mesh, props, scene, renderer);
+        meshManager.set(props);
+        setMeshManager( meshManager );
 
         return () => {
             scene.remove(mesh);
-            scene.render();
+            renderer.render();
+            // eventManager.dispose();
+            props.onDestroy && props.onDestroy(mesh);
+            if(!props.nonInteractive) renderer.removeMouseInteractiveObject(mesh);
         }
 
     }, [geometry, material]);
 
-    meshManager && meshManager.set(props, useEffect);
+    meshManager.set(props, useEffect);
 
     return <SceneProvider value={mesh}>
         { (!mesh && Array.isArray(props.children))  && <MeshProvider value={collectContext}> { props.children.filter( c => c?.type?.isMeshComponent)  } </MeshProvider> }

@@ -274,8 +274,7 @@ class RenderManager {
         let target_event     = null; let target_event_props     = {}
         let mousedown_event  = null; let mousedown_event_props  = {};
         let drag_start_event = null; let drag_start_event_props = {};
-        let drag_event       = null; let drag_event_props       = {};
-
+        let drag_over_event  = null; let drag_over_event_props  = {};
 
         // Basic event handlers
         el.addEventListener("click", this.#bh.click = e => {
@@ -286,19 +285,27 @@ class RenderManager {
         });
         
         el.addEventListener("mouseup", this.#bh.mouseup = event => {
+            
             if(target_event){
                 this.reuseEvent (event, target_event, "onMouseUp");
             }
+            
             if(drag_start_event){
-                this.reuseEvent (event, mousedown_event_props, "onDragStop");
-                // if(event.defaultPrevented) event.stopImmediatePropagation();
-                drag_start_event = mousedown_event;
-                drag_start_event_props = mousedown_event_props;
+                this.reuseEvent (event, drag_start_event, "onDragStop");
+                if(drag_over_event){
+                    this.reuseEvent(event, {
+                        ...drag_over_event_props,
+                        dragSource: drag_start_event_props,
+                    }, "onDrop" );
+                    drag_over_event       = null;
+                    drag_over_event_props = {};
+                }
+                drag_start_event       = null;
+                drag_start_event_props = {};
             }
             if(mousedown_event){
                 mousedown_event  = null; mousedown_event_props  = {};
                 drag_start_event = null; drag_start_event_props = {};
-                drag_event       = null; drag_event_props       = {};
             }
         });
         
@@ -311,9 +318,12 @@ class RenderManager {
                 mousedown_event_props = target_event_props;
                 if(event.button === 0){
                     this.reuseEvent (event, mousedown_event_props, "onDragStart");
-                    if(event.defaultPrevented) event.stopImmediatePropagation();
-                    drag_start_event = mousedown_event;
-                    drag_start_event_props = mousedown_event_props;
+                    // Only allow drag if event is preventdefaulted
+                    if(event.defaultPrevented){
+                        event.stopImmediatePropagation();
+                        drag_start_event       = mousedown_event;
+                        drag_start_event_props = mousedown_event_props;
+                    }
                 }
 
             }
@@ -331,6 +341,9 @@ class RenderManager {
         el.addEventListener("mousemove", this.#bh.mousemove = event => {
 
             const current_event       = this.resolveEventMatch(event, objs );
+
+            if(!current_event) return;
+
             const ray                 = current_event.ray;
             const current_event_props = { ...current_event };
             
@@ -350,10 +363,28 @@ class RenderManager {
             object && this.reuseEvent (event, current_event_props, "onMouseMove");
 
             if(drag_start_event){
+                // First emit onDrag
                 this.reuseEvent(event, {
                     ...current_event_props,
-                    beginDrag: drag_start_event_props,
+                    dragSource: drag_start_event_props,
                 }, "onDrag", drag_start_event_props.intersection.object);
+
+                // Then search for other object
+                if(object){
+                    if(object !== drag_start_event_props.intersection.object){
+                        drag_over_event       = current_event;
+                        drag_over_event_props = current_event_props;
+                        this.reuseEvent(event, {
+                            ...current_event_props,
+                            dragSource: drag_start_event_props,
+                        }, "onDragOver" );
+                    }
+                }
+                else {
+                    drag_over_event       = null;
+                    drag_over_event_props = null;
+                }
+
             }
 
             if(object){
@@ -369,36 +400,29 @@ class RenderManager {
 
 
         });
-        
-        
-        // el.addEventListener("mouseover",   this.#bh.mouseover   = e => this.resolveEvent(e, objs, "onMouseOver"   ));
-        
-
-        // el.addEventListener("dragstart", this.#bh.dragstart = e => this.resolveEvent(e, objs, "onDragStart", e.preventDefault() ));
-        // el.addEventListener("dragstop",  this.#bh.dragstop  = e => this.resolveEvent(e, objs, "onDragStop", e.preventDefault()  ));
-        // el.addEventListener("drag",      this.#bh.drag      = e => this.resolveEvent(e, objs, "onDrag", e.preventDefault()      ));
 
     }
 
-    dispatchEvent(event, listenerName, target_object){
-        let node = { parent: target_object || event.intersection?.object };
+    dispatchEvent( event, listenerName, target_object = event.intersection?.object ){
+        let node = { parent: target_object };
         while(node = node.parent){
             (node.userData[listenerName])?.call(node, event);
             if(event.cancelBubble) break;
         }
     }
 
-    reuseEvent(event, { intersection = null, intersections = null, ray = null, beginDrag }, listenerName, target_object){
+    reuseEvent(event, { intersection = null, intersections = null, ray = null, dragSource }, listenerName, target_object){
         event.intersection  = intersection;
         event.intersections = intersections;
         event.ray           = ray;
-        if(beginDrag) event.beginDrag = beginDrag;
+        if(dragSource) event.dragSource = dragSource;
         this.dispatchEvent(event, listenerName, target_object);
     }
 
     resolveEventMatch(event, objects){
         const raycaster = this.#raycaster;
         for(let { camera } of this.#scenes){
+            if(!camera) return;
             this.updateRayCaster(event, camera);
             const intersections = raycaster.intersectObjects( objects );
             const intersection  = intersections[0];

@@ -35,3 +35,12 @@ export { default as Mesh }       from "./lib/objects/Mesh.jsx";
 export { default as MeshLoader } from "./lib/objects/MeshLoader.jsx";
 
 export { default as Box  }       from "./lib/geometries/Box.jsx";
+
+
+
+
+
+
+console.error("Resize do not work, fix it!!!");
+console.error("TODO: Implement MouseLock camera control for perspective camera");
+console.error("TODO: Implement MouseLock camera control for orthographic camera");

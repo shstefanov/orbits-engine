@@ -9,16 +9,20 @@ export const SceneProvider = sceneContext.Provider;
 
 window.THREE = THREE;
 
-export default function OrbitsScene({
-    children    = false,
-    renderOrder = 0,
-    active      = true,
-    clearDepth  = false,
-    ...options
-}){
+export default function OrbitsScene(props){
+
+    const {
+        children    = false,
+        renderOrder = 0,
+        active      = true,
+        clearDepth  = false,
+        ...options
+    } = props;
 
     const renderer            = useRenderer();
     const [ scene, setScene ] = useState(null);
+
+    scene && (scene.userData = props);
 
     useEffect( () => {
         const scene = new THREE.Scene();

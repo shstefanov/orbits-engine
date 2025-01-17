@@ -14,6 +14,8 @@ function getSize(canvas){
     return { width, height };
 }
 
+
+
 export default function OrbitsRenderer({
 
     children,
@@ -253,11 +255,6 @@ class RenderManager {
         Events
     */
 
-    // const mouseVectorNormalized = new Vector2(
-    //     ((event.clientX * 2) / (this.scene.width)) - 1,
-    //     1 - ((event.clientY * 2) / (this.scene.height)),
-    //     );
-
     #dh = {}; // Drag  Event handlers for later unbinding
     #bh = {}; // Basic Event handlers for later unbinding
     #mouseInteractiveObjects = [];
@@ -268,14 +265,112 @@ class RenderManager {
 
         // TODO: Reuse resolved targets
 
+        let reuse            = {};
+        let button_down      = null;
+        let target_object    = null;
+        
+        let target_event     = null; let target_event_props     = {}
+        let mousedown_event  = null; let mousedown_event_props  = {};
+        let drag_start_event = null; let drag_start_event_props = {};
+        let drag_event       = null; let drag_event_props       = {};
+
 
         // Basic event handlers
-        el.addEventListener("click",       this.#bh.click       = e => this.resolveEvent(e, objs, "onClick"       ));
-        el.addEventListener("mousemove",   this.#bh.mousemove   = e => this.resolveEvent(e, objs, "onMouseMove"   ));
-        el.addEventListener("mousedown",   this.#bh.mousedown   = e => this.resolveEvent(e, objs, "onMouseDown"   ));
-        el.addEventListener("mouseup",     this.#bh.mouseup     = e => this.resolveEvent(e, objs, "onMouseUp"     ));
-        el.addEventListener("mouseover",   this.#bh.mouseover   = e => this.resolveEvent(e, objs, "onMouseOver"   ));
-        el.addEventListener("contextmenu", this.#bh.contextmenu = e => this.resolveEvent(e, objs, "onContextMenu" ));
+        el.addEventListener("click", this.#bh.click = e => {
+            if(target_event){
+                this.reuseEvent (e, target_event, "onClick");
+            }
+            
+        });
+        
+        el.addEventListener("mouseup", this.#bh.mouseup = event => {
+            if(target_event){
+                this.reuseEvent (event, target_event, "onMouseUp");
+            }
+            if(drag_start_event){
+                this.reuseEvent (event, mousedown_event_props, "onDragStop");
+                // if(event.defaultPrevented) event.stopImmediatePropagation();
+                drag_start_event = mousedown_event;
+                drag_start_event_props = mousedown_event_props;
+            }
+            if(mousedown_event){
+                mousedown_event  = null; mousedown_event_props  = {};
+                drag_start_event = null; drag_start_event_props = {};
+                drag_event       = null; drag_event_props       = {};
+            }
+        });
+        
+        el.addEventListener("mousedown", this.#bh.mousedown = event => {
+
+            if(target_event) {
+                this.reuseEvent (event, target_event, "onMouseDown");
+                button_down           = event.button;
+                mousedown_event       = event;
+                mousedown_event_props = target_event_props;
+                if(event.button === 0){
+                    this.reuseEvent (event, mousedown_event_props, "onDragStart");
+                    if(event.defaultPrevented) event.stopImmediatePropagation();
+                    drag_start_event = mousedown_event;
+                    drag_start_event_props = mousedown_event_props;
+                }
+
+            }
+        });
+        
+        el.addEventListener("contextmenu", this.#bh.contextmenu = e => {
+            if(target_event) {
+                this.reuseEvent (e, target_event_props, "onContextMenu");
+            }
+        });
+
+
+
+        
+        el.addEventListener("mousemove", this.#bh.mousemove = event => {
+
+            const current_event       = this.resolveEventMatch(event, objs );
+            const ray                 = current_event.ray;
+            const current_event_props = { ...current_event };
+            
+            const object = current_event_props?.intersection?.object || null;
+
+            if(object !== target_object){
+                if(target_object){
+                    this.reuseEvent (event, target_event_props, "onMouseOut");
+                    this.reuseEvent (event, target_event_props, "onMouseLeave");
+                }
+                if(object){
+                    this.reuseEvent (event, current_event_props, "onMouseOver");
+                    this.reuseEvent (event, current_event_props, "onMouseEnter");
+                }
+            }
+
+            object && this.reuseEvent (event, current_event_props, "onMouseMove");
+
+            if(drag_start_event){
+                this.reuseEvent(event, {
+                    ...current_event_props,
+                    beginDrag: drag_start_event_props,
+                }, "onDrag", drag_start_event_props.intersection.object);
+            }
+
+            if(object){
+                target_event       = current_event;
+                target_event_props = current_event_props;
+                target_object      = object;
+            }
+            else {
+                target_event       = null;
+                target_event_props = {};
+                target_object      = null;
+            }
+
+
+        });
+        
+        
+        // el.addEventListener("mouseover",   this.#bh.mouseover   = e => this.resolveEvent(e, objs, "onMouseOver"   ));
+        
 
         // el.addEventListener("dragstart", this.#bh.dragstart = e => this.resolveEvent(e, objs, "onDragStart", e.preventDefault() ));
         // el.addEventListener("dragstop",  this.#bh.dragstop  = e => this.resolveEvent(e, objs, "onDragStop", e.preventDefault()  ));
@@ -283,22 +378,33 @@ class RenderManager {
 
     }
 
-    resolveEvent(event, objects, listenerName){
+    dispatchEvent(event, listenerName, target_object){
+        let node = { parent: target_object || event.intersection?.object };
+        while(node = node.parent){
+            (node.userData[listenerName])?.call(node, event);
+            if(event.cancelBubble) break;
+        }
+    }
+
+    reuseEvent(event, { intersection = null, intersections = null, ray = null, beginDrag }, listenerName, target_object){
+        event.intersection  = intersection;
+        event.intersections = intersections;
+        event.ray           = ray;
+        if(beginDrag) event.beginDrag = beginDrag;
+        this.dispatchEvent(event, listenerName, target_object);
+    }
+
+    resolveEventMatch(event, objects){
+        const raycaster = this.#raycaster;
         for(let { camera } of this.#scenes){
             this.updateRayCaster(event, camera);
-            const intersections = this.#raycaster.intersectObjects( objects );
+            const intersections = raycaster.intersectObjects( objects );
             const intersection  = intersections[0];
+            if(!intersection) return { ray: raycaster.ray.clone(), intersections: [] };
             event.intersection  = intersection;
             event.intersections = intersections;
-            event.ray = this.#raycaster.ray.clone();
-
-            let node = { parent: intersection?.object };
-            let reuse = null;
-            while(node = node.parent){
-                (node.userData[listenerName])?.call(intersection?.object, reuse = reuse || event);
-                if(event.cancelBubble) break;
-            }
-            return reuse;
+            event.ray = raycaster.ray.clone();
+            return event;
         }
     }
 

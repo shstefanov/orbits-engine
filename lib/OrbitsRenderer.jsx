@@ -229,7 +229,9 @@ class RenderManager {
     #actualSize        = { width: 0, height: 0 };
     setSize(size){
         this.#actualSize = Object.freeze(size);
-        this.#renderer.setSize(size.width, size.height);
+        this.#canvas.width  = size.width;
+        this.#canvas.height = size.height;
+        this.#renderer.setSize(size.width, size.height, false);
         for(let [fn] of this.#resizeListeners.entries()) fn(size);
         this.render();
     }

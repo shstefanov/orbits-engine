@@ -45,3 +45,4 @@ console.error("TODO: Implement MouseLock camera control for perspective camera")
 console.error("TODO: Implement MouseLock camera control for orthographic camera");
 console.error("TODO: Implement Hover");
 console.error("TODO: Implement Cursor");
+console.error("TODO: Implement HitBox for mouse events detection");

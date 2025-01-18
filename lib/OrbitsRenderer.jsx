@@ -291,15 +291,21 @@ class RenderManager {
             }
             
             if(drag_start_event){
-                this.reuseEvent (event, drag_start_event, "onDragStop");
+                
+                this.reuseEvent (event, {
+                    ...drag_start_event,
+                    dropTarget: drag_over_event_props ? {...drag_over_event_props} : null,
+                }, "onDragStop");
+                
                 if(drag_over_event){
                     this.reuseEvent(event, {
                         ...drag_over_event_props,
-                        dragSource: drag_start_event_props,
+                        dragTarget: drag_start_event_props,
                     }, "onDrop" );
                     drag_over_event       = null;
                     drag_over_event_props = {};
                 }
+                
                 drag_start_event       = null;
                 drag_start_event_props = {};
             }
@@ -411,11 +417,12 @@ class RenderManager {
         }
     }
 
-    reuseEvent(event, { intersection = null, intersections = null, ray = null, dragSource }, listenerName, target_object){
+    reuseEvent(event, { intersection = null, intersections = null, ray = null, dratTarget, dropTarget }, listenerName, target_object){
         event.intersection  = intersection;
         event.intersections = intersections;
         event.ray           = ray;
-        if(dragSource) event.dragSource = dragSource;
+        if(dratTarget) event.dratTarget = dratTarget;
+        if(dropTarget) event.dropTarget = dropTarget;
         this.dispatchEvent(event, listenerName, target_object);
     }
 

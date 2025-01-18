@@ -277,11 +277,10 @@ class RenderManager {
         let drag_over_event  = null; let drag_over_event_props  = {};
 
         // Basic event handlers
-        el.addEventListener("click", this.#bh.click = e => {
+        el.addEventListener("click", this.#bh.click = event => {
             if(target_event){
-                this.reuseEvent (e, target_event, "onClick");
+                this.reuseEvent (event, target_event, "onClick");
             }
-            
         });
         
         el.addEventListener("mouseup", this.#bh.mouseup = event => {
@@ -309,14 +308,15 @@ class RenderManager {
                 drag_start_event       = null;
                 drag_start_event_props = {};
             }
+
             if(mousedown_event){
                 mousedown_event  = null; mousedown_event_props  = {};
                 drag_start_event = null; drag_start_event_props = {};
             }
+
         });
         
         el.addEventListener("mousedown", this.#bh.mousedown = event => {
-
             if(target_event) {
                 this.reuseEvent (event, target_event, "onMouseDown");
                 button_down           = event.button;
@@ -324,29 +324,21 @@ class RenderManager {
                 mousedown_event_props = target_event_props;
                 if(event.button === 0){
                     this.reuseEvent (event, mousedown_event_props, "onDragStart");
-                    // Only allow drag if event is preventdefaulted
-                    if(event.defaultPrevented){
-                        event.stopImmediatePropagation();
-                        drag_start_event       = mousedown_event;
-                        drag_start_event_props = mousedown_event_props;
-                    }
+                    drag_start_event       = mousedown_event;
+                    drag_start_event_props = mousedown_event_props;
                 }
-
             }
         });
         
-        el.addEventListener("contextmenu", this.#bh.contextmenu = e => {
+        el.addEventListener("contextmenu", this.#bh.contextmenu = event => {
             if(target_event) {
-                this.reuseEvent (e, target_event_props, "onContextMenu");
+                this.reuseEvent (event, target_event_props, "onContextMenu");
             }
         });
-
-
-
         
         el.addEventListener("mousemove", this.#bh.mousemove = event => {
 
-            const current_event       = this.resolveEventMatch(event, objs );
+            const current_event = this.resolveEventMatch(event, objs);
 
             if(!current_event) return;
 
@@ -355,14 +347,41 @@ class RenderManager {
             
             const object = current_event_props?.intersection?.object || null;
 
+            function isNested(obj1, obj2){
+                return (!obj1?.parent || !obj2) ? false : (obj1.parent === obj2 || isNested(obj1.parent, obj2));
+            }
+
+
             if(object !== target_object){
-                if(target_object){
-                    this.reuseEvent (event, target_event_props, "onMouseOut");
-                    this.reuseEvent (event, target_event_props, "onMouseLeave");
+
+                const is_child_of_prev  = isNested(object, target_object);
+                const is_parent_of_prev = isNested(target_object, object);
+
+                if(target_object && !is_child_of_prev){
+                    // Trigger previous object out events
+                    if(is_parent_of_prev){
+                        this.reuseEvent (event, target_event_props, "onMouseOut",   undefined, object );
+                        this.reuseEvent (event, target_event_props, "onMouseLeave", undefined, object );
+                    }
+                    else {
+                        this.reuseEvent (event, target_event_props, "onMouseOut"   );
+                        this.reuseEvent (event, target_event_props, "onMouseLeave" );
+                        this.dispatchInternalEvent( event, "hoverOut", target_object );
+                    }
                 }
                 if(object){
-                    this.reuseEvent (event, current_event_props, "onMouseOver");
-                    this.reuseEvent (event, current_event_props, "onMouseEnter");
+                    // If this object is nested in target_object,
+                    // event shold not trigger for this specific parent
+                    if(is_child_of_prev){// Then search for other object
+                        this.reuseEvent (event, current_event_props, "onMouseOver",  undefined, target_object );
+                        this.reuseEvent (event, current_event_props, "onMouseEnter", undefined, target_object );
+                        this.dispatchInternalEvent( event, "hoverIn", object, target_object );
+                    }
+                    else if(!is_parent_of_prev){
+                        this.reuseEvent (event, current_event_props, "onMouseOver"  );
+                        this.reuseEvent (event, current_event_props, "onMouseEnter" );
+                        this.dispatchInternalEvent( event, "hoverIn", object        );
+                    }
                 }
             }
 
@@ -377,7 +396,10 @@ class RenderManager {
 
                 // Then search for other object
                 if(object){
-                    if(object !== drag_start_event_props.intersection.object){
+
+                    const is_child_of_dragged = isNested(object, drag_start_event_props.intersection.object);
+
+                    if(object !== drag_start_event_props.intersection.object && !is_child_of_dragged){
                         drag_over_event       = current_event;
                         drag_over_event_props = current_event_props;
                         this.reuseEvent(event, {
@@ -404,26 +426,35 @@ class RenderManager {
                 target_object      = null;
             }
 
-
         });
 
     }
 
-    dispatchEvent( event, listenerName, target_object = event.intersection?.object ){
+    dispatchEvent( event, listenerName, target_object = event.intersection?.object, break_bubble_on ){
         let node = { parent: target_object };
         while(node = node.parent){
+            if(node === break_bubble_on) return;
             (node.userData[listenerName])?.call(node, event);
-            if(event.cancelBubble) break;
+            if(event.cancelBubble) return;
         }
     }
 
-    reuseEvent(event, { intersection = null, intersections = null, ray = null, dratTarget, dropTarget }, listenerName, target_object){
+    // For effects like "hover", we need to find the handler not in
+    dispatchInternalEvent( event, listenerName, target_object = event.intersection?.object, break_bubble_on ){
+        let node = { parent: target_object };
+        while(node = node.parent) {
+            if(node === break_bubble_on) return;
+            (node[listenerName])?.call(node, event);
+        }
+    }
+
+    reuseEvent(event, { intersection = null, intersections = null, ray = null, dratTarget, dropTarget }, listenerName, target_object, break_bubble_on){
         event.intersection  = intersection;
         event.intersections = intersections;
         event.ray           = ray;
         if(dratTarget) event.dratTarget = dratTarget;
         if(dropTarget) event.dropTarget = dropTarget;
-        this.dispatchEvent(event, listenerName, target_object);
+        this.dispatchEvent(event, listenerName, target_object, break_bubble_on);
     }
 
     resolveEventMatch(event, objects){
@@ -465,3 +496,11 @@ class RenderManager {
         return this;
     }
 }
+
+
+
+
+
+
+
+

@@ -40,9 +40,10 @@ export { default as Box  }       from "./lib/geometries/Box.jsx";
 
 
 
-
+console.error("TODO: Think about dragover/drop on self/parent or skip and target next in depth object");
 console.error("TODO: Implement MouseLock camera control for perspective camera");
 console.error("TODO: Implement MouseLock camera control for orthographic camera");
-console.error("TODO: Implement Hover");
+console.error("TODO: Implement Hover <Progress: Event system targets mesh.hoverIn() and mesh.hoverOut() functions>");
 console.error("TODO: Implement Cursor");
 console.error("TODO: Implement HitBox for mouse events detection");
+console.error("TODO: Implement run mouse detection events when scene is rendered sliding under the mouse");

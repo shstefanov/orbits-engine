@@ -322,7 +322,7 @@ class RenderManager {
                 button_down           = event.button;
                 mousedown_event       = event;
                 mousedown_event_props = target_event_props;
-                if(event.button === 0){
+                if(event.button === 0 && target_object.userData.draggable){
                     this.reuseEvent (event, mousedown_event_props, "onDragStart");
                     drag_start_event       = mousedown_event;
                     drag_start_event_props = mousedown_event_props;

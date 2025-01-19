@@ -39,7 +39,15 @@ export { default as Box  }       from "./lib/geometries/Box.jsx";
 
 
 
+// [ intersection1, intersection2, ... ]
+// if intersection_parent has non matching dropzone and has dragtrough attribute - test next non-parent intersection and so on...
 
+console.error(`TODO: Implement draggable='zone-name' and dropzone='zone-name' and dragtrough attributes.
+    Hint:
+    If self/parents does not have matching dropzone name, target next non parent intersection
+    First of intersections list that is not self/parent should receive dragover/drop events,
+    but only if has (or some of parents) match dropzone name.
+`);
 console.error("TODO: Think about dragover/drop on self/parent or skip and target next in depth object");
 console.error("TODO: Implement MouseLock camera control for perspective camera");
 console.error("TODO: Implement MouseLock camera control for orthographic camera");
@@ -47,3 +55,4 @@ console.error("TODO: Implement Hover <Progress: Event system targets mesh.hoverI
 console.error("TODO: Implement Cursor");
 console.error("TODO: Implement HitBox for mouse events detection");
 console.error("TODO: Implement run mouse detection events when scene is rendered sliding under the mouse");
+console.error("TODO: Implement Group component");

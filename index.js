@@ -34,8 +34,10 @@ export { default as MeshBasicMaterial  } from "./lib/materials/MeshBasicMaterial
 export { default as Mesh }       from "./lib/objects/Mesh.jsx";
 export { default as MeshLoader } from "./lib/objects/MeshLoader.jsx";
 
-export { default as Line }       from "./lib/geometries/Line.jsx";
-export { default as Box  }       from "./lib/geometries/Box.jsx";
+export { default as Points }       from "./lib/geometries/Points.jsx";
+export { default as Line }         from "./lib/geometries/Line.jsx";
+export { default as LineSegments } from "./lib/geometries/LineSegments.jsx";
+export { default as Box  }         from "./lib/geometries/Box.jsx";
 
 
 
@@ -59,4 +61,9 @@ console.error("TODO: Implement Cursor");
 console.error("TODO: Implement HitBox for mouse events detection");
 console.error("TODO: Implement run mouse detection events when scene is rendered sliding under the mouse");
 console.error("TODO: Implement Group component");
+
+console.error("TODO: learn about: geometry.setDrawRange( ...drawRange );");
+console.error("TODO: learn about: geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));");
+console.error("TODO: learn about: geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1 ));");
+
 console.groupEnd("Orbits TODOS")

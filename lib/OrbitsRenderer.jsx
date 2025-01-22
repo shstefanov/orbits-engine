@@ -544,6 +544,7 @@ class RenderManager {
         event.intersection  = intersection;
         event.intersections = intersections;
         event.ray           = ray;
+        event.renderer      = this;
         if(dragTarget) event.dragTarget = dragTarget;
         if(dropTarget) event.dropTarget = dropTarget;
         this.dispatchEvent(event, listenerName, target_object, break_bubble_on);
@@ -553,6 +554,7 @@ class RenderManager {
         const raycaster = this.#raycaster;
         for(let { camera } of this.#scenes){
             if(!camera) return;
+            event.camera = camera;
             this.updateRayCaster(event, camera);
             const intersections = raycaster.intersectObjects( objects );
             const intersection  = intersections[0];

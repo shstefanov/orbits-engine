@@ -46,14 +46,8 @@ export { default as Box  }         from "./lib/geometries/Box.jsx";
 // if intersection_parent has non matching dropzone and has dragtrough attribute - test next non-parent intersection and so on...
 
 console.groupCollapsed('%c Orbits TODOS! ', 'color: orange; font-size: 24px;');
-console.error(`TODO: Implement draggable='zone-name' and dropzone='zone-name' and dragtrough attributes.
-    Hint:
-    If self/parents does not have matching dropzone name, target next non parent intersection
-    First of intersections list that is not self/parent should receive dragover/drop events,
-    but only if has (or some of parents) match dropzone name.
-`);
-console.error("TODO: Add event.renderer and renderer.camera in case some evennt handler needs to calculate or update something");
-console.error("TODO: Think about dragover/drop on self/parent or skip and target next in depth object");
+
+
 console.error("TODO: Implement MouseLock camera control for perspective camera");
 console.error("TODO: Implement MouseLock camera control for orthographic camera");
 console.error("TODO: Implement Hover <Progress: Event system targets mesh.hoverIn() and mesh.hoverOut() functions>");
@@ -62,8 +56,6 @@ console.error("TODO: Implement HitBox for mouse events detection");
 console.error("TODO: Implement run mouse detection events when scene is rendered sliding under the mouse");
 console.error("TODO: Implement Group component");
 
-console.error("TODO: learn about: geometry.setDrawRange( ...drawRange );");
-console.error("TODO: learn about: geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));");
-console.error("TODO: learn about: geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1 ));");
+console.error("OrbitsRenderer#resolveEventMatch does not work with multiple scenes and cameras, so make it to work with one");
 
 console.groupEnd("Orbits TODOS")

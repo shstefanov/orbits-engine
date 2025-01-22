@@ -316,9 +316,15 @@ class RenderManager {
                 }
             };
 
-            for(let object of intersecting_objects){
+            for(let intersection of intersections){
 
-                const object_event_props = { ...current_event_props, object: object, dragTarget: drag_start_event_props };
+                const object = intersection.object;
+
+                const object_event_props = {
+                    intersection,
+                    intersections,
+                    dragTarget: drag_start_event_props
+                };
                 let object_dropzone   = searchUp( object, findDropZone   );
                 let object_dragtrough = searchUp( object, findDragTrough );
 
@@ -329,20 +335,23 @@ class RenderManager {
                     break;
                 }
                 else if(object_dragtrough){
-                    // Can be parent, or child of already intersected object
-                    if(result.dragtrough_objects.indexOf(object) === -1){ // Do not add same object again
-                        // It can be parent of added object, so remove parents from the list
-                        // But only if they.... (Think about how they can have different dropzone namecpase)
-                        result.dragtrough_objects = result.dragtrough_objects.filter( p_object => {
-                            return !isNested(object, p_object);
-                        });
-                        result.dragtrough_objects.push(object);
+                    result.dragtrough_objects.push(object);
+                    if(prev_result.dragtrough_objects.indexOf(object) === -1){
+                        result.events.onDragTroughStart.event_props.push(object_event_props);
                     }
-
+                    else {
+                        result.events.onDragTrough.event_props.push(object_event_props);    
+                    }
                 }
                 else break;
             }
 
+            for(let object of prev_result.dragtrough_objects){
+                if(result.dragtrough_objects.indexOf(object) === -1){
+                    const object_event_props = { ...current_event_props, object: object, dragTarget: drag_start_event_props };
+                    result.events.onDragTroughEnd.event_props.push(object_event_props);
+                }
+            }
 
             // Do checks here
 
@@ -368,20 +377,27 @@ class RenderManager {
             
             if(drag_start_event){
                 
-                this.reuseEvent (event, {
-                    ...drag_start_event,
+                this.reuseEvent (event, { ...drag_start_event,
                     dropTarget: drag_over_event_props ? {...drag_over_event_props} : null,
                 }, "onDragStop");
                 
-                
+
+                for(let object of drag_over_stack.dragtrough_objects){
+                    const object_event_props = { ...target_event_props, object: object, dragTarget: drag_start_event_props };
+                    this.reuseEvent(event, { ...object_event_props, }, "onDragTroughEnd", object );
+                }
+
                 if(drag_over_stack.drag_over_event){
-                    console.log("MOUSEUP: drag_over_stack.drag_over_event", drag_over_stack.drag_over_event_props.intersection.object.userData.id);
+                    this.reuseEvent(event, {
+                        ...drag_over_stack.drag_over_event_props,
+                        dragTarget: drag_start_event_props,
+                    }, "onDragOverEnd", drag_over_stack.drag_over_event_props.intersection.object );
                     this.reuseEvent(event, {
                         ...drag_over_stack.drag_over_event_props,
                         dragTarget: drag_start_event_props,
                     }, "onDrop", drag_over_stack.drag_over_event_props.intersection.object );
                 }
-                
+
                 // Reset drag target
                 drag_start_event       = null;
                 drag_start_event_props = {};
@@ -472,18 +488,9 @@ class RenderManager {
 
                 const { events, ...new_dragover_stack } = resolveDragOverStack( current_event, current_event_props, drag_over_stack );
 
-                // console.log("DRAG OVER STACK", {
-                //     events, new_dragover_stack, drag_over_stack,
-                // });
-
-                // console.log("EVENTS: ", events);
-
                 for(let listenerName in (events)){
                     const target_events = events[listenerName];
                     for(let props of target_events.event_props) {
-
-                        console.log("FIRE: ",  listenerName, "on", props.object.userData.id);
-
                         this.reuseEvent( target_events.event, {
                             ...props,
                             dragSource: drag_start_event_props,
@@ -492,45 +499,11 @@ class RenderManager {
                         
 
                 }
-                // let drag_over_event  = null; let drag_over_event_props  = {};
-                false && console.log("DRAG OVER STACK", {
-                    events, new_dragover_stack, drag_over_stack,
-                });
 
                 // Store the results
                 drag_over_stack       = new_dragover_stack;
                 drag_over_event       = new_dragover_stack.drag_over_event;
                 drag_over_event_props = new_dragover_stack.drag_over_event_props;
-
-
-
-
-
-
-                // If we do not have intersecting object, we still need
-                // to handle onDragtroughEnd, onDragOverEnd
-
-                // Then search for other object
-                // if(object){
-
-                //     // Creating list of possible targets from current_event_props.intersections
-                //     // for dragover, including self
-
-                //     // const is_child_of_dragged = isNested(object, drag_start_event_props.intersection.object);
-
-                //     // if(object !== drag_start_event_props.intersection.object && !is_child_of_dragged){
-                //     //     drag_over_event       = current_event;
-                //     //     drag_over_event_props = current_event_props;
-                //     //     this.reuseEvent(event, {
-                //     //         ...current_event_props,
-                //     //         dragSource: drag_start_event_props,
-                //     //     }, "onDragOver" );
-                //     // }
-                // }
-                // else {
-                //     drag_over_event       = null;
-                //     drag_over_event_props = null;
-                // }
 
             }
 
@@ -571,7 +544,7 @@ class RenderManager {
         event.intersection  = intersection;
         event.intersections = intersections;
         event.ray           = ray;
-        if(dragTarget) event.dratTarget = dragTarget;
+        if(dragTarget) event.dragTarget = dragTarget;
         if(dropTarget) event.dropTarget = dropTarget;
         this.dispatchEvent(event, listenerName, target_object, break_bubble_on);
     }

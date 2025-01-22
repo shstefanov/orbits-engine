@@ -32,9 +32,12 @@ export default function Mesh(props){
 
     // Creating the mesh here
     useEffect(() => {
-        if(!geometry || !material) return;
-        const { MeshPrototype = THREE.Mesh } = props;
-        const mesh = new MeshPrototype( geometry, material );
+        if(!props.mesh) {
+            if(!geometry || !material) return;
+        }
+
+        const mesh = props.mesh || new ( props.MeshPrototype || THREE.Mesh )(geometry, material);
+
         if(props.id) mesh.name = props.id;
         if(!props.nonInteractive) renderer.addMouseInteractiveObject(mesh);
         scene.add(mesh);

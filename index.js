@@ -37,9 +37,9 @@ export { default as MeshLoader } from "./lib/objects/MeshLoader.jsx";
 export { default as Points }       from "./lib/geometries/Points.jsx";
 export { default as Line }         from "./lib/geometries/Line.jsx";
 export { default as LineSegments } from "./lib/geometries/LineSegments.jsx";
-export { default as Box  }         from "./lib/geometries/Box.jsx";
+export { default as Box  }         from "./lib/geometries/Box.jsx"; // ??
 
-
+export { default as Group  }       from "./lib/Group.jsx";
 
 
 // [ intersection1, intersection2, ... ]
@@ -54,7 +54,6 @@ console.error("TODO: Implement Hover <Progress: Event system targets mesh.hoverI
 console.error("TODO: Implement Cursor");
 console.error("TODO: Implement HitBox for mouse events detection");
 console.error("TODO: Implement run mouse detection events when scene is rendered sliding under the mouse");
-console.error("TODO: Implement Group component");
 
 console.error("OrbitsRenderer#resolveEventMatch does not work with multiple scenes and cameras, so make it to work with one");
 

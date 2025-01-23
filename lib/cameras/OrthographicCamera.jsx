@@ -52,7 +52,9 @@ export default function OrthographicCamera(props){
 
                 scene.add(camera);
 
-                setCameraManager( createOrthographicCameraManager(camera, props, renderer) );
+                const manager = createCameraManager(camera, props, renderer);
+                manager.set(props);
+                setCameraManager( manager );
 
                 setCamera(camera);
                 renderer.render();

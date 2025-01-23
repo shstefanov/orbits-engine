@@ -40,7 +40,9 @@ export default function PerspectiveCamera(props){
             });
         }
 
-        setCameraManager( createCameraManager(camera, props, renderer) );
+        const manager = createCameraManager(camera, props, renderer);
+        manager.set(props);
+        setCameraManager( manager );
 
         setCamera(camera);
         renderer.render();

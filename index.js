@@ -47,14 +47,17 @@ export { default as Group  }       from "./lib/Group.jsx";
 
 console.groupCollapsed('%c Orbits TODOS! ', 'color: orange; font-size: 24px;');
 
+    console.error(`
+        TODO: Interaction management
+            Variant 1 - only 'interactive' objects will react without recursive testing
 
-console.error("TODO: Implement MouseLock camera control for perspective camera");
-console.error("TODO: Implement MouseLock camera control for orthographic camera");
-console.error("TODO: Implement Hover <Progress: Event system targets mesh.hoverIn() and mesh.hoverOut() functions>");
-console.error("TODO: Implement Cursor");
-console.error("TODO: Implement HitBox for mouse events detection");
-console.error("TODO: Implement run mouse detection events when scene is rendered sliding under the mouse");
-
-console.error("OrbitsRenderer#resolveEventMatch does not work with multiple scenes and cameras, so make it to work with one");
+    `);
+    console.error("TODO: Implement MouseLock camera control for perspective camera");
+    console.error("TODO: Implement MouseLock camera control for orthographic camera");
+    console.error("TODO: Implement Hover <Progress: Event system targets mesh.hoverIn() and mesh.hoverOut() functions>");
+    console.error("TODO: Implement Cursor");
+    console.error("TODO: Implement HitBox for mouse events detection");
+    console.error("TODO: Implement run mouse detection events when scene is rendered sliding under the mouse");
+    console.error("OrbitsRenderer#resolveEventMatch does not work with multiple scenes and cameras, so make it to work with one");
 
 console.groupEnd("Orbits TODOS")

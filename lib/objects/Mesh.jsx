@@ -3,7 +3,6 @@ import * as THREE                  from "three";
 import { useScene, SceneProvider } from "../OrbitsScene.jsx";
 import { useRenderer }             from "../OrbitsRenderer.jsx";
 import createMeshManager           from "../utils/createMeshManager.js";
-import createEventManager          from "../utils/createEventManager.js";
 
 const meshContext = createContext();
 export const MeshProvider = meshContext.Provider;
@@ -45,7 +44,6 @@ export default function Mesh(props){
         props.onCreate && props.onCreate(mesh);
         renderer.render();
         const meshManager  = createMeshManager(mesh, props, renderer);
-        // const eventManager = createEventManager (mesh, props, scene, renderer);
         meshManager.set(props);
         setMeshManager( meshManager );
 

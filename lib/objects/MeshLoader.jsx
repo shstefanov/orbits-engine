@@ -8,7 +8,6 @@ const objLoader  = new THREE.ObjectLoader();
 const gltfLoader = new GLTFLoader();
 
 import createMeshManager  from "../utils/createMeshManager.js";
-import createEventManager from "../utils/createEventManager.js";
 
 const objectsCache = new Map();
 

@@ -38,12 +38,11 @@ export default function Mesh(props){
         const mesh = props.mesh || new ( props.MeshPrototype || THREE.Mesh )(geometry, material);
 
         if(props.id) mesh.name = props.id;
-        if(!props.nonInteractive) renderer.addMouseInteractiveObject(mesh);
         scene.add(mesh);
         setMesh(mesh);
         props.onCreate && props.onCreate(mesh);
         renderer.render();
-        const meshManager  = createMeshManager(mesh, props, renderer);
+        const meshManager = createMeshManager(mesh, props, renderer);
         meshManager.set(props);
         setMeshManager( meshManager );
 

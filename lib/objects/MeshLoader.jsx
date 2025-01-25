@@ -113,13 +113,13 @@ export default function MeshLoader(props){
                 }
                 else gltfLoader.load(props.src, (gltf)=>{
 
-                    console.log("gltf: ", gltf.scene.traverse( obj => {
+                    gltf.scene.traverse( obj => {
                         if(obj.material) {
                             for(let item of Object.values(obj.material || {})) item instanceof THREE.Texture && ( item => {
                                 return item.source.data && renderer.render();
-                            })(item)
+                            })(item);
                         }
-                    }));
+                    });
 
                     handleMesh(gltf.scene, gltf.animations);
                 }, handleProgress, handleError);

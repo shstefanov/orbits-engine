@@ -556,7 +556,7 @@ class RenderManager {
             if(!camera) return;
             event.camera = camera;
             this.updateRayCaster(event, camera);
-            const intersections = raycaster.intersectObjects( objects );
+            const intersections = raycaster.intersectObjects( objects, false );
             const intersection  = intersections[0];
             if(!intersection) return { ray: raycaster.ray.clone(), intersections: [] };
             event.intersection  = intersection;
@@ -568,11 +568,12 @@ class RenderManager {
 
     addMouseInteractiveObject(mesh){
         this.#mouseInteractiveObjects.push(mesh);
-
     }
+    
     removeMouseInteractiveObject(mesh){
         const objects = this.#mouseInteractiveObjects;
-        objects.splice(objects.indexOf(mesh), 1);
+        const index = objects.indexOf(mesh);
+        index > -1 && objects.splice(index, 1);
     }
 
     updateRayCaster({ offsetX, offsetY }, camera){

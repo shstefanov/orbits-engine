@@ -146,7 +146,7 @@ class RenderManager {
 
         let delta_anchor = Date.now();
         let render = () => {
-            
+
             const now = Date.now();
             const delta = now - delta_anchor;
             delta_anchor = now;
@@ -157,7 +157,7 @@ class RenderManager {
                 if(this.#animatedObjects.size) this.renderWithAnimations(delta, now);
                 else                           this.renderWithoutAnimations(delta, now);     
             }
-            
+
             requestAnimationFrame(render);
         }
         requestAnimationFrame(render);
@@ -194,6 +194,10 @@ class RenderManager {
             scene.clearDepth && renderer.clearDepth();
             renderer.render( scene, camera );
         }
+        if(this.#doRedispatchLastMouseEvent){
+            this.repeatLastMouseMove();
+        }
+        this.#doRedispatchLastMouseEvent = true;
     }
 
     renderWithAnimations(delta, now){
@@ -259,6 +263,29 @@ class RenderManager {
     #dh = {}; // Drag  Event handlers for later unbinding
     #bh = {}; // Basic Event handlers for later unbinding
     #mouseInteractiveObjects = [];
+
+    #doRedispatchLastMouseEvent = true;
+    #lastMouseMoveEvent = null;
+    repeatLastMouseMove(){
+        if(this.#lastMouseMoveEvent){
+            const { 
+                clientX, clientY, pageX, pageY, offsetX, offsetY,
+                altKey, ctrlKey, shiftKey, metaKey, cancelBubble
+            } = this.#lastMouseMoveEvent;
+
+            const syntheticEvent = new MouseEvent('mousemove', {
+                clientX, clientY, pageX, pageY, offsetX, offsetY,
+                altKey, ctrlKey, shiftKey, metaKey,
+                bubbles: !cancelBubble,
+                cancelable: true,
+            });
+
+            syntheticEvent.isRedispatched = true;
+    
+            // Dispatch the event to the canvas
+            this.#canvas.dispatchEvent(syntheticEvent);
+        }
+    }
 
     initMouseEvents(){
         const el   = this.#canvas;
@@ -440,6 +467,12 @@ class RenderManager {
         
         el.addEventListener("mousemove", this.#bh.mousemove = event => {
 
+            if(!event.isRedispatched){
+                this.#lastMouseMoveEvent = event;
+            }
+            
+            if(!event.isRedispatched) this.#doRedispatchLastMouseEvent = false;
+
             const current_event = this.resolveEventMatch(event, objs);
 
             if(!current_event) return;
@@ -590,11 +623,3 @@ class RenderManager {
         return this;
     }
 }
-
-
-
-
-
-
-
-

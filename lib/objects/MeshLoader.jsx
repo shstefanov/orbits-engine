@@ -20,16 +20,31 @@ export default function MeshLoader(props){
     const renderer = useRenderer();
     const scene    = useScene();
 
+    const [ showHoverElement, setShowHoverElement ] = useState(false);
+
+
+
     // If json is provided or object is stored in cache
     if(props.hasOwnProperty("json")){
-        const { mesh, meshManager } = useMemo( () => {
-            const mesh  = objLoader.parse(props.json || objectsCache.get(props.src));
-            if(props.id) newMesh.name = props.id;
+        const [ mesh, setMesh ] = useState(null);
+        const [ meshManager, setMeshManager ] = useState(createMeshManager(null, props, renderer, mesh));
+        useEffect( () => {
+            const mesh  = objLoader.parse(props.json);
+            if(props.id) mesh.name = props.id;
             const meshManager = createMeshManager(mesh, props, renderer, false);
             meshManager.set(props);
+            
+            mesh.animations = [];
+            setMesh(mesh);
+            setMeshManager(meshManager);
             scene.add(mesh);
+            props.onCreate && props.onCreate(mesh);
             renderer.render();
-            return { mesh, meshManager };
+
+            return function(){
+                scene.remove(mesh);
+                renderer.render();
+            };
         }, []);
 
         if(mesh) {
@@ -39,14 +54,14 @@ export default function MeshLoader(props){
         }
 
         meshManager.set(props, useEffect);
-        return <SceneProvider value={mesh}>{props.children}</SceneProvider>;
+        return <SceneProvider value={mesh}>
+            { showHoverElement && props.hover }
+            { props.children }
+        </SceneProvider>;
     }
     else if(props.hasOwnProperty("src")){
         
         const [ mesh, setMesh ] = useState(null);
-
-        if(mesh) mesh.userData = props;
-
         const [ meshManager, setMeshManager ] = useState(createMeshManager(null, props, renderer, mesh));
 
         if(mesh) {
@@ -64,7 +79,7 @@ export default function MeshLoader(props){
 
                 loaded_mesh = mesh;
 
-                mesh.animations = animations;
+                mesh.animations = animations || [];
                 
                 if(props.id) mesh.name = props.id;
                 
@@ -86,14 +101,13 @@ export default function MeshLoader(props){
                 // Create meshManager
                 const meshManager = createMeshManager(mesh, props, renderer);
                 meshManager.set(props);
+                
                 setMeshManager( meshManager );
 
                 setMesh(mesh);
                 
                 scene.add( mesh );
-
                 props.onCreate && props.onCreate(mesh);
-                
                 renderer.render();
             }
 
@@ -125,6 +139,9 @@ export default function MeshLoader(props){
                 }
                 else gltfLoader.load(props.src, (gltf)=>{
 
+                    console.log("GLTF: object", gltf.scene.toJSON());
+                    console.log("GLTF: animations", gltf.animations.map( a => a.toJSON() ));
+
                     gltf.scene.traverse( obj => {
                         if(obj.material) {
                             for(let item of Object.values(obj.material || {})) item instanceof THREE.Texture && ( item => {
@@ -149,7 +166,10 @@ export default function MeshLoader(props){
 
         meshManager.set(props, useEffect);
 
-        return <SceneProvider value={mesh}> { mesh && props.children } </SceneProvider>
+        return <SceneProvider value={mesh}>
+            { mesh && showHoverElement && props.hover }
+            { mesh && props.children }
+        </SceneProvider>
     }
     
 }

@@ -18,7 +18,7 @@ export default function Mesh(props){
     const [ mesh,     setMesh     ] = useState(null);
     const [ material, setMaterial ] = useState(props.material);
     const [ geometry, setGeometry ] = useState(props.geometry);
-const [ showHoverElement, setShowHoverElement ] = useState(false);
+    const [ showHoverElement, setShowHoverElement ] = useState(false);
     
 
     if(mesh) {
@@ -43,21 +43,28 @@ const [ showHoverElement, setShowHoverElement ] = useState(false);
 
         const mesh = props.mesh || new ( props.MeshPrototype || THREE.Mesh )(geometry, material);
 
+        mesh.animations = [];
+
         if(props.id) mesh.name = props.id;
-        scene.add(mesh);
-        setMesh(mesh);
-        props.onCreate && props.onCreate(mesh);
-        renderer.render();
+
         const meshManager = createMeshManager(mesh, props, renderer);
         meshManager.set(props);
+
+        scene.add(mesh);
+        props.onCreate && props.onCreate(mesh);
+
+
+        setMesh(mesh);
+        renderer.render();
+
+        
         setMeshManager( meshManager );
 
         return () => {
             scene.remove(mesh);
             renderer.render();
-            // eventManager.dispose();
             props.onDestroy && props.onDestroy(mesh);
-            if(!props.nonInteractive) renderer.removeMouseInteractiveObject(mesh);
+            if(props.hasOwnProperty("interactive")) renderer.removeMouseInteractiveObject(mesh);
         }
 
     }, [geometry, material]);
@@ -65,8 +72,20 @@ const [ showHoverElement, setShowHoverElement ] = useState(false);
     meshManager.set(props, useEffect);
 
     return <SceneProvider value={mesh}>
-        { (!mesh && Array.isArray(props.children))  && <MeshProvider value={collectContext}> { props.children.filter( c => c?.type?.isMeshComponent)  } </MeshProvider> }
-        { (!mesh && !Array.isArray(props.children)) && <MeshProvider value={collectContext}> { props.children?.type.isMeshComponent && props.children } </MeshProvider> }
-        {   mesh                                    && <MeshProvider value={collectContext}> { props.children }                                         </MeshProvider> }
+        {   
+            // When geometry, material or both are managed by child component, we need them to be created
+            // first and provided trough collectContext
+            !mesh
+                ? <MeshProvider value={collectContext}> { onlyComponents(props.children)  } </MeshProvider>
+                : <MeshProvider value={collectContext}> { props.children }                  </MeshProvider>
+        }
+        { mesh && showHoverElement && props.hover }
     </SceneProvider>;
+}
+
+// This returns only components that are required for mesh
+function onlyComponents(children){
+    if(Array.isArray(children)) return children.filter( c => c?.type?.isMeshComponent );
+    else if(typeof children === "object" && children?.type.isMeshComponent) return children;
+    else return null;
 }

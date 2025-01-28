@@ -22,10 +22,16 @@ export default function OrbitsScene(props){
     const renderer            = useRenderer();
     const [ scene, setScene ] = useState(null);
 
-    scene && (scene.userData = props);
+    if(scene){
+        const { children, ...pr } = props;
+        scene.userData = pr;
+    }
 
     useEffect( () => {
         const scene = new THREE.Scene();
+
+        window.scene = scene;
+
         scene.renderOrder = renderOrder;
         renderer.addScene(scene);
         setScene(scene);

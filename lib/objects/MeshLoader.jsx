@@ -31,7 +31,13 @@ export default function MeshLoader(props){
             renderer.render();
             return { mesh, meshManager };
         }, []);
-        mesh.userData = props;
+
+        if(mesh) {
+            const { children, ...pr } = props;
+            mesh.userData = pr;
+            mesh.setShowHoverElement = setShowHoverElement;
+        }
+
         meshManager.set(props, useEffect);
         return <SceneProvider value={mesh}>{props.children}</SceneProvider>;
     }
@@ -42,6 +48,12 @@ export default function MeshLoader(props){
         if(mesh) mesh.userData = props;
 
         const [ meshManager, setMeshManager ] = useState(createMeshManager(null, props, renderer, mesh));
+
+        if(mesh) {
+            const { children, ...pr } = props;
+            mesh.userData = pr;
+            mesh.setShowHoverElement = setShowHoverElement;
+        }
         
         useEffect(() => {
             let loaded_mesh = null;

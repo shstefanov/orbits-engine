@@ -18,8 +18,14 @@ export default function Mesh(props){
     const [ mesh,     setMesh     ] = useState(null);
     const [ material, setMaterial ] = useState(props.material);
     const [ geometry, setGeometry ] = useState(props.geometry);
+const [ showHoverElement, setShowHoverElement ] = useState(false);
+    
 
-    if(mesh) mesh.userData = props;
+    if(mesh) {
+        const { children, ...pr } = props;
+        mesh.userData = pr;
+        mesh.setShowHoverElement = setShowHoverElement;
+    }
     
     const [ meshManager,  setMeshManager  ] = useState(createMeshManager  (null, props, renderer, mesh));
 

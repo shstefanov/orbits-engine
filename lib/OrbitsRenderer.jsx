@@ -187,7 +187,6 @@ class RenderManager {
     renderScenes(){
         
         const renderer = this.#renderer;
-        window.renderer = this;
 
         for(let scene of this.#scenes){
             const camera = scene.camera;

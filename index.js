@@ -37,6 +37,9 @@ export { default as MeshLoader } from "./lib/objects/MeshLoader.jsx";
 export { default as Points }       from "./lib/geometries/Points.jsx";
 export { default as Line }         from "./lib/geometries/Line.jsx";
 export { default as LineSegments } from "./lib/geometries/LineSegments.jsx";
+export { default as Triangles }    from "./lib/geometries/Triangles.jsx";
+
+
 export { default as Box  }         from "./lib/geometries/Box.jsx"; // ??
 
 export { default as Group  }       from "./lib/Group.jsx";

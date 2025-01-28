@@ -51,7 +51,9 @@ console.groupCollapsed('%c Orbits TODOS! ', 'color: orange; font-size: 24px;');
     console.error("TODO: Implement Apply material props on hover (with transition)");
     console.error("Implement scene overlay");
     console.error("Implement Timer");
-    console.error("Implement period={{diration: 1.4325, rotation: [0, Math.PI], ...}}")
-    console.error("Implement transition={{diration: 1.4325, rotation: [0, Math.PI], ...}}")
+    console.error("Implement period={{diration: 1.4325, rotation: [0, Math.PI], ...}}");
+    console.error("Implement transition={{diration: 1.4325, rotation: [0, Math.PI], ...}}");
+
+    console.error("Read about THREE.BatchedMesh, THREE.InstancedMesh, THREE.SkinnedMesh" );
 
 console.groupEnd("Orbits TODOS")

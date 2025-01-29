@@ -49,7 +49,6 @@ console.groupCollapsed('%c Orbits TODOS! ', 'color: orange; font-size: 24px;');
     
     console.error("!!! Check redispatch last mousemove for issues !!!");
 
-    console.error("TODO: Implement 'overlay' attribute by using renderOrder=Infinity and material.depthFunc=THREE.AlwaysDepth");
     console.error("TODO: Implement Apply material props on hover (with transition)");
     console.error("Implement scene overlay");
     console.error("Implement Timer");

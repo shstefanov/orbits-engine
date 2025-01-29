@@ -48,7 +48,6 @@ export default function Mesh(props){
         if(props.id) mesh.name = props.id;
 
         const meshManager = createMeshManager(mesh, props, renderer);
-        meshManager.set(props);
 
         scene.add(mesh);
         props.onCreate && props.onCreate(mesh);

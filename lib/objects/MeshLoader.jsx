@@ -32,8 +32,6 @@ export default function MeshLoader(props){
             const mesh  = objLoader.parse(props.json);
             if(props.id) mesh.name = props.id;
             const meshManager = createMeshManager(mesh, props, renderer, false);
-            meshManager.set(props);
-            
             mesh.animations = [];
             setMesh(mesh);
             setMeshManager(meshManager);
@@ -100,7 +98,6 @@ export default function MeshLoader(props){
 
                 // Create meshManager
                 const meshManager = createMeshManager(mesh, props, renderer);
-                meshManager.set(props);
                 
                 setMeshManager( meshManager );
 

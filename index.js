@@ -47,7 +47,9 @@ export { default as Group  }       from "./lib/Group.jsx";
 
 console.groupCollapsed('%c Orbits TODOS! ', 'color: orange; font-size: 24px;');
     
-    console.error("TODO: Implement HitBox for mouse events detection (Only Geometry)");
+    console.error("!!! Check redispatch last mousemove for issues !!!");
+
+    console.error("TODO: Implement 'overlay' attribute by using renderOrder=Infinity and material.depthFunc=THREE.AlwaysDepth");
     console.error("TODO: Implement Apply material props on hover (with transition)");
     console.error("Implement scene overlay");
     console.error("Implement Timer");
@@ -55,5 +57,6 @@ console.groupCollapsed('%c Orbits TODOS! ', 'color: orange; font-size: 24px;');
     console.error("Implement transition={{diration: 1.4325, rotation: [0, Math.PI], ...}}");
 
     console.error("Read about THREE.BatchedMesh, THREE.InstancedMesh, THREE.SkinnedMesh" );
+    console.error("Read about Material.depthFunc, Material.depthTest, Material.depthWrite" );
 
 console.groupEnd("Orbits TODOS")

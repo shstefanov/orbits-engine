@@ -478,8 +478,6 @@ class RenderManager {
 
             const current_event = this.resolveEventMatch(event, objs);
 
-            if(!current_event) return;
-
             const ray                 = current_event.ray;
             const current_event_props = { ...current_event };
             
@@ -487,6 +485,15 @@ class RenderManager {
             const prev_object = target_event_props?.intersection?.object  || null;
 
             const is_same = object === prev_object;
+
+            // if( event.isRedispatched
+            //     && object 
+            //     && is_same
+            //     // && target_event
+            //     && target_event_props.intersection.point.equals(target_event_props.intersection.point)
+            // ) return; // Do not redispatch if hitpoint and object are same, prevents some infinite render loops
+
+
 
             // Mouse in and out change
             if(!is_same){

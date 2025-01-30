@@ -12,8 +12,7 @@
   "author": "Stefan Stefanov <s.h.stefanov@mail.bg>",
   "license": "ISC",
   "dependencies": {
-    "@orbits/timer": "^1.0.0",
-    "camera-controls": "^1.30.0"
+    "@orbits/timer": "^1.1.0"
   },
   "repository": {
     "type": "git",

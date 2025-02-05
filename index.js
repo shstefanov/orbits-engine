@@ -1,3 +1,7 @@
+import * as Materials from "./lib/materials/Materials.jsx";
+for(let matName in Materials) Materials[matName].isMeshComponent = true;
+
+
 export { default as OrbitsRenderer     } from "./lib/OrbitsRenderer.jsx";
 export { useRenderer                   } from "./lib/OrbitsRenderer.jsx";
 

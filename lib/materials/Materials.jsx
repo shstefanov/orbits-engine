@@ -1,0 +1,20 @@
+import React    from "react";
+import Material from "./Material.jsx";
+
+export const LineBasicMaterial    =  props => <Material type="LineBasicMaterial"    {...props} />;
+export const LineDashedMaterial   =  props => <Material type="LineDashedMaterial"   {...props} />;
+export const MeshBasicMaterial    =  props => <Material type="MeshBasicMaterial"    {...props} />;
+export const MeshDepthMaterial    =  props => <Material type="MeshDepthMaterial"    {...props} />;
+export const MeshDistanceMaterial =  props => <Material type="MeshDistanceMaterial" {...props} />;
+export const MeshLambertMaterial  =  props => <Material type="MeshLambertMaterial"  {...props} />;
+export const MeshMatcapMaterial   =  props => <Material type="MeshMatcapMaterial"   {...props} />;
+export const MeshNormalMaterial   =  props => <Material type="MeshNormalMaterial"   {...props} />;
+export const MeshPhongMaterial    =  props => <Material type="MeshPhongMaterial"    {...props} />;
+export const MeshPhysicalMaterial =  props => <Material type="MeshPhysicalMaterial" {...props} />;
+export const MeshStandardMaterial =  props => <Material type="MeshStandardMaterial" {...props} />;
+export const MeshToonMaterial     =  props => <Material type="MeshToonMaterial"     {...props} />;
+export const PointsMaterial       =  props => <Material type="PointsMaterial"       {...props} />;
+export const RawShaderMaterial    =  props => <Material type="RawShaderMaterial"    {...props} />;
+export const ShaderMaterial       =  props => <Material type="ShaderMaterial"       {...props} />;
+export const ShadowMaterial       =  props => <Material type="ShadowMaterial"       {...props} />;
+export const SpriteMaterial       =  props => <Material type="SpriteMaterial"       {...props} />;

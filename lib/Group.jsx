@@ -4,7 +4,7 @@ import Mesh               from "./objects/Mesh";
 
 function blank(){ return new THREE.Group(); }
 
-export default function Line({ children, ...props }){
+export default function Group({ children, ...props }){
     const mesh = useMemo( blank, []);
     return <Mesh { ...props } mesh={mesh}>{children}</Mesh>;
 }

@@ -31,7 +31,8 @@ export { default as LightProbe         } from "./lib/lights/LightProbe.jsx";
 export { default as BoxGeometry  }       from "./lib/geometries/BoxGeometry.jsx";
 
 // Materials exports
-export { default as MeshBasicMaterial  } from "./lib/materials/MeshBasicMaterial.jsx";
+export { default as Material           } from "./lib/materials/Material.jsx";
+export *                                 from "./lib/materials/Materials.jsx";
 
 
 // Objects exports

@@ -568,7 +568,7 @@ class RenderManager {
         let node = { parent: target_object };
         while(node = node.parent){
             if(node === break_bubble_on) return;
-            (node.userData[listenerName])?.call(node, event);
+            if(node.userData[listenerName]) node.userData[listenerName](event);
             if(event.cancelBubble) return;
         }
     }
@@ -578,7 +578,7 @@ class RenderManager {
         let node = { parent: target_object };
         while(node = node.parent) {
             if(node === break_bubble_on) return;
-            (node[listenerName])?.call(node, event);
+            if(node[listenerName]) node[listenerName](event);
         }
     }
 

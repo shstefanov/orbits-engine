@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
-
 import * as THREE from 'three';
+import Timer from "@orbits/timer";
+
 
 const rendererContext = createContext();
 export const useRenderer = () => useContext(rendererContext);
@@ -107,10 +108,6 @@ class RenderManager {
     #scenes          = [];
     #raycaster       = new THREE.Raycaster();
     #defaultCursor   = "";
-
-    
-    
-    
     
     constructor(renderer){
         this.#renderer   = renderer;
@@ -118,12 +115,14 @@ class RenderManager {
         this.#actualSize = getSize(this.#canvas);
         this.#defaultCursor = this.#canvas.style.cursor || "default";
 
+        this.initTimer();
         this.initRendererLoop();
         this.initMouseEvents();
     }
 
     dispose(){
         this.#renderer.dispose();
+        this.timer.stop();
         this.stopLoop();
 
         const canvas = this.#canvas
@@ -144,6 +143,18 @@ class RenderManager {
 
     getCanvas(){ return this.#canvas; }
 
+
+    initTimer(){
+        this.timer = new Timer();
+        this.timer.start(10, tick => {/* This just blocks automatic timer loop */});
+    }
+
+    timerTick(){
+        this.timer.state = this.timer.getState();
+        this.timer.handleState(this.timer.state);
+        
+    }
+
     initRendererLoop(){
 
         let delta_anchor = Date.now();
@@ -153,11 +164,13 @@ class RenderManager {
             const delta = now - delta_anchor;
             delta_anchor = now;
 
+            this.timerTick(now);
+
             this.processWaitFor();
 
             if(this.#scenes.length) {
                 if(this.#animatedObjects.size) this.renderWithAnimations(delta, now);
-                else                           this.renderWithoutAnimations(delta, now);     
+                else                           this.renderWithoutAnimations(delta, now);
             }
 
             requestAnimationFrame(render);

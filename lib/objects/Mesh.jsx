@@ -61,6 +61,7 @@ export default function Mesh(props){
 
         return () => {
             scene.remove(mesh);
+            if(mesh.transitions) for(let {cancel} of mesh.transitions) cancel();
             renderer.render();
             props.onDestroy && props.onDestroy(mesh);
             if(props.hasOwnProperty("interactive")) renderer.removeMouseInteractiveObject(mesh);

@@ -8,6 +8,9 @@ export { useRenderer                   } from "./lib/OrbitsRenderer.jsx";
 export { default as OrbitsScene        } from "./lib/OrbitsScene.jsx";
 export { useScene                      } from "./lib/OrbitsScene.jsx";
 
+export { default as Timer              } from "./lib/Timer.jsx";
+export { useTimer                      } from "./lib/Timer.jsx";
+
 // Cameras exports
 export { default as ArrayCamera        } from "./lib/cameras/ArrayCamera.jsx";
 export { default as CubeCamera         } from "./lib/cameras/CubeCamera.jsx";
@@ -28,7 +31,7 @@ export { default as LightProbe         } from "./lib/lights/LightProbe.jsx";
 
 
 // Geometries exports
-export { default as BoxGeometry  }       from "./lib/geometries/BoxGeometry.jsx";
+export { default as BoxGeometry        } from "./lib/geometries/BoxGeometry.jsx";
 
 // Materials exports
 export { default as Material           } from "./lib/materials/Material.jsx";
@@ -51,16 +54,14 @@ export { default as Group  }       from "./lib/Group.jsx";
 
 
 console.groupCollapsed('%c Orbits TODOS! ', 'color: orange; font-size: 24px;');
-    
-    console.error("!!! Check redispatch last mousemove for issues !!!");
+
+    console.error("Implement Timer");
+    // ??. Internal timer for transition and animation effects
 
     console.error("TODO: Implement Apply material props on hover (with transition)");
-    console.error("Implement scene overlay");
-    console.error("Implement Timer");
     console.error("Implement period={{diration: 1.4325, rotation: [0, Math.PI], ...}}");
     console.error("Implement transition={{diration: 1.4325, rotation: [0, Math.PI], ...}}");
 
     console.error("Read about THREE.BatchedMesh, THREE.InstancedMesh, THREE.SkinnedMesh" );
-    console.error("Read about Material.depthFunc, Material.depthTest, Material.depthWrite" );
 
 console.groupEnd("Orbits TODOS")

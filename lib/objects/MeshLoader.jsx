@@ -41,6 +41,7 @@ export default function MeshLoader(props){
 
             return function(){
                 scene.remove(mesh);
+                if(mesh.transitions) for(let {cancel} of mesh.transitions) cancel();
                 renderer.render();
             };
         }, []);
@@ -154,6 +155,7 @@ export default function MeshLoader(props){
             return () => {
                 if(loaded_mesh){
                     scene.remove(loaded_mesh);
+                    if(loaded_mesh.transitions) for(let {cancel} of loaded_mesh.transitions) cancel();
                     loaded_mesh.animMixer && renderer.removeAnimatedObject(loaded_mesh);
                     renderer.render();
                 }

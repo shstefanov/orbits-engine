@@ -1,46 +1,32 @@
-import React, { createContext, useContext } from "react";
-import TimerClass from "@orbits/timer";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import OrbitsTimer from "@orbits/timer";
+import { useRenderer } from "./OrbitsRenderer";
 
 const timerContext = createContext();
 export const useTimer = () => useContext(timerContext);
 
+export default function Timer(props){
 
+    const renderer = useRenderer();
 
-export default function Timer(){
-    return null;
-}
-
-
-
-
-
-class OrbitsTimer extends TimerClass {
-
-
-    // Remake start method as original uses only requestAnimationFrame
-
-    start(min_step = 40, raf){
-        if(!raf) return super.start(min_step);
-        if(this.tick) return;
-        let now = Date.now();
-        const state = this.getState(now);
-        this.handleState(state);
-        this.state = state;
-        this.tick = () => {
-            const new_now = Date.now();
-            const delta = new_now - now;
-            if(delta >= min_step){
-                const state = this.getState(new_now);
-                this.handleState(state);
-                this.state = state;
-                now = new_now;
-            }
-            this.tick && raf(this.tick);
-        }
-        this.tick.baseInterval = min_step;
-        raf(this.tick);
+    if(!renderer.relTimer){ // Setting the timer ass soon as possible
+        renderer.relTimer = new OrbitsTimer(props);
+        renderer.relTimer.start(10, tick => {/* This just blocks automatic timer loop */});
     }
 
+    const { speed = 1 } = props;
 
+    useEffect( () => {
+        return () => {
+            renderer.relTimer.stop();
+            renderer.relTimer.reset();
+            delete renderer.relTimer;
+        }
+    }, []);
 
+    useEffect(() => { renderer.relTimer.set({ speed }); }, [speed]);
+
+    return <timerContext.Provider value={renderer.relTimer}>
+        { props.children }
+    </timerContext.Provider>;
 }

@@ -152,7 +152,10 @@ class RenderManager {
     timerTick(){
         this.timer.state = this.timer.getState();
         this.timer.handleState(this.timer.state);
-        
+        if(this.relTimer){
+            this.relTimer.state = this.relTimer.getState();
+            this.relTimer.handleState(this.relTimer.state);
+        }
     }
 
     initRendererLoop(){

@@ -32,6 +32,10 @@ export default function Mesh(props){
     const collectContext = useMemo( () => ({
         setGeometry: props.hasOwnProperty("geometry") ? skip : setGeometry,
         setMaterial: props.hasOwnProperty("material") ? skip : setMaterial,
+        set geometry(geometry) {
+            if(this.mesh) this.mesh.geometry = geometry;
+            else props.hasOwnProperty("geometry") ? null : setGeometry(geometry);
+        },
         tmp: true
     }), []);
 
@@ -42,6 +46,8 @@ export default function Mesh(props){
         }
 
         const mesh = props.mesh || new ( props.MeshPrototype || THREE.Mesh )(geometry, material);
+
+        collectContext.mesh = mesh;
 
         mesh.animations = [];
 
@@ -61,7 +67,7 @@ export default function Mesh(props){
 
         return () => {
             scene.remove(mesh);
-            if(mesh.transitions) for(let {cancel} of mesh.transitions) cancel();
+            if(mesh.transitions) mesh.transitions.cancelAll();
             renderer.render();
             props.onDestroy && props.onDestroy(mesh);
             if(props.hasOwnProperty("interactive")) renderer.removeMouseInteractiveObject(mesh);

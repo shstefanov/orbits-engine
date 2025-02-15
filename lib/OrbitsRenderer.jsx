@@ -502,14 +502,18 @@ class RenderManager {
 
             const is_same = object === prev_object;
 
-            // if( event.isRedispatched
-            //     && object 
-            //     && is_same
-            //     // && target_event
-            //     && target_event_props.intersection.point.equals(target_event_props.intersection.point)
-            // ) return; // Do not redispatch if hitpoint and object are same, prevents some infinite render loops
+            const prev_event_props = target_event_props;
 
-
+            if(object){
+                target_event       = current_event;
+                target_event_props = current_event_props;
+                target_object      = object;
+            }
+            else {
+                target_event       = null;
+                target_event_props = {};
+                target_object      = null;
+            }
 
             // Mouse in and out change
             if(!is_same){
@@ -519,9 +523,10 @@ class RenderManager {
                     const prev_mouseout = !object || !isNested(object, prev_object); // ( mouse goes to void ) || ( mouse goes to non-child )
                     // Fire mouseout events with bubble stopper current object, in case previous is child in current
                     if(prev_mouseout){
-                        this.reuseEvent (event, target_event_props, "onMouseOut",   prev_object, object );
-                        this.reuseEvent (event, target_event_props, "onMouseLeave", prev_object, object );
+                        this.reuseEvent (event, prev_event_props, "onMouseOut",   prev_object, object );
+                        this.reuseEvent (event, prev_event_props, "onMouseLeave", prev_object, object );
                         this.dispatchInternalEvent( event,          "hoverOut",     prev_object, object );
+                        
                     }
                 }
 
@@ -565,17 +570,6 @@ class RenderManager {
 
             }
 
-            if(object){
-                target_event       = current_event;
-                target_event_props = current_event_props;
-                target_object      = object;
-            }
-            else {
-                target_event       = null;
-                target_event_props = {};
-                target_object      = null;
-            }
-
         });
 
     }
@@ -611,7 +605,7 @@ class RenderManager {
     resolveEventMatch(event, objects){
         const raycaster = this.#raycaster;
         for(let { camera } of this.#scenes){
-            if(!camera) return;
+            if(!camera) return {};
             event.camera = camera;
             this.updateRayCaster(event, camera);
             const intersections = raycaster.intersectObjects( objects, false );
@@ -620,8 +614,9 @@ class RenderManager {
             event.intersection  = intersection;
             event.intersections = intersections;
             event.ray = raycaster.ray.clone();
-            return event;
+            break;
         }
+        return event;
     }
 
     addMouseInteractiveObject(mesh){

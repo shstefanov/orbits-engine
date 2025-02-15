@@ -41,7 +41,7 @@ export default function MeshLoader(props){
 
             return function(){
                 scene.remove(mesh);
-                if(mesh.transitions) for(let {cancel} of mesh.transitions) cancel();
+                if(mesh.transitions) mesh.transitions.cancelAll();
                 renderer.render();
             };
         }, []);
@@ -137,9 +137,6 @@ export default function MeshLoader(props){
                 }
                 else gltfLoader.load(props.src, (gltf)=>{
 
-                    console.log("GLTF: object", gltf.scene.toJSON());
-                    console.log("GLTF: animations", gltf.animations.map( a => a.toJSON() ));
-
                     gltf.scene.traverse( obj => {
                         if(obj.material) {
                             for(let item of Object.values(obj.material || {})) item instanceof THREE.Texture && ( item => {
@@ -155,7 +152,7 @@ export default function MeshLoader(props){
             return () => {
                 if(loaded_mesh){
                     scene.remove(loaded_mesh);
-                    if(loaded_mesh.transitions) for(let {cancel} of loaded_mesh.transitions) cancel();
+                    if(loaded_mesh.transitions) loaded_mesh.transitions.cancelAll();
                     loaded_mesh.animMixer && renderer.removeAnimatedObject(loaded_mesh);
                     renderer.render();
                 }

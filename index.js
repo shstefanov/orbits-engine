@@ -1,6 +1,9 @@
 import * as Materials from "./lib/materials/Materials.jsx";
 for(let matName in Materials) Materials[matName].isMeshComponent = true;
 
+import * as Geometries from "./lib/geometries/Geometries.jsx";
+for(let geoName in Geometries) Geometries[geoName].isMeshComponent = true;
+
 
 export { default as OrbitsRenderer     } from "./lib/OrbitsRenderer.jsx";
 export { useRenderer                   } from "./lib/OrbitsRenderer.jsx";
@@ -31,21 +34,23 @@ export { default as LightProbe         } from "./lib/lights/LightProbe.jsx";
 
 
 // Geometries exports
-export { default as BoxGeometry        } from "./lib/geometries/BoxGeometry.jsx";
+// export { default as BoxGeometry        } from "./lib/geometries/BoxGeometry.jsx";
 
 // Materials exports
 export { default as Material           } from "./lib/materials/Material.jsx";
 export *                                 from "./lib/materials/Materials.jsx";
+export *                                 from "./lib/geometries/Geometries.jsx";
 
 
 // Objects exports
 export { default as Mesh }       from "./lib/objects/Mesh.jsx";
 export { default as MeshLoader } from "./lib/objects/MeshLoader.jsx";
 
-export { default as Points }       from "./lib/geometries/Points.jsx";
-export { default as Line }         from "./lib/geometries/Line.jsx";
-export { default as LineSegments } from "./lib/geometries/LineSegments.jsx";
-export { default as Triangles }    from "./lib/geometries/Triangles.jsx";
+export { default as Points }         from "./lib/geometries/Points.jsx";
+export { default as Line }           from "./lib/geometries/Line.jsx";
+export { default as LineSegments }   from "./lib/geometries/LineSegments.jsx";
+export { default as Triangles }      from "./lib/geometries/Triangles.jsx";
+export { default as BufferGeometry } from "./lib/geometries/BufferGeometry.jsx";
 
 
 export { default as Box  }         from "./lib/geometries/Box.jsx"; // ??
@@ -55,13 +60,17 @@ export { default as Group  }       from "./lib/Group.jsx";
 
 console.groupCollapsed('%c Orbits TODOS! ', 'color: orange; font-size: 24px;');
 
-    console.error("Implement Timer");
-    // ??. Internal timer for transition and animation effects
-
-    console.error("TODO: Implement Apply material props on hover (with transition)");
-    console.error("Implement period={{diration: 1.4325, rotation: [0, Math.PI], ...}}");
-    console.error("Implement transition={{diration: 1.4325, rotation: [0, Math.PI], ...}}");
-
+    console.error("TODO: 'interactve' is not attribute of geometry, so remove it from geometries'");
+    console.error("TODO: Add BufferGeometry where points=[], indices = [], normals = [], uv = [] form a buffer geometry");
+    console.error("Implelent custom curve type for ExtrudeGeoetry and TubeGeometry like: https://threejs.org/docs/#api/en/geometries/TubeGeometry");
+    console.error("implement underlay");
     console.error("Read about THREE.BatchedMesh, THREE.InstancedMesh, THREE.SkinnedMesh" );
+    console.error("Read about https://threejs.org/examples/#webgl_postprocessing_outline");
+    console.error("TODO: Implement lights");
+    console.error("Implement audio");
+    console.error("Implement sprites");
+    console.error("Read about SVGLoader: https://threejs.org/docs/#examples/en/loaders/SVGLoader");
+    console.error("Add option to renderer to set: THREE.Object3D.DEFAULT_UP.set( 0, 0, 1 ); ???");
+    console.error("Think about 'Surface' class, which just like 'THREE.Curve' must have surface.getPoint( x, y )");
 
 console.groupEnd("Orbits TODOS")

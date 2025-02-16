@@ -3,7 +3,7 @@ import * as THREE  from "three";
 import { useMesh } from "../objects/Mesh.jsx";
 import { useRenderer } from "../OrbitsRenderer.jsx";
 
-export function BoxGeometry({ size: [width, height, depth], segments:[widthSegments, heightSegments, depthSegments] }){
+export function BoxGeometry({ size: [width, height, depth] = [], segments:[widthSegments, heightSegments, depthSegments] = [] }){
     const renderer = useRenderer();
     const mesh     = useMesh();
     useEffect(() => {

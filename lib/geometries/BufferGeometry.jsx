@@ -65,7 +65,9 @@ function getAttrParams(attrs){
         else if(attrs[key].length !== result.length) throw new Error(`Attribute size error: ${key}`);
         if(!result.map.hasOwnProperty(key)) result.map[key] = getAttrMap(attrs[key][0]);
         result.offsets[key] = result.groupSize;
-        const size = Object.keys(attrs[key][0]).length;
+        let size;
+        if(typeof attrs[key][0] === "number") size = 1;
+        else size = Object.keys(attrs[key][0]).length;
         result.sizes[key] = size;
         result.groupSize += size;
     }
@@ -77,6 +79,7 @@ const attrTypesMap = {
     "uv": ({u,v}) => [u,v], "rgb": ({r,g,b})  => [r,g,b],
     "rgba": ({r,g,b,a})  => [r,g,b,a],
     defaultArrayType: a => a,
+    getNumber: a => [a],
 };
 
 const attrNameVals = "xyzuvrgba0123456789"; // Numbers are in case we are using arrays
@@ -84,6 +87,8 @@ const attrNameVals = "xyzuvrgba0123456789"; // Numbers are in case we are using 
 function sortAttrElements(a,b) { return attrNameVals.indexOf(a) - attrNameVals.indexOf(b); }
 
 function getAttrMap(element){
+    if(typeof element === "number") return attrTypesMap.getNumber;
     const type = Object.keys(element).sort( sortAttrElements ).join("");
-    if(attrTypesMap.hasOwnProperty(type)) return attrTypesMap[type] || attrTypesMap.defaultArrayType;
+    if(attrTypesMap.hasOwnProperty(type)) return attrTypesMap[type];
+    else return attrTypesMap.defaultArrayType;
 }

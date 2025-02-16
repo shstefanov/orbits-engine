@@ -60,13 +60,11 @@ export { default as Group  }       from "./lib/Group.jsx";
 
 console.groupCollapsed('%c Orbits TODOS! ', 'color: orange; font-size: 24px;');
 
-    console.error("TODO: 'interactve' is not attribute of geometry, so remove it from geometries'");
-    console.error("TODO: Add BufferGeometry where points=[], indices = [], normals = [], uv = [] form a buffer geometry");
+    console.error("TODO: Implement lights");
+
     console.error("Implelent custom curve type for ExtrudeGeoetry and TubeGeometry like: https://threejs.org/docs/#api/en/geometries/TubeGeometry");
-    console.error("implement underlay");
     console.error("Read about THREE.BatchedMesh, THREE.InstancedMesh, THREE.SkinnedMesh" );
     console.error("Read about https://threejs.org/examples/#webgl_postprocessing_outline");
-    console.error("TODO: Implement lights");
     console.error("Implement audio");
     console.error("Implement sprites");
     console.error("Read about SVGLoader: https://threejs.org/docs/#examples/en/loaders/SVGLoader");

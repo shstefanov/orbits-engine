@@ -49,6 +49,7 @@ export { default as MeshLoader } from "./lib/objects/MeshLoader.jsx";
 export { default as Points }         from "./lib/geometries/Points.jsx";
 export { default as Line }           from "./lib/geometries/Line.jsx";
 export { default as LineSegments }   from "./lib/geometries/LineSegments.jsx";
+export { default as Sprite }         from "./lib/geometries/Sprite.jsx";
 export { default as Triangles }      from "./lib/geometries/Triangles.jsx";
 export { default as BufferGeometry } from "./lib/geometries/BufferGeometry.jsx";
 
@@ -65,7 +66,6 @@ console.groupCollapsed('%c Orbits TODOS! ', 'color: orange; font-size: 24px;');
     console.error("Read about THREE.BatchedMesh, THREE.InstancedMesh, THREE.SkinnedMesh" );
     console.error("Read about https://threejs.org/examples/#webgl_postprocessing_outline");
     console.error("Implement audio");
-    console.error("Implement sprites");
     console.error("Read about SVGLoader: https://threejs.org/docs/#examples/en/loaders/SVGLoader");
     console.error("Add option to renderer to set: THREE.Object3D.DEFAULT_UP.set( 0, 0, 1 ); ???");
     console.error("Think about 'Surface' class, which just like 'THREE.Curve' must have surface.getPoint( x, y )");

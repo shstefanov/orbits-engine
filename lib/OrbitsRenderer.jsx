@@ -267,7 +267,9 @@ class RenderManager {
 
 
     #waitForQueue = [];
-    waitFor(fn){ this.#waitForQueue.push(fn); }
+    waitFor(fn){
+        if(!fn()) this.#waitForQueue.push(fn); // Early check
+    }
     processWaitFor(){
         for(let wf of this.#waitForQueue) wf.done = wf();
         this.#waitForQueue = this.#waitForQueue.filter(wf => !wf.done);

@@ -46,10 +46,11 @@ export default function OrbitsRenderer({
     useEffect( () => {
         if(!domElement) return; // Nothing to do without canvas or eventLayer
         const renderer = new THREE.WebGLRenderer({...config, canvas: domElement});
-        renderer.setRaycasterParams(rayCasterParams);
+        
         renderer.setPixelRatio(pixelRatio);
 
         const renderManager = new RenderManager(renderer, /*eventLayer*/);
+        renderManager.setRaycasterParams(rayCasterParams);
         setRenderManager(renderManager);
         return () => { renderManager.dispose(); };
     }, [ domElement ]);

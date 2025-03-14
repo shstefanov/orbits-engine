@@ -30,6 +30,8 @@ export default function OrbitsRenderer({
     canvas,
     config = {},
 
+    rayCasterParams,
+
     pixelRatio = window.devicePixelRatio,
 
     ...options
@@ -44,6 +46,7 @@ export default function OrbitsRenderer({
     useEffect( () => {
         if(!domElement) return; // Nothing to do without canvas or eventLayer
         const renderer = new THREE.WebGLRenderer({...config, canvas: domElement});
+        renderer.setRaycasterParams(rayCasterParams);
         renderer.setPixelRatio(pixelRatio);
 
         const renderManager = new RenderManager(renderer, /*eventLayer*/);
@@ -118,6 +121,12 @@ class RenderManager {
         this.initTimer();
         this.initRendererLoop();
         this.initMouseEvents();
+    }
+
+    setRaycasterParams({near = 0, far = Infinity, ...rayCasterParams} = {}){
+        this.#raycaster.near = near;
+        this.#raycaster.far  = far;
+        Object.assign(this.#raycaster.params, rayCasterParams);
     }
 
     dispose(){

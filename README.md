@@ -27,6 +27,16 @@ export default function MyApp(){
         // Option "canvas" means it is externally created and managed,
         // so "className", "style" and "size" props will be ignored
 
+        rayCasterParams = {{
+            near: 0,
+            far:  Infinity,
+            LOD: {},
+            Line: { treshold: 1 },
+            Mesh: {  },
+            Points: { treshold: 1 },
+            Sprite: {},
+        }}
+
     >
         {/* Children components here */}
     </OrbitsRenderer>;

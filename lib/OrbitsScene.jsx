@@ -47,12 +47,12 @@ export default function OrbitsScene(props){
     }, [ scene && renderOrder ]);
 
     // Handle clearDepth
-    if(options.hasOwnProperty("clearDepth")) useEffect( () => {
+    if(props.hasOwnProperty("clearDepth")) useEffect( () => {
         if(scene){
-            scene.clearDepth = clearDepth || 0;
-            renderer.updateSceneс(scene);
+            scene.clearDepth = !!clearDepth;
+            renderer.render();
         }
-    }, [scene && clearDepth]);
+    }, [scene, clearDepth]);
 
     // Handle options.background and related options here
     if(options.hasOwnProperty("background")){

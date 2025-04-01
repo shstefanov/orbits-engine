@@ -215,13 +215,18 @@ class RenderManager {
     renderScenes(){
         
         const renderer = this.#renderer;
+        renderer.autoClear = true; // Clear first scene only
+
+        let camera;
 
         for(let scene of this.#scenes){
-            const camera = scene.camera;
+            camera = scene.camera || camera;
             if(!camera) continue;
             scene.clearDepth && renderer.clearDepth();
             renderer.render( scene, camera );
+            renderer.autoClear = false; // Preserve drawing for nect scenes
         }
+
         if(this.#doRedispatchLastMouseEvent){
             this.repeatLastMouseMove();
         }

@@ -342,7 +342,7 @@ class RenderManager {
         let drag_over_stack  = {
             drag_over_event: null, drag_over_event_props: {},
             drag_over_event: null,
-            dragtrough_objects: [],
+            dragthrough_objects: [],
         };
 
         function isNested(obj1, obj2){
@@ -354,8 +354,8 @@ class RenderManager {
             while(node = node.parent) if((result = fn(node)) !== undefined) return result;
         }
 
-        function findDropZone   ({ userData: { dropzone   }}) { return dropzone;   }
-        function findDragTrough ({ userData: { dragtrough }}) { return dragtrough; }
+        function findDropZone    ({ userData: { dropzone    }}) { return dropzone;    }
+        function findDragThrough ({ userData: { dragthrough }}) { return dragthrough; }
 
         function resolveDragOverStack( current_event, current_event_props, prev_result ){
             
@@ -366,13 +366,13 @@ class RenderManager {
 
             const result = {
                 drag_over_event: null, drag_over_event_props: {}, // This will be the final target
-                dragtrough_objects: [],
+                dragthrough_objects: [],
                 events: {
-                    onDrag:            { event: current_event, event_props: [{ ...current_event_props, object: dragged_object }] },
-                    onDragTroughStart: { event: current_event, event_props: [] },
-                    onDragTroughEnd:   { event: current_event, event_props: [] },
-                    onDragTrough:      { event: current_event, event_props: [] },
-                    onDragOver:        { event: current_event, event_props: [] },
+                    onDrag:             { event: current_event, event_props: [{ ...current_event_props, object: dragged_object }] },
+                    onDragThroughStart: { event: current_event, event_props: [] },
+                    onDragThroughEnd:   { event: current_event, event_props: [] },
+                    onDragThrough:      { event: current_event, event_props: [] },
+                    onDragOver:         { event: current_event, event_props: [] },
                     // onDrop:            { event: current_event, event_props: [] }, // ?? To be done in onmouseup !
                 }
             };
@@ -386,8 +386,8 @@ class RenderManager {
                     intersections,
                     dragTarget: drag_start_event_props
                 };
-                let object_dropzone   = searchUp( object, findDropZone   );
-                let object_dragtrough = searchUp( object, findDragTrough );
+                let object_dropzone    = searchUp( object, findDropZone    );
+                let object_dragthrough = searchUp( object, findDragThrough );
 
                 if(object_dropzone === target_dropzone){
                     result.events.onDragOver .event_props.push(object_event_props);
@@ -395,22 +395,22 @@ class RenderManager {
                     result.drag_over_event_props = object_event_props;
                     break;
                 }
-                else if(object_dragtrough){
-                    result.dragtrough_objects.push(object);
-                    if(prev_result.dragtrough_objects.indexOf(object) === -1){
-                        result.events.onDragTroughStart.event_props.push(object_event_props);
+                else if(object_dragthrough){
+                    result.dragthrough_objects.push(object);
+                    if(prev_result.dragthrough_objects.indexOf(object) === -1){
+                        result.events.onDragThroughStart.event_props.push(object_event_props);
                     }
                     else {
-                        result.events.onDragTrough.event_props.push(object_event_props);    
+                        result.events.onDragThrough.event_props.push(object_event_props);    
                     }
                 }
                 else break;
             }
 
-            for(let object of prev_result.dragtrough_objects){
-                if(result.dragtrough_objects.indexOf(object) === -1){
+            for(let object of prev_result.dragthrough_objects){
+                if(result.dragthrough_objects.indexOf(object) === -1){
                     const object_event_props = { ...current_event_props, object: object, dragTarget: drag_start_event_props };
-                    result.events.onDragTroughEnd.event_props.push(object_event_props);
+                    result.events.onDragThroughEnd.event_props.push(object_event_props);
                 }
             }
 
@@ -444,9 +444,9 @@ class RenderManager {
                 }, "onDragStop");
                 
 
-                for(let object of drag_over_stack.dragtrough_objects){
+                for(let object of drag_over_stack.dragthrough_objects){
                     const object_event_props = { ...target_event_props, object: object, dragTarget: drag_start_event_props };
-                    this.reuseEvent(event, { ...object_event_props, }, "onDragTroughEnd", object );
+                    this.reuseEvent(event, { ...object_event_props, }, "onDragThroughEnd", object );
                 }
 
                 if(drag_over_stack.drag_over_event){
@@ -468,7 +468,7 @@ class RenderManager {
                 drag_over_event  = null; drag_over_event_props = {};
                 drag_over_stack  = {
                     drag_over_event: null, drag_over_event_props: {},
-                    dragtrough_objects: [],
+                    dragthrough_objects: [],
                 };
             }
 

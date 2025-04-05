@@ -112,12 +112,14 @@ class RenderManager {
     #scenes          = [];
     #raycaster       = new THREE.Raycaster();
     #defaultCursor   = "";
+    #defaultTitle    = "";
     
     constructor(renderer){
         this.#renderer   = renderer;
         this.#canvas     = renderer.domElement;
         this.#actualSize = getSize(this.#canvas);
         this.#defaultCursor = this.#canvas.style.cursor || "default";
+        this.#defaultTitle  = this.#canvas.getAttribute("title") || "";
 
         this.initTimer();
         this.initRendererLoop();
@@ -421,6 +423,7 @@ class RenderManager {
         }
 
         this.setCursor = cursor => el.style.cursor = cursor || this.#defaultCursor;
+        this.setTitle  = title  => el.setAttribute('title', title || this.#defaultTitle );
 
         // Basic event handlers
         el.addEventListener("click", this.#bh.click = event => {

@@ -301,6 +301,10 @@ class RenderManager {
     #bh = {}; // Basic Event handlers for later unbinding
     #mouseInteractiveObjects = [];
 
+    // Repeating last mouse event after render
+    // This means, if mouse is not moved, but we
+    // have new frame, we may have change on what
+    // is under the mouse, so we must handle it.
     #doRedispatchLastMouseEvent = true;
     #lastMouseMoveEvent = null;
     repeatLastMouseMove(){

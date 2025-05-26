@@ -37,21 +37,22 @@ export { default as LightProbe         } from "./lib/lights/LightProbe.jsx";
 // export { default as BoxGeometry        } from "./lib/geometries/BoxGeometry.jsx";
 
 // Materials exports
-export { default as Material           } from "./lib/materials/Material.jsx";
-export *                                 from "./lib/materials/Materials.jsx";
-export *                                 from "./lib/geometries/Geometries.jsx";
+export { default as Material          } from "./lib/materials/Material.jsx";
+export *                                from "./lib/materials/Materials.jsx";
+export *                                from "./lib/geometries/Geometries.jsx";
 
 
 // Objects exports
-export { default as Mesh }       from "./lib/objects/Mesh.jsx";
-export { default as MeshLoader } from "./lib/objects/MeshLoader.jsx";
+export { default as Mesh              } from "./lib/objects/Mesh.jsx";
+export { default as InstancedMesh     } from "./lib/objects/InstancedMesh.jsx";
+export { default as MeshLoader        } from "./lib/objects/MeshLoader.jsx";
 
-export { default as Points }         from "./lib/geometries/Points.jsx";
-export { default as Line }           from "./lib/geometries/Line.jsx";
-export { default as LineSegments }   from "./lib/geometries/LineSegments.jsx";
-export { default as Sprite }         from "./lib/geometries/Sprite.jsx";
-export { default as Triangles }      from "./lib/geometries/Triangles.jsx";
-export { default as BufferGeometry } from "./lib/geometries/BufferGeometry.jsx";
+export { default as Points            } from "./lib/geometries/Points.jsx";
+export { default as Line              } from "./lib/geometries/Line.jsx";
+export { default as LineSegments      } from "./lib/geometries/LineSegments.jsx";
+export { default as Sprite            } from "./lib/geometries/Sprite.jsx";
+export { default as Triangles         } from "./lib/geometries/Triangles.jsx";
+export { default as BufferGeometry    } from "./lib/geometries/BufferGeometry.jsx";
 
 
 export { default as Box  }         from "./lib/geometries/Box.jsx"; // ??

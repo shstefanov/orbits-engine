@@ -45,7 +45,8 @@ export default function Mesh(props){
             if(!geometry || !material) return;
         }
 
-        const mesh = props.mesh || new ( props.MeshPrototype || THREE.Mesh )(geometry, material);
+        // props.instanceCount is for THREE.InstancedMesh
+        const mesh = props.mesh || new ( props.MeshPrototype || THREE.Mesh )(geometry, material, props.instanceCount);
 
         collectContext.mesh = mesh;
 

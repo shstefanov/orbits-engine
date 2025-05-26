@@ -1,13 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as THREE  from "three";
 import { useMesh } from "../objects/Mesh.jsx";
 import { useRenderer } from "../OrbitsRenderer.jsx";
 import { applyGeometry } from "./Geometries.jsx";
 
 export default function BufferGeometry({ indices, children, ...attrs }){
+    
     const renderer = useRenderer();
     const mesh     = useMesh();
-    useEffect(() => {
+
+    const [ geometry, setGeometry ] = useState(null);
+    
+    useEffect(() => { // Creates new Geometry if any of attrs is changed
+
         const geometry = new THREE.BufferGeometry();
 
         const { groupSize, length, map, offsets, order, sizes } = getAttrParams(attrs);
@@ -48,10 +53,17 @@ export default function BufferGeometry({ indices, children, ...attrs }){
             geometry.attributes[attr].needsUpdate = true;
         }
 
-        if(indices) geometry.setIndex(indices);
-
         applyGeometry(renderer, mesh, geometry);
+        setGeometry(geometry);
     }, Object.keys(attrs).sort().map( name => attrs[name] ));
+
+    indices && useEffect( () => {
+        if(!geometry) return;
+        geometry.setIndex(indices);
+        geometry.index.needsUpdate = true;
+        renderer.render();
+    }, [ geometry && indices, indices?.state ]);
+    
     return null;
 }
 

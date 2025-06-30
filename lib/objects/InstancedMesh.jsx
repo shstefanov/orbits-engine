@@ -12,7 +12,7 @@ export default function InstancedMesh({ children, ...props }){
         ? props.instanceBuffer(mesh?.instanceMatrix)
         
         : useMemo( () => {
-            const buffer = createInstanceMatrix(props.instances, mesh?.instanceMatrix);
+            const buffer = createInstancesMatrixBuffer(props.instances, mesh?.instanceMatrix);
             buffer.sate = props.instances.state;
             return buffer;
     }, [ props.instances, props.instances.length, props.instances.state ] );
@@ -47,7 +47,7 @@ export default function InstancedMesh({ children, ...props }){
 
 
 const empty_matrix_buffer = new THREE.InstancedBufferAttribute(new Float32Array(0), 16).setUsage(THREE.DynamicDrawUsage);
-function createInstanceMatrix(instances, prev_buffer = empty_matrix_buffer){
+function createInstancesMatrixBuffer(instances, prev_buffer = empty_matrix_buffer){
 
     if(!instances.length){ // Return empty buffer
         const empty = empty_matrix_buffer.clone();
@@ -66,22 +66,9 @@ function createInstanceMatrix(instances, prev_buffer = empty_matrix_buffer){
     }
 
     let index = 0;
-    for( let { position, rotation, scale } of instances){
-
-        const matrix = new THREE.Matrix4();
-
-        position ? matrixPos   .set( position.x, position.y, position.z        ) : matrixPos   .set(0, 0, 0);
-        rotation ? matrixEuler .set( rotation.x, rotation.y, rotation.z, "XYZ" ) : matrixEuler .set(0, 0, 0, "XYZ");
-        scale    ? matrixScale .set( scale.x,    scale.y,    scale.z           ) : matrixScale .set(1, 1, 1);
-
-        const rotationMatrix = new THREE.Matrix4().makeRotationFromEuler(matrixEuler);
-
-        scale    && matrix.scale(matrixScale);
-        rotation && matrix.multiply(rotationMatrix);
-        position && matrix.setPosition(matrixPos);
-
+    for( let instance of instances){
+        const matrix = createInstanceMatrix(instance);
         matrix.toArray(matrix_buffer.array, index * 16);
-
         index++;
     }
 
@@ -100,6 +87,22 @@ export function useInstanceBuffer(objects){
         instanceBuffer.set(objects, prev_buffer);
         return instanceBuffer.matrix_buffer;
     }
+}
+
+export function createInstanceMatrix({ position, rotation, scale }){
+    const matrix = new THREE.Matrix4();
+
+    position ? matrixPos   .set( position.x, position.y, position.z        ) : matrixPos   .set(0, 0, 0);
+    rotation ? matrixEuler .set( rotation.x, rotation.y, rotation.z, "XYZ" ) : matrixEuler .set(0, 0, 0, "XYZ");
+    scale    ? matrixScale .set( scale.x,    scale.y,    scale.z           ) : matrixScale .set(1, 1, 1);
+
+    const rotationMatrix = new THREE.Matrix4().makeRotationFromEuler(matrixEuler);
+
+    scale    && matrix.scale(matrixScale);
+    rotation && matrix.multiply(rotationMatrix);
+    position && matrix.setPosition(matrixPos);
+
+    return matrix;
 }
 
 

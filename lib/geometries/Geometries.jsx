@@ -8,7 +8,7 @@ export function BoxGeometry({ size: [width, height, depth] = [], segments:[width
     const mesh     = useMesh();
     useEffect(() => {
         const geometry = new THREE.BoxGeometry(width, height, depth, widthSegments, heightSegments, depthSegments);
-        applyGeometry(renderer, mesh, geometry);
+        applyGeometry(renderer, mesh, geometry, arguments[0]);
     }, [ width, height, depth, widthSegments, heightSegments, depthSegments ]);
     return null;
 }
@@ -18,7 +18,7 @@ export function CapsuleGeometry({ radius, length, capSegments, radialSegments })
     const mesh     = useMesh();
     useEffect(() => {
         const geometry = new THREE.CapsuleGeometry(radius, length, capSegments, radialSegments);
-        applyGeometry(renderer, mesh, geometry);
+        applyGeometry(renderer, mesh, geometry, arguments[0]);
     }, [ radius, length, capSegments, radialSegments ]);
     return null;
 }
@@ -28,7 +28,7 @@ export function CircleGeometry({ radius, segments }){
     const mesh     = useMesh();
     useEffect(() => {
         const geometry = new THREE.CircleGeometry(radius, segments);
-        applyGeometry(renderer, mesh, geometry);
+        applyGeometry(renderer, mesh, geometry, arguments[0]);
     }, [ radius, segments ]);
     return null;
 }
@@ -38,7 +38,7 @@ export function ConeGeometry({ radius, height, radialSegments, heightSegments, o
     const mesh     = useMesh();
     useEffect(() => {
         const geometry = new THREE.ConeGeometry(radius, height, radialSegments, heightSegments, openEnded, thetaStart, thetaLength);
-        applyGeometry(renderer, mesh, geometry);
+        applyGeometry(renderer, mesh, geometry, arguments[0]);
     }, [ radius, height, radialSegments, heightSegments, openEnded, thetaStart, thetaLength ]);
     return null;
 }
@@ -48,7 +48,7 @@ export function CylinderGeometry({ radiusTop, radiusBottom, height, radialSegmen
     const mesh     = useMesh();
     useEffect(() => {
         const geometry = new THREE.CylinderGeometry(radiusTop, radiusBottom, height, radialSegments, heightSegments, openEnded, thetaStart, thetaLength);
-        applyGeometry(renderer, mesh, geometry);
+        applyGeometry(renderer, mesh, geometry, arguments[0]);
     }, [ radiusTop, radiusBottom, height, radialSegments, heightSegments, openEnded, thetaStart, thetaLength ]);
     return null;
 }
@@ -58,7 +58,7 @@ export function DodecahedronGeometry({ radius, detail }){
     const mesh     = useMesh();
     useEffect(() => {
         const geometry = new THREE.DodecahedronGeometry( radius, detail );
-        applyGeometry(renderer, mesh, geometry);
+        applyGeometry(renderer, mesh, geometry, arguments[0]);
     }, [ radius, detail ]);
     return null;
 }
@@ -70,7 +70,7 @@ export function ExtrudeGeometry({ shape, steps, depth, bevelEnabled, bevelThickn
         const new_shape = createShape(shape);
         if(extrudePath) extrudePath = createCurve(extrudePath, extrudePathType);
         const geometry = new THREE.ExtrudeGeometry( new_shape, { steps, depth, bevelEnabled, bevelThickness, bevelSize, bevelOffset, bevelSegments, curveSegments, extrudePath } );
-        applyGeometry(renderer, mesh, geometry);
+        applyGeometry(renderer, mesh, geometry, arguments[0]);
     }, [ shape, steps, depth, bevelEnabled, bevelThickness, bevelSize, bevelOffset, bevelSegments, curveSegments, extrudePath, extrudePathType ]);
     return null;
 }
@@ -80,7 +80,7 @@ export function IcosahedronGeometry({ radius, detail }){
     const mesh     = useMesh();
     useEffect(() => {
         const geometry = new THREE.IcosahedronGeometry( radius, detail );
-        applyGeometry(renderer, mesh, geometry);
+        applyGeometry(renderer, mesh, geometry, arguments[0]);
     }, [ radius, detail ]);
     return null;
 }
@@ -91,7 +91,7 @@ export function LatheGeometry({ points, segments, phiStart, phiLength }){
     useEffect(() => {
         const vwPoints = points.map( ({x,y}) => new THREE.Vector2(x,y) );
         const geometry = new THREE.LatheGeometry( points, segments, phiStart, phiLength );
-        applyGeometry(renderer, mesh, geometry);
+        applyGeometry(renderer, mesh, geometry, arguments[0]);
     }, [ points.length ? points : empty, segments, phiStart, phiLength ]);
     return null;
 }
@@ -101,7 +101,7 @@ export function OctahedronGeometry({ radius, detail }){
     const mesh     = useMesh();
     useEffect(() => {
         const geometry = new THREE.OctahedronGeometry( radius, detail );
-        applyGeometry(renderer, mesh, geometry);
+        applyGeometry(renderer, mesh, geometry, arguments[0]);
     }, [ radius, detail ]);
     return null;
 }
@@ -111,7 +111,7 @@ export function PlaneGeometry({ width, height, widthSegments, heightSegments }){
     const mesh     = useMesh();
     useEffect(() => {
         const geometry = new THREE.PlaneGeometry( width, height, widthSegments, heightSegments );
-        applyGeometry(renderer, mesh, geometry);
+        applyGeometry(renderer, mesh, geometry, arguments[0]);
     }, [ width, height, widthSegments, heightSegments ]);
     return null;
 }
@@ -122,7 +122,7 @@ export function PolyhedronGeometry({ points, indices, radius, detail }){
     let bufferPoints = []; for(let {x,y,z} of points) bufferPoints.push(x,y,z);
     useEffect(() => {
         const geometry = new THREE.PolyhedronGeometry( bufferPoints, indices, radius, detail );
-        applyGeometry(renderer, mesh, geometry);
+        applyGeometry(renderer, mesh, geometry, arguments[0]);
     }, [ points, indices, radius, detail ]);
     return null;
 }
@@ -132,7 +132,7 @@ export function RingGeometry({ innerRadius, outerRadius, thetaSegments, phiSegme
     const mesh     = useMesh();
     useEffect(() => {
         const geometry = new THREE.RingGeometry( innerRadius, outerRadius, thetaSegments, phiSegments, thetaStart, thetaLength );
-        applyGeometry(renderer, mesh, geometry);
+        applyGeometry(renderer, mesh, geometry, arguments[0]);
     }, [ innerRadius, outerRadius, thetaSegments, phiSegments, thetaStart, thetaLength ]);
     return null;
 }
@@ -143,7 +143,7 @@ export function ShapeGeometry({ shape, detail }){
     useEffect(() => {
         const new_shape = createShape(shape);
         const geometry = new THREE.ShapeGeometry( new_shape, detail );
-        applyGeometry(renderer, mesh, geometry);
+        applyGeometry(renderer, mesh, geometry, arguments[0]);
     }, [ shape, detail ]);
     return null;
 }
@@ -153,7 +153,7 @@ export function SphereGeometry({ radius, widthSegments, heightSegments, thetaSta
     const mesh     = useMesh();
     useEffect(() => {
         const geometry = new THREE.SphereGeometry( radius, widthSegments, heightSegments, thetaStart, thetaLength, phiStart, phiLength );
-        applyGeometry(renderer, mesh, geometry);
+        applyGeometry(renderer, mesh, geometry, arguments[0]);
     }, [ radius, widthSegments, heightSegments, thetaStart, thetaLength, phiStart, phiLength ]);
     return null;
 }
@@ -163,7 +163,7 @@ export function TetrahedronGeometry({ radius, detail }){
     const mesh     = useMesh();
     useEffect(() => {
         const geometry = new THREE.TetrahedronGeometry( radius, detail );
-        applyGeometry(renderer, mesh, geometry);
+        applyGeometry(renderer, mesh, geometry, arguments[0]);
     }, [ radius, detail ]);
     return null;
 }
@@ -173,7 +173,7 @@ export function TorusGeometry({ radius, tubeRadius, radialSegments, tubularSegme
     const mesh     = useMesh();
     useEffect(() => {
         const geometry = new THREE.TorusGeometry( radius, tubeRadius, radialSegments, tubularSegments, arc );
-        applyGeometry(renderer, mesh, geometry);
+        applyGeometry(renderer, mesh, geometry, arguments[0]);
     }, [ radius, tubeRadius, radialSegments, tubularSegments, arc ]);
     return null;
 }
@@ -183,7 +183,7 @@ export function TorusKnotGeometry({ radius, tubeRadius, tubularSegments, radialS
     const mesh     = useMesh();
     useEffect(() => {
         const geometry = new THREE.TorusKnotGeometry( radius, tubeRadius, tubularSegments, radialSegments, p, q );
-        applyGeometry(renderer, mesh, geometry);
+        applyGeometry(renderer, mesh, geometry, arguments[0]);
     }, [ radius, tubeRadius, tubularSegments, radialSegments, p, q ]);
     return null;
 }
@@ -194,7 +194,7 @@ export function TubeGeometry({ tubularSegments, radius, radialSegments, closed, 
     useEffect(() => {
         if(path) extrudePath = createCurve(path, pathType);
         const geometry = new THREE.TubeGeometry( extrudePath, tubularSegments, radius, radialSegments, closed );
-        applyGeometry(renderer, mesh, geometry);
+        applyGeometry(renderer, mesh, geometry, arguments[0]);
     }, [ path, pathType, tubularSegments, radius, radialSegments, closed ]);
     return null;
 }
@@ -204,8 +204,9 @@ export function TubeGeometry({ tubularSegments, radius, radialSegments, closed, 
 
 const empty = [];
 
-export function applyGeometry(renderer, mesh, geometry){
+export function applyGeometry(renderer, mesh, geometry, props){
     const old_geometry = mesh.mesh?.geometry;
+    geometry.userData = props;
     mesh.geometry = geometry;
     old_geometry && old_geometry.dispose();
     renderer.render();

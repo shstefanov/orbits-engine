@@ -63,6 +63,8 @@ export default function BufferGeometry({ indices, children, ...attrs }){
         geometry.index.needsUpdate = true;
         renderer.render();
     }, [ geometry && indices, indices?.state ]);
+
+    if(geometry) geometry.userData = arguments[0];
     
     return null;
 }

@@ -91,7 +91,7 @@ export default function Mesh(props){
 }
 
 // This returns only components that are required for mesh
-function onlyComponents(children){
+export function onlyComponents(children){
     if(Array.isArray(children)) return children.filter( c => c?.type?.isMeshComponent );
     else if(typeof children === "object" && children?.type.isMeshComponent) return children;
     else return null;

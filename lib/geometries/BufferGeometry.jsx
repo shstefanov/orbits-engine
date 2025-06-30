@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import * as THREE  from "three";
-import { useMesh } from "../objects/Mesh.jsx";
-import { useRenderer } from "../OrbitsRenderer.jsx";
+import * as THREE        from "three";
+import { useMesh }       from "../objects/Mesh.jsx";
+import { useRenderer }   from "../OrbitsRenderer.jsx";
 import { applyGeometry } from "./Geometries.jsx";
 
 export default function BufferGeometry({ indices, children, ...attrs }){

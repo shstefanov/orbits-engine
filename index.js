@@ -67,7 +67,7 @@ console.groupCollapsed('%c Orbits TODOS! ', 'color: orange; font-size: 24px;');
     console.error("Check if event.camera is available in all mouse events");
     
     console.error("Implelent custom curve type for ExtrudeGeometry and TubeGeometry like: https://threejs.org/docs/#api/en/geometries/TubeGeometry");
-    console.error("Read about THREE.BatchedMesh, THREE.SkinnedMesh" ); // https://threejs.org/docs/#api/en/objects/BatchedMesh
+    console.error("Read about THREE.SkinnedMesh" ); // https://threejs.org/docs/#api/en/objects/BatchedMesh
     console.error("Read about https://threejs.org/examples/#webgl_postprocessing_outline");
     console.error("Implement audio");
     console.error("Read about SVGLoader: https://threejs.org/docs/#examples/en/loaders/SVGLoader");

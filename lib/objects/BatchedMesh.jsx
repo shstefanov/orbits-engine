@@ -113,14 +113,10 @@ export default function BatchedMesh({
     //     ],
     // }}
 
+
+    // TODO: Think about optimization solution for large number of objects
     useEffect(() => {
         if(!mesh) return;
-
-        // Remove all instances in batched mesh
-        for(let i = 0; i < mesh.instanceCount; i++){
-            mesh.deleteInstance(i);
-        }
-
 
         for(let geometryName in instances){
             const geometry = collectedGeometries.get(geometryName);
@@ -137,12 +133,18 @@ export default function BatchedMesh({
         mesh.optimize();
         renderer.render();
 
+        const { instanceCount } = mesh;
+
+        return () => {
+            if(!mesh) return;
+            // Remove all instances in batched mesh
+            for(let i = 0; i < instanceCount; i++){
+                mesh.deleteInstance(i);
+            }
+            renderer.render();
+        }
+
     }, [ mesh, instances]);
-
-
-
-
-
 
     const collectContext = useMemo( () => ({
 

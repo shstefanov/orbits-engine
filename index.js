@@ -65,13 +65,15 @@ export { default as Group  }       from "./lib/Group.jsx";
 
 console.groupCollapsed('%c Orbits TODOS! ', 'color: orange; font-size: 24px;');
 
-    console.error("Check if event.camera is available in all mouse events");
+
+    console.error("Must have: Implement audio");
+    console.error("Must have: Read about SVGLoader: https://threejs.org/docs/#examples/en/loaders/SVGLoader");
+    console.error("Must have: Integrate HTML drag and drop woth OrbitsRenderer drag and drop (and vice versa if possible)");
+
+    console.error("Issue: Check if event.camera is available in all mouse events");
     
-    console.error("Implelent custom curve type for ExtrudeGeometry and TubeGeometry like: https://threejs.org/docs/#api/en/geometries/TubeGeometry");
-    console.error("Read about https://threejs.org/examples/#webgl_postprocessing_outline");
-    console.error("Implement audio");
-    console.error("Read about SVGLoader: https://threejs.org/docs/#examples/en/loaders/SVGLoader");
-    console.error("Add option to renderer to set: THREE.Object3D.DEFAULT_UP.set( 0, 0, 1 ); ???");
-    console.error("Think about 'Surface' class, which just like 'THREE.Curve' must have surface.getPoint( x, y )");
+    console.error("Util: Implelent custom curve type for ExtrudeGeometry and TubeGeometry like: https://threejs.org/docs/#api/en/geometries/TubeGeometry");
+    console.error("Util: Read about https://threejs.org/examples/#webgl_postprocessing_outline");
+    console.error("Util: Think about 'Surface' class, which just like 'THREE.Curve' must have surface.getPoint( x, y )");
 
 console.groupEnd("Orbits TODOS")

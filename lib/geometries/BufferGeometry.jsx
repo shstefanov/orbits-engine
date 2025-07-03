@@ -90,7 +90,7 @@ function getAttrParams(attrs){
 
 const attrTypesMap = {
     "xy": ({x,y}) => [x,y], "xyz": ({x,y,z}) => [x,y,z],
-    "uv": ({u,v}) => [u,v], "rgb": ({r,g,b})  => [r,g,b],
+    "uv": ({u,v}) => [u,v], "rgb": ({r,g,b}) => [r,g,b],
     "rgba": ({r,g,b,a})  => [r,g,b,a],
     defaultArrayType: a => a,
     getNumber: a => [a],

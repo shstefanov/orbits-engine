@@ -47,6 +47,7 @@ export { default as Mesh              } from "./lib/objects/Mesh.jsx";
 export { default as InstancedMesh     } from "./lib/objects/InstancedMesh.jsx";
 export { useInstanceBuffer as useInstanceBuffer  } from "./lib/objects/InstancedMesh.jsx";
 export { default as BatchedMesh       } from "./lib/objects/BatchedMesh.jsx";
+export { default as SkinnedMesh       } from "./lib/objects/SkinnedMesh.jsx";
 export { default as MeshLoader        } from "./lib/objects/MeshLoader.jsx";
 
 export { default as Points            } from "./lib/geometries/Points.jsx";
@@ -67,7 +68,6 @@ console.groupCollapsed('%c Orbits TODOS! ', 'color: orange; font-size: 24px;');
     console.error("Check if event.camera is available in all mouse events");
     
     console.error("Implelent custom curve type for ExtrudeGeometry and TubeGeometry like: https://threejs.org/docs/#api/en/geometries/TubeGeometry");
-    console.error("Read about THREE.SkinnedMesh" ); // https://threejs.org/docs/#api/en/objects/BatchedMesh
     console.error("Read about https://threejs.org/examples/#webgl_postprocessing_outline");
     console.error("Implement audio");
     console.error("Read about SVGLoader: https://threejs.org/docs/#examples/en/loaders/SVGLoader");

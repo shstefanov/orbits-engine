@@ -121,6 +121,8 @@ class RenderManager {
         this.#defaultCursor = this.#canvas.style.cursor || "default";
         this.#defaultTitle  = this.#canvas.getAttribute("title") || "";
 
+        this.audioLoader = new THREE.AudioLoader();
+
         this.initTimer();
         this.initRendererLoop();
         this.initMouseEvents();

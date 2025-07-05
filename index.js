@@ -49,6 +49,7 @@ export { useInstanceBuffer as useInstanceBuffer  } from "./lib/objects/Instanced
 export { default as BatchedMesh       } from "./lib/objects/BatchedMesh.jsx";
 export { default as SkinnedMesh       } from "./lib/objects/SkinnedMesh.jsx";
 export { default as MeshLoader        } from "./lib/objects/MeshLoader.jsx";
+export { default as Audio             } from "./lib/objects/Audio.jsx";
 
 export { default as Points            } from "./lib/geometries/Points.jsx";
 export { default as Line              } from "./lib/geometries/Line.jsx";
@@ -65,8 +66,6 @@ export { default as Group  }       from "./lib/Group.jsx";
 
 console.groupCollapsed('%c Orbits TODOS! ', 'color: orange; font-size: 24px;');
 
-
-    console.error("Must have: Implement audio");
     console.error("Must have: Read about SVGLoader: https://threejs.org/docs/#examples/en/loaders/SVGLoader");
     console.error("Must have: Integrate HTML drag and drop woth OrbitsRenderer drag and drop (and vice versa if possible)");
 

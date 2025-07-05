@@ -30,7 +30,9 @@ export default function OrbitsScene(props){
     useEffect( () => {
         const scene = new THREE.Scene();
 
-        window.scene = scene;
+        const audioListener = new THREE.AudioListener();
+        scene.add(audioListener);
+        renderer.audioListener = audioListener;
 
         scene.renderOrder = renderOrder;
         renderer.addScene(scene);

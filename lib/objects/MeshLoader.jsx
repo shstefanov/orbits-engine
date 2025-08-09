@@ -9,8 +9,6 @@ const gltfLoader = new GLTFLoader();
 
 import createMeshManager  from "../utils/createMeshManager.js";
 
-const objectsCache = new Map();
-
 function createAnimationUpdater(mesh, mixer){
     mesh.updateAnimation = delta => mixer.update(delta);
 }
@@ -21,8 +19,6 @@ export default function MeshLoader(props){
     const scene    = useScene();
 
     const [ showHoverElement, setShowHoverElement ] = useState(false);
-
-
 
     // If json is provided or object is stored in cache
     if(props.hasOwnProperty("json")){
@@ -58,6 +54,7 @@ export default function MeshLoader(props){
             { props.children }
         </SceneProvider>;
     }
+    
     else if(props.hasOwnProperty("src")){
         
         const [ mesh, setMesh ] = useState(null);
@@ -72,9 +69,13 @@ export default function MeshLoader(props){
         useEffect(() => {
             let loaded_mesh = null;
 
+            let canceled = false;
+
             function handleMesh(mesh, animations){
 
-                objectsCache.set(props.src, mesh);
+                renderer.cache.set(props.src, mesh);
+
+                if(canceled) return;
 
                 loaded_mesh = mesh;
 
@@ -119,8 +120,8 @@ export default function MeshLoader(props){
 
 
             if(props.src.match(/^.+\.json$/)){
-                if(objectsCache.has(props.src)){
-                    const object = objectsCache.get(props.src);
+                if(renderer.cache.has(props.src)){
+                    const object = renderer.cache.get(props.src);
                     handleMesh(object, object.animations);
                 }
                 else objLoader.load(props.src, handleMesh, handleProgress, handleError);
@@ -131,8 +132,8 @@ export default function MeshLoader(props){
             // GLTF Loader
             else if(props.src.match(/^.+\.(glb|gltf)$/)){
                 
-                if(objectsCache.has(props.src)){
-                    const object = objectsCache.get(props.src);
+                if(renderer.cache.has(props.src)){
+                    const object = renderer.cache.get(props.src);
                     handleMesh(object, object.animations);
                 }
                 else gltfLoader.load(props.src, (gltf)=>{
@@ -150,6 +151,7 @@ export default function MeshLoader(props){
             }
 
             return () => {
+                canceled = true;
                 if(loaded_mesh){
                     scene.remove(loaded_mesh);
                     if(loaded_mesh.transitions) loaded_mesh.transitions.cancelAll();
@@ -167,5 +169,7 @@ export default function MeshLoader(props){
             { mesh && props.children }
         </SceneProvider>
     }
+
+    else return null;
     
 }

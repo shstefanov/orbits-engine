@@ -123,6 +123,8 @@ class RenderManager {
 
         this.audioLoader = new THREE.AudioLoader();
 
+        this.cache = new Map();
+
         this.initTimer();
         this.initRendererLoop();
         this.initMouseEvents();

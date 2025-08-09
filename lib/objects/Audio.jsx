@@ -22,8 +22,6 @@ export default function Audio(props){
 
     useEffect( () => {
 
-        // TODO: if src is changed, but oldone is not yet loaded ???
-
         if(sound) { sound.stop(); sound.disconnect(); }
 
         if(!props.src) {
@@ -37,6 +35,8 @@ export default function Audio(props){
             return;
         }
 
+        let canceled = false;
+
         const SoundPrototype = props.SoundPrototype || THREE.Audio;
 
         const new_sound = new SoundPrototype(props.listener || renderer.audioListener);
@@ -49,6 +49,8 @@ export default function Audio(props){
         props.onCreate && props.onCreate(new_sound);
 
         function applyBuffer(buffer){
+
+            if(canceled) return;
             
             // In some cases component is unmounted before loading is done
             if(skipManager.unmounted){
@@ -71,11 +73,13 @@ export default function Audio(props){
             SoundPrototype !== THREE.PositionalAudio && manager.set(props); // Immediate apply props
         }
 
-        if(buffersCache.has(props.src)) applyBuffer(buffersCache.get(props.src));
+        if(renderer.cache.has(props.src)) applyBuffer(renderer.cache.get(props.src));
         else renderer.audioLoader.load( props.src, buffer => {
-            buffersCache.set(props.src, buffer);
+            renderer.cache.set(props.src, buffer);
             applyBuffer(buffer);
         });
+
+        return () => { canceled = true; }
 
     }, [ props.src ]);
 

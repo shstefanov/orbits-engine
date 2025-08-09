@@ -38,7 +38,10 @@ export default function MyApp(){
         }}
 
     >
-        {/* Children components here */}
+        {/*
+            Children components here
+            Scene, Camera, Objects
+        */}
     </OrbitsRenderer>;
 }
 ```
@@ -47,3 +50,5 @@ The hook
 ```js
 import { useRenedrer } from "@orbits/engine";
 ```
+
+Demo and examples: https://shstefanov.github.io/

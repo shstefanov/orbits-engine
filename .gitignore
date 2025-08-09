@@ -3,3 +3,4 @@ dist/*.js
 dist/*.css
 dist/*.map
 _lib.old
+.instruct

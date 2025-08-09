@@ -63,23 +63,21 @@ export { default as Box  }         from "./lib/geometries/Box.jsx"; // ??
 
 export { default as Group  }       from "./lib/Group.jsx";
 
+// console.groupCollapsed('%c Orbits TODOS! ', 'color: orange; font-size: 24px;');
 
-// export const AudioEffect = _AudioEffect;
-
-
-console.groupCollapsed('%c Orbits TODOS! ', 'color: orange; font-size: 24px;');
-
-    console.error("Must have: Read about SVGLoader: https://threejs.org/docs/#examples/en/loaders/SVGLoader");
-    console.error("Must have: Integrate HTML drag and drop woth OrbitsRenderer drag and drop (and vice versa if possible)");
-    console.error("Must have: Create asset preloader element, it must block children (or render loading message while loading)");
-
-    console.error("Issue: Check if event.camera is available in all mouse events");
-    console.error("Issue: For components that handle loading assets - change src trigger new loading, but old one still loads and will apply, fix it!");
-    console.error("Issue (leak): Make audio buffer cache map attached to renderer, not to variable");
-    console.error("Issue: Consider Tone.js: If you need more advanced audio manipulation, you might explore using Tone.js in conjunction with Three.js, as it offers a more robust set of tools for audio synthesis and spatialization.");
     
-    console.error("Util: Implelent custom curve type for ExtrudeGeometry and TubeGeometry like: https://threejs.org/docs/#api/en/geometries/TubeGeometry");
-    console.error("Util: Read about https://threejs.org/examples/#webgl_postprocessing_outline");
-    console.error("Util: Think about 'Surface' class, which just like 'THREE.Curve' must have surface.getPoint( x, y )");
+//     console.error("Must have: Integrate HTML drag and drop woth OrbitsRenderer drag and drop (and vice versa if possible)");
+    
 
-console.groupEnd("Orbits TODOS")
+//     console.error("Issue: Check if event.camera is available in all mouse events");
+//     console.error("Issue: For components that handle loading assets - change src trigger new loading, but old one still loads and will apply, fix it!");
+//     console.error("Issue (leak): Make audio buffer cache map attached to renderer, not to variable");
+
+//     console.error("Util: Consider Tone.js: If you need more advanced audio manipulation, you might explore using Tone.js in conjunction with Three.js, as it offers a more robust set of tools for audio synthesis and spatialization.");
+//     console.error("Util: Create asset preloader element, it must block children (or render loading message while loading)");
+//     console.error("Util: Read about SVGLoader: https://threejs.org/docs/#examples/en/loaders/SVGLoader");
+//     console.error("Util: Implelent custom curve type for ExtrudeGeometry and TubeGeometry like: https://threejs.org/docs/#api/en/geometries/TubeGeometry");
+//     console.error("Util: Read about https://threejs.org/examples/#webgl_postprocessing_outline");
+//     console.error("Util: Think about 'Surface' class, which just like 'THREE.Curve' must have surface.getPoint( x, y )");
+
+// console.groupEnd("Orbits TODOS")

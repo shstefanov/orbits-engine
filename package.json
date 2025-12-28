@@ -1,10 +1,6 @@
 {
   "name": "@orbits/engine",
-<<<<<<< HEAD
-  "version": "1.0.4",
-=======
-  "version": "2.0.0",
->>>>>>> master
+  "version": "2.0.1",
   "description": "React - ThreeJS integration",
   "main": "index.js",
   "scripts": {},
@@ -23,12 +19,7 @@
     "url": "https://github.com/shstefanov/orbits-engine.git"
   },
   "peerDependencies": {
-<<<<<<< HEAD
-    "react": "^18.2.0",
-    "three": "^0.158.0"
-=======
     "react": "^18.3.1",
-    "three": "^0.172.0"
->>>>>>> master
+    "three": "^0.182.0"
   }
 }

@@ -262,7 +262,7 @@ class RenderManager {
     removeAnimatedObject (mesh){ this.#animatedObjects.delete(mesh); }
     processAnimations    (entries, delta, now){
         const delta_seconds = delta / 1000;
-        for(let [ mesh ] of entries) mesh.animMixer.update(delta_seconds, now);
+        for(let [ mesh ] of entries) mesh.animMixer && mesh.animMixer.update(delta_seconds, now);
     }
 
 

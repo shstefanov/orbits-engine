@@ -6,5 +6,5 @@ function blank(){ return new THREE.BufferGeometry(); }
 
 export default function Line({ children, ...props }){
     const geometry = useMemo( blank, []);
-    return <Mesh { ...({...props, geometry}) } MeshPrototype={THREE.Line}>{children}</Mesh>;
+    return <Mesh { ...({...props, geometry}) } MeshPrototype={THREE.Line} _computeLineDistances >{children}</Mesh>;
 }

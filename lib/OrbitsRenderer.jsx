@@ -225,6 +225,8 @@ class RenderManager {
 
         let camera;
 
+        this.processRenderListeners();
+
         for(let scene of this.#scenes){
             camera = scene.camera || camera;
             if(!camera) continue;
@@ -262,6 +264,17 @@ class RenderManager {
         const delta_seconds = delta / 1000;
         for(let [ mesh ] of entries) mesh.animMixer.update(delta_seconds, now);
     }
+
+
+    /*
+        Render Listeners
+    */
+    #renderListeners = new Set();
+    addRenderListener    (fn){ this.#renderListeners.add(fn); }
+    removeRenderListener (fn){ this.#renderListeners.delete(fn); }
+    processRenderListeners (){ for(let [ fn ] of this.#renderListeners.entries()) fn(); }
+
+
 
     /*
         Size and Resize

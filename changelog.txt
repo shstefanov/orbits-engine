@@ -5,15 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+
+
+## [2.0.1] - 2025-08-09
 
 ### Added
-- Touch rotate for perspective camera controls (orbit controls)
+- renderer.#renderListeners
 
 ### Changed
-
+- Updated dependencies: react ^18.3.1, three ^0.182.0
 ### Fixed
-
+- Handle mesh.animMixer in renderer
+- Calling mesh.computeLineDistances() when points changed for line mesh
+- Handle properly "uniforms" attribute in materialManager
 ### Deprecated
 
 
